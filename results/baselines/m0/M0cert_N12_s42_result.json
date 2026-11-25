@@ -1,0 +1,140 @@
+{
+  "method": "Baseline_Certify (M0, unconditional)",
+  "N": 12,
+  "eta": 0.0,
+  "seed": 42,
+  "threads": 4,
+  "mip_gap_target": 1e-06,
+  "time_limit_sec": 259200.0,
+  "gurobi_version": "13.0.1",
+  "host": "workstation",
+  "status": "TIMEOUT",
+  "objective": 1.9250953329615084,
+  "bound": 1.9251507965093817,
+  "gap_pct": 0.0028810805846177074,
+  "runtime_sec": 259200.02129268646,
+  "nodes": 1755164331,
+  "sol_count": 10,
+  "first_sol_sec": 0.025015592575073242,
+  "milestones": {
+    "0.0005": {
+      "wall_sec": 24687.23,
+      "incumbent": 1.9250947319485938,
+      "bound": 1.9260572743173985,
+      "nodes": 188122744
+    },
+    "0.0001": {
+      "wall_sec": 142096.28,
+      "incumbent": 1.9250953329615084,
+      "bound": 1.9252878423608597,
+      "nodes": 1008850566
+    }
+  },
+  "tolerances": {
+    "FeasibilityTol": 1e-06,
+    "IntFeasTol": 1e-05,
+    "OptimalityTol": 1e-06
+  },
+  "stack": [
+    {
+      "block": 12,
+      "layer": 7,
+      "center_x": -0.16225220406557722,
+      "supported_by": [
+        11
+      ]
+    },
+    {
+      "block": 11,
+      "layer": 6,
+      "center_x": -0.6622522040654216,
+      "supported_by": [
+        9
+      ]
+    },
+    {
+      "block": 10,
+      "layer": 6,
+      "center_x": 0.5400786235321171,
+      "supported_by": [
+        8,
+        9
+      ]
+    },
+    {
+      "block": 9,
+      "layer": 5,
+      "center_x": 0.03904414233609446,
+      "supported_by": [
+        6,
+        7
+      ]
+    },
+    {
+      "block": 8,
+      "layer": 5,
+      "center_x": 1.4250951073627744,
+      "supported_by": [
+        6
+      ]
+    },
+    {
+      "block": 7,
+      "layer": 4,
+      "center_x": -0.3369728404695944,
+      "supported_by": [
+        4,
+        5
+      ]
+    },
+    {
+      "block": 6,
+      "layer": 4,
+      "center_x": 0.8255983116268988,
+      "supported_by": [
+        4
+      ]
+    },
+    {
+      "block": 5,
+      "layer": 3,
+      "center_x": -0.8802935227417008,
+      "supported_by": [
+        2,
+        3
+      ]
+    },
+    {
+      "block": 4,
+      "layer": 3,
+      "center_x": 0.3869950811092435,
+      "supported_by": [
+        2
+      ]
+    },
+    {
+      "block": 3,
+      "layer": 2,
+      "center_x": -0.9616825391262258,
+      "supported_by": [
+        1
+      ]
+    },
+    {
+      "block": 2,
+      "layer": 2,
+      "center_x": 0.038317460873294795,
+      "supported_by": [
+        1
+      ]
+    },
+    {
+      "block": 1,
+      "layer": 1,
+      "center_x": -0.2516744453138939,
+      "supported_by": [
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "profile": "1-2-2-2-3-2-1",
+  "H": 7,
+  "status": "CUTOFF",
+  "objective": NaN,
+  "bound": 1.9855055566499997,
+  "nodes": 29361715,
+  "runtime_sec": 2385.601010322571,
+  "pairs_fixed0": 54,
+  "noncross": 2,
+  "c2_general": 0,
+  "tail_m": 0,
+  "candidates": [
+    4,
+    6,
+    8,
+    11,
+    13
+  ],
+  "rank_box": 24,
+  "c2_layer": 4,
+  "vars": 370,
+  "constrs": 1066,
+  "seed": 1,
+  "threads": 3,
+  "cutoff": 1.9855055566499997,
+  "options": {
+    "N": 13,
+    "csv": "results_pd13/M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv",
+    "model": "M1u",
+    "strengthen": "TB,S1,S2P,S4,C2",
+    "rank_box": true,
+    "c2_layer": true,
+    "tail": false,
+    "param": [
+      "Heuristics=0.0"
+    ],
+    "gap": 0.0005,
+    "threads": 3,
+    "seed": 1,
+    "time_limit": 604800,
+    "nodefile_start": 1.5,
+    "soft_mem_limit": 8.0,
+    "outdir": "results_pd13_race"
+  }
+}

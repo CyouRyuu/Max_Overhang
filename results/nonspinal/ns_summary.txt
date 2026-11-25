@@ -1,0 +1,13 @@
+N=5 gamma=1.3039902 (S*=1.3171618) branches=5 open=0 nodes=0 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=6 gamma=1.4223332 (S*=1.4367002) branches=10 open=0 nodes=0 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=7 gamma=1.5165521 (S*=1.5318708) branches=23 open=0 nodes=4 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=8 gamma=1.6151918 (S*=1.6315068) branches=48 open=0 nodes=27 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=9 gamma=1.6981201 (S*=1.7152728) branches=92 open=0 nodes=274 thread_s=1 wall=1s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=10 gamma=1.7692546 (S*=1.7871259) branches=191 open=0 nodes=3315 thread_s=4 wall=2s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=11 gamma=1.8401918 (S*=1.8587796) branches=396 open=0 nodes=25487 thread_s=12 wall=2s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=12 gamma=1.9058405 (S*=1.9250914) branches=766 open=0 nodes=144749 thread_s=46 wall=13s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=13 gamma=1.9646638 (S*=1.9845089) branches=1529 open=0 nodes=1176029 thread_s=320 wall=71s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=14 gamma=2.0178348 (S*=2.0382169) branches=2943 open=0 nodes=4781928 thread_s=1344 wall=215s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=15 gamma=2.0719673 (S*=2.0928963) branches=5682 open=0 nodes=62284037 thread_s=16499 wall=5840s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=16 gamma=2.1224044 (S*=2.1438428) branches=10905 open=3 nodes=352001839 thread_s=96756 wall=14730s best_nonspinal_found=nan => NOT CERTIFIED
+N=16 (3 open branches, split by lowest impure layer t0, time limit 86400s, 1 thread) gamma=2.1224044 (S*=2.1438428) branches=14 open=0 nodes=58300685 thread_s=16244 wall=4779s best_nonspinal_found=nan => NO non-spinal stack above gamma

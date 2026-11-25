@@ -1,0 +1,38 @@
+{
+  "N": 5,
+  "certified": true,
+  "lower_bound_feasible": 1.3045548,
+  "cutoff_upper_bound": 1.3045649,
+  "relative_gap": 7.742104816065874e-06,
+  "profiles_total": 2,
+  "profiles_closed": 2,
+  "missing": [],
+  "open": [],
+  "max_profile_bound": 1.3045649,
+  "total_nodes": 12,
+  "total_thread_seconds": 0.019389867782592773,
+  "S2plus_margin": 0.0366614999999999,
+  "S2plus_uses_CERT_UB_N_minus_1": 1.1678933,
+  "status_counts": {
+    "CUTOFF": 2
+  },
+  "slowest": [
+    {
+      "profile": "1-2-2",
+      "status": "CUTOFF",
+      "bound": 1.3045649,
+      "nodes": 11,
+      "runtime_sec": 0.014519929885864258,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.3045649-C2L-SP1-PDcert_N5_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-1",
+      "status": "CUTOFF",
+      "bound": 1.3045649,
+      "nodes": 1,
+      "runtime_sec": 0.004869937896728516,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.3045649-C2L-SP1-PDcert_N5_s42_profiles.csv"
+    }
+  ],
+  "created": "2026-11-25 06:29:32"
+}

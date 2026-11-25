@@ -1,0 +1,148 @@
+================================================================================
+META: Method=Baseline_Certify | N=13 | Eta=0.0000 | Seed=42 | TimeLimit=259200s | Threads=4 | MIPGap=1e-06
+  Host=workstation | Gurobi=13.0.1 | Python=3.10.18 | Start=2026-11-18 08:28:42 | PID=130401
+  SoftMemLimit=6.0 GB | NodefileStart=2.0 GB | Vars=782 | LinConstrs=1947 | QConstrs=169
+================================================================================
+[2026-11-18 08:28:42] New incumbent 1.221973569 at 0.2s (saved)
+[2026-11-18 08:28:42] New incumbent 1.503558650 at 0.2s (saved)
+[2026-11-18 08:28:42] New incumbent 1.662658291 at 0.2s (saved)
+[2026-11-18 08:28:42] New incumbent 1.678329516 at 0.3s (saved)
+[2026-11-18 08:28:42] New incumbent 1.687558979 at 0.3s (saved)
+[2026-11-18 08:28:43] New incumbent 1.748985021 at 0.4s (saved)
+[2026-11-18 08:28:43] New incumbent 1.748985021 at 0.4s (saved)
+[2026-11-18 08:28:43] New incumbent 1.768048856 at 0.4s (saved)
+[2026-11-18 08:28:43] New incumbent 1.837870988 at 0.6s (saved)
+[2026-11-18 08:28:43] New incumbent 1.837870988 at 0.7s (saved)
+[2026-11-18 08:28:43] New incumbent 1.844080977 at 1.0s (saved)
+[2026-11-18 08:28:43] New incumbent 1.844081550 at 1.0s (saved)
+[2026-11-18 08:28:43] New incumbent 1.844081567 at 1.1s (saved)
+[2026-11-18 08:28:43] New incumbent 1.844081734 at 1.1s (saved)
+[2026-11-18 08:28:44] New incumbent 1.844081804 at 1.5s (saved)
+[2026-11-18 08:28:44] New incumbent 1.844530459 at 1.6s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845017078 at 1.6s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845021978 at 1.6s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845022038 at 1.6s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845072083 at 1.8s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845124175 at 1.8s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845130139 at 1.8s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845135058 at 1.8s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845135058 at 1.8s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845201990 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845208023 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845213272 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845215865 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845218373 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845220685 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845222905 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845223049 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845223215 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845223304 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845223417 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845224690 at 2.0s (saved)
+[2026-11-18 08:28:44] New incumbent 1.845224690 at 2.1s (saved)
+[2026-11-18 08:28:45] New incumbent 1.845224859 at 2.5s (saved)
+[2026-11-18 08:28:45] New incumbent 1.845225030 at 2.6s (saved)
+[2026-11-18 08:28:45] New incumbent 1.845236455 at 2.7s (saved)
+[2026-11-18 08:28:45] New incumbent 1.845238581 at 3.0s (saved)
+[2026-11-18 08:28:46] New incumbent 1.845240307 at 3.4s (saved)
+[2026-11-18 08:28:46] New incumbent 1.845240808 at 3.8s (saved)
+[2026-11-18 08:28:46] New incumbent 1.845240817 at 3.9s (saved)
+[2026-11-18 08:28:46] New incumbent 1.859547895 at 4.2s (saved)
+[2026-11-18 08:28:46] New incumbent 1.954394949 at 4.2s (saved)
+[2026-11-18 08:28:46] New incumbent 1.954394950 at 4.3s (saved)
+[2026-11-18 08:28:47] New incumbent 1.954395008 at 4.8s (saved)
+[2026-11-18 08:28:51] New incumbent 1.954395029 at 9.3s (saved)
+[2026-11-18 08:28:52] New incumbent 1.954395061 at 10.1s (saved)
+[2026-11-18 08:28:52] New incumbent 1.954395171 at 10.1s (saved)
+[2026-11-18 08:28:53] New incumbent 1.954395287 at 10.5s (saved)
+[2026-11-18 08:28:58] New incumbent 1.954396217 at 15.9s (saved)
+[2026-11-18 08:29:10] New incumbent 1.954396218 at 27.9s (saved)
+[2026-11-18 08:29:10] New incumbent 1.954396343 at 28.1s (saved)
+[2026-11-18 08:29:13] New incumbent 1.954396520 at 30.6s (saved)
+[2026-11-18 08:29:34] New incumbent 1.954396584 at 51.5s (saved)
+[2026-11-18 08:29:42] New incumbent 1.954397184 at 60.2s (saved)
+[2026-11-18 08:29:52] New incumbent 1.954397975 at 69.4s (saved)
+[2026-11-18 08:29:53] New incumbent 1.954397976 at 71.2s (saved)
+[2026-11-18 08:30:04] New incumbent 1.954397979 at 82.0s (saved)
+[2026-11-18 08:31:17] New incumbent 1.976884329 at 155.1s (saved)
+[2026-11-18 08:31:17] New incumbent 1.976884329 at 155.3s (saved)
+[2026-11-18 08:33:33] New incumbent 1.981974477 at 290.5s (saved)
+[2026-11-18 08:33:33] New incumbent 1.983002119 at 290.9s (saved)
+[2026-11-18 08:33:36] New incumbent 1.983287342 at 293.6s (saved)
+[2026-11-18 08:34:13] New incumbent 1.983414470 at 330.9s (saved)
+[2026-11-18 08:34:15] New incumbent 1.983830774 at 332.6s (saved)
+[2026-11-18 08:34:15] New incumbent 1.984115185 at 332.7s (saved)
+[2026-11-18 08:34:52] New incumbent 1.984157363 at 369.8s (saved)
+[2026-11-18 08:34:52] New incumbent 1.984198418 at 370.3s (saved)
+[2026-11-18 08:34:52] New incumbent 1.984198603 at 370.3s (saved)
+[2026-11-18 08:34:53] New incumbent 1.984199556 at 370.7s (saved)
+[2026-11-18 08:35:14] New incumbent 1.984429815 at 392.3s (saved)
+[2026-11-18 08:35:15] New incumbent 1.984465022 at 392.8s (saved)
+[2026-11-18 08:35:15] New incumbent 1.984469104 at 393.1s (saved)
+[2026-11-18 08:35:15] New incumbent 1.984477590 at 393.1s (saved)
+[2026-11-18 08:35:15] New incumbent 1.984478758 at 393.1s (saved)
+[2026-11-18 08:35:55] New incumbent 1.984496381 at 432.6s (saved)
+[2026-11-18 08:36:36] New incumbent 1.984508892 at 473.6s (saved)
+[2026-11-18 08:37:39] New incumbent 1.984508893 at 536.4s (saved)
+[2026-11-18 08:37:39] New incumbent 1.984509062 at 537.1s (saved)
+[2026-11-18 08:38:04] New incumbent 1.984509349 at 561.4s (saved)
+[2026-11-18 08:39:27] New incumbent 1.984509685 at 644.9s (saved)
+[2026-11-18 08:42:18] New incumbent 1.984509766 at 816.2s (saved)
+[2026-11-18 08:42:54] New incumbent 1.984509818 at 851.7s (saved)
+[2026-11-18 08:45:36] New incumbent 1.984510692 at 1014.0s (saved)
+[2026-11-18 08:45:36] New incumbent 1.984510692 at 1014.1s (saved)
+[2026-11-18 08:45:38] New incumbent 1.984510725 at 1016.3s (saved)
+[2026-11-18 08:45:39] New incumbent 1.984510726 at 1017.0s (saved)
+[2026-11-18 08:45:39] New incumbent 1.984510745 at 1017.1s (saved)
+[2026-11-18 08:45:43] New incumbent 1.984510749 at 1021.0s (saved)
+[2026-11-18 08:45:53] New incumbent 1.984510810 at 1030.7s (saved)
+[2026-11-18 08:46:51] New incumbent 1.984510826 at 1089.0s (saved)
+[2026-11-18 08:50:25] New incumbent 1.984510870 at 1303.1s (saved)
+[2026-11-18 09:25:28] New incumbent 1.984511260 at 3406.0s (saved)
+[2026-11-18 10:06:24] New incumbent 1.984511271 at 5861.7s (saved)
+[2026-11-18 10:14:24] New incumbent 1.984511473 at 6342.1s (saved)
+[2026-11-18 10:32:00] New incumbent 1.984511538 at 7397.8s (saved)
+[2026-11-18 11:11:11] New incumbent 1.984511615 at 9748.8s (saved)
+[2026-11-18 11:36:36] New incumbent 1.984511811 at 11273.4s (saved)
+[2026-11-18 11:36:36] New incumbent 1.984511811 at 11274.0s (saved)
+[2026-11-18 11:36:37] New incumbent 1.984511844 at 11274.8s (saved)
+[2026-11-18 11:36:38] New incumbent 1.984511858 at 11275.4s (saved)
+[2026-11-18 11:36:41] New incumbent 1.984511864 at 11279.3s (saved)
+[2026-11-18 11:36:53] New incumbent 1.984511868 at 11290.5s (saved)
+[2026-11-18 11:37:09] New incumbent 1.984511927 at 11307.3s (saved)
+[2026-11-18 11:39:10] New incumbent 1.984512028 at 11428.1s (saved)
+[2026-11-18 11:45:35] New incumbent 1.984512076 at 11813.0s (saved)
+[2026-11-18 16:57:20] New incumbent 1.984512216 at 30517.7s (saved)
+[2026-11-18 16:57:26] New incumbent 1.984512510 at 30524.1s (saved)
+[2026-11-19 02:51:12] New incumbent 1.984513301 at 66150.0s (saved)
+[2026-11-20 08:26:30] Stop signal received -> terminating solve gracefully.
+
+================================================================================
+SUMMARY_REPORT:
+  Method           : Baseline_Certify
+  N                : 13
+  Eta              : 0.0000
+  Status           : INTERRUPTED
+  ObjVal           : 1.9845133
+  BestBound        : 1.9902762
+  MIPGap_Pct       : 0.290391%
+  Runtime_Sec      : 172667.4906
+  FirstSol_Sec     : 0.2235
+  NodeCount        : 855637535
+  SolCount         : 10
+================================================================================
+
+STACK_CONFIGURATION:
+  Layer  7 | Block 13 | Center X: -0.4303714 | Supported by: [11, 12]
+  Layer  6 | Block 12 | Center X: -0.6524948 | Supported by: [10]
+  Layer  6 | Block 11 | Center X:  0.4845124 | Supported by: [8, 9, 10]
+  Layer  5 | Block 10 | Center X: -0.5154876 | Supported by: [7]
+  Layer  5 | Block  9 | Center X:  0.4845124 | Supported by: [6, 7]
+  Layer  5 | Block  8 | Center X:  1.4845125 | Supported by: [6]
+  Layer  4 | Block  7 | Center X: -0.1713221 | Supported by: [4, 5]
+  Layer  4 | Block  6 | Center X:  0.8804096 | Supported by: [4]
+  Layer  3 | Block  5 | Center X: -0.9047278 | Supported by: [2, 3]
+  Layer  3 | Block  4 | Center X:  0.4330426 | Supported by: [2]
+  Layer  2 | Block  3 | Center X: -0.9317946 | Supported by: [1]
+  Layer  2 | Block  2 | Center X:  0.0722930 | Supported by: [1]
+  Layer  1 | Block  1 | Center X: -0.2330842 | Supported by: [0]

@@ -1,0 +1,6 @@
+# Versions used for all results in the paper (Python 3.10.18).
+gurobipy==13.0.1     # needs a Gurobi license; see README (other versions run, solver statistics differ)
+numpy==2.2.6
+scipy==1.15.3
+mpmath==1.4.1
+# optional: matplotlib (only for maxOverhang_proposed.py --plot)

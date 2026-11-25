@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# New runs (the archived results live in results/)
+runs/
+results_*/
+nodefiles*/
+*_nodefiles/
+*.nodefile
+*_logs/
+*_gurobi.log
+gurobi.log
+*.sol
+*.mps
+*.lp
+nohup.out
+*.log
+
+# Gurobi license files: never commit
+gurobi.lic
+*.lic
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*~
+*.swp

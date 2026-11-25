@@ -1,0 +1,5 @@
+profile,H,status,objective,bound,nodes,runtime_sec,pairs_fixed0,noncross,c2_general,tail_m,rank_box,c2_layer,energy_dE,vars,constrs
+1-2-2-1,4,CUTOFF,nan,1.4367103,1,0.00832056999206543,7,0,0,0,10,2,,90,266
+1-2-3,3,INFEASIBLE,nan,-inf,0,0.011171579360961914,7,0,0,0,10,0,-0.5,0,0
+1-2-1-1-1,5,CUTOFF,nan,1.4367103,1,0.00696110725402832,9,0,0,0,10,1,,90,262
+1-2-1-2,4,CUTOFF,nan,1.4367103,1,0.0056912899017333984,9,0,1,0,10,1,,90,267

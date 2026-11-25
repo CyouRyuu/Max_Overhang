@@ -1,0 +1,905 @@
+================================================================================
+META: ProfileDecomp | model=M1u strengthen=['C2', 'S1', 'S2P', 'S4', 'TB'] tail=False | N=13 | profiles=225 | LB=1.9845133 | Cutoff=1.9855056 | gap=0.0005 | seed=42 | workers=4 x threads=1 | TL/sub=259200s
+  Host=workstation | Gurobi=13.0.1 | Start=2026-11-22 22:03:32 | PID=197584
+================================================================================
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:32]   1/225 P=1-2-4-6                INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:32]   2/225 P=1-2-4-5-1              CUTOFF     bound=1.9855056 nodes=        59 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:32]   3/225 P=1-2-3-6-1              CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:32]   4/225 P=1-2-3-5-2              CUTOFF     bound=1.9855056 nodes=      1103 t=      0.6s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:33]   5/225 P=1-2-4-4-1-1            CUTOFF     bound=1.9855056 nodes=      1431 t=      0.6s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:33]   6/225 P=1-2-4-3-3              CUTOFF     bound=1.9855056 nodes=      2533 t=      1.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:33]   7/225 P=1-2-4-4-2              CUTOFF     bound=1.9855056 nodes=      3671 t=      1.8s
+[2026-11-22 22:03:33]   8/225 P=1-2-2-4-4              CUTOFF     bound=1.9855056 nodes=       811 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:36]   9/225 P=1-2-2-4-3-1            CUTOFF     bound=1.9855056 nodes=      6535 t=      2.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:45]  10/225 P=1-2-4-3-2-1            CUTOFF     bound=1.9855056 nodes=     15572 t=     11.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:46]  11/225 P=1-2-3-3-4              CUTOFF     bound=1.9855056 nodes=      2778 t=      1.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:46]  12/225 P=1-2-3-5-1-1            CUTOFF     bound=1.9855056 nodes=       326 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:48]  13/225 P=1-2-3-4-3              CUTOFF     bound=1.9855056 nodes=     24684 t=     16.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:59]  14/225 P=1-2-3-4-2-1            CUTOFF     bound=1.9855056 nodes=     43655 t=     25.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:03:59]  15/225 P=1-2-2-3-5              CUTOFF     bound=1.9855056 nodes=         7 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:03]  16/225 P=1-2-2-3-4-1            CUTOFF     bound=1.9855056 nodes=     43996 t=     16.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:04]  17/225 P=1-2-4-2-3-1            CUTOFF     bound=1.9855056 nodes=      1611 t=      0.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:05]  18/225 P=1-2-4-3-1-1-1          CUTOFF     bound=1.9855056 nodes=      1735 t=      0.6s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:05]  19/225 P=1-2-4-3-1-2            CUTOFF     bound=1.9855056 nodes=      1073 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:05]  20/225 P=1-2-1-2-4-3            CUTOFF     bound=1.9855056 nodes=       273 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:07]  21/225 P=1-2-2-2-4-2            CUTOFF     bound=1.9855056 nodes=      4294 t=      1.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:08]  22/225 P=1-2-3-3-3-1            CUTOFF     bound=1.9855056 nodes=     73903 t=     31.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:10]  23/225 P=1-2-2-4-2-2            CUTOFF     bound=1.9855056 nodes=      7285 t=      2.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:11]  24/225 P=1-2-3-2-4-1            CUTOFF     bound=1.9855056 nodes=      1963 t=      0.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:23]  25/225 P=1-2-3-3-2-2            CUTOFF     bound=1.9855056 nodes=     56487 t=     24.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:24]  26/225 P=1-2-3-4-1-1-1          CUTOFF     bound=1.9855056 nodes=      2343 t=      0.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:24]  27/225 P=1-2-3-4-1-2            CUTOFF     bound=1.9855056 nodes=      1502 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:27]  28/225 P=1-2-4-2-2-2            CUTOFF     bound=1.9855056 nodes=      8947 t=      2.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:27]  29/225 P=1-2-4-2-4              CUTOFF     bound=1.9855056 nodes=         1 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:29]  30/225 P=1-2-3-2-3-2            CUTOFF     bound=1.9855056 nodes=     45601 t=     20.6s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:48]  31/225 P=1-2-2-2-3-3            CUTOFF     bound=1.9855056 nodes=     78841 t=     20.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:53]  32/225 P=1-2-2-4-2-1-1          CUTOFF     bound=1.9855056 nodes=      5577 t=      5.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:54]  33/225 P=1-2-4-2-2-1-1          CUTOFF     bound=1.9855056 nodes=      1881 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:55]  34/225 P=1-2-1-2-3-3-1          CUTOFF     bound=1.9855056 nodes=      2357 t=      1.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:55]  35/225 P=1-2-1-2-3-4            CUTOFF     bound=1.9855056 nodes=       143 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:04:55]  36/225 P=1-2-1-2-4-2-1          CUTOFF     bound=1.9855056 nodes=       468 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:05:18]  37/225 P=1-2-2-3-3-1-1          CUTOFF     bound=1.9855056 nodes=    182874 t=     48.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:05:23]  38/225 P=1-2-3-3-2-1-1          CUTOFF     bound=1.9855056 nodes=    253179 t=     72.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:05:29]  39/225 P=1-2-2-3-2-3            CUTOFF     bound=1.9855056 nodes=      6857 t=      5.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:05:59]  40/225 P=1-2-3-2-2-2-1          CUTOFF     bound=1.9855056 nodes=    105333 t=     29.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:06:05]  41/225 P=1-2-3-2-2-3            CUTOFF     bound=1.9855056 nodes=      6998 t=      5.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:06:14]  42/225 P=1-2-3-2-3-1-1          CUTOFF     bound=1.9855056 nodes=     25476 t=      9.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:06:20]  43/225 P=1-2-3-3-1-2-1          CUTOFF     bound=1.9855056 nodes=     13641 t=      5.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:06:20]  44/225 P=1-2-4-2-1-2-1          CUTOFF     bound=1.9855056 nodes=       900 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:06:20]  45/225 P=1-2-1-1-2-4-2          CUTOFF     bound=1.9855056 nodes=       114 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:31]  46/225 P=1-2-2-2-2-3-1          CUTOFF     bound=1.9855056 nodes=    271659 t=     71.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:32]  47/225 P=1-2-2-2-4-1-1          CUTOFF     bound=1.9855056 nodes=      1307 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:35]  48/225 P=1-2-3-3-1-1-1-1        CUTOFF     bound=1.9855056 nodes=     10875 t=      3.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:37]  49/225 P=1-2-3-3-1-1-2          CUTOFF     bound=1.9855056 nodes=      6843 t=      1.9s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:37]  50/225 P=1-2-4-2-1-1-1-1        CUTOFF     bound=1.9855056 nodes=       560 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:37]  51/225 P=1-2-4-2-1-1-2          CUTOFF     bound=1.9855056 nodes=       370 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:38]  52/225 P=1-2-1-1-2-3-3          CUTOFF     bound=1.9855056 nodes=       368 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:38]  53/225 P=1-2-1-2-2-3-2          CUTOFF     bound=1.9855056 nodes=      2357 t=      0.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:39]  54/225 P=1-2-1-2-2-4-1          CUTOFF     bound=1.9855056 nodes=       144 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:39]  55/225 P=1-2-1-2-3-2-2          CUTOFF     bound=1.9855056 nodes=      2483 t=      0.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:40]  56/225 P=1-2-2-1-2-3-2          CUTOFF     bound=1.9855056 nodes=      2651 t=      0.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:07:40]  57/225 P=1-2-2-1-2-4-1          CUTOFF     bound=1.9855056 nodes=       107 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:07]  58/225 P=1-2-2-2-2-2-2          CUTOFF     bound=1.9855056 nodes=   1479951 t=    326.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:07]  59/225 P=1-2-2-2-2-4            CUTOFF     bound=1.9855056 nodes=       116 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:33]  60/225 P=1-2-2-3-2-1-1-1        CUTOFF     bound=1.9855056 nodes=    116611 t=     26.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:55]  61/225 P=1-2-2-3-2-1-2          CUTOFF     bound=1.9855056 nodes=     96142 t=     21.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:55]  62/225 P=1-2-2-4-1-2-1          CUTOFF     bound=1.9855056 nodes=       224 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:55]  63/225 P=1-2-3-1-2-3-1          CUTOFF     bound=1.9855056 nodes=       583 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:13:57]  64/225 P=1-2-3-2-1-2-2          CUTOFF     bound=1.9855056 nodes=      5982 t=      2.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:00]  65/225 P=1-2-3-2-2-1-1-1        CUTOFF     bound=1.9855056 nodes=      7963 t=      2.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:01]  66/225 P=1-2-3-2-2-1-2          CUTOFF     bound=1.9855056 nodes=      4752 t=      1.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:01]  67/225 P=1-2-4-1-2-2-1          CUTOFF     bound=1.9855056 nodes=        63 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:02]  68/225 P=1-2-4-1-2-3            CUTOFF     bound=1.9855056 nodes=         1 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:02]  69/225 P=1-2-1-1-2-3-2-1        CUTOFF     bound=1.9855056 nodes=      1877 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:14:03]  70/225 P=1-2-1-2-3-2-1-1        CUTOFF     bound=1.9855056 nodes=      1842 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:18:43]  71/225 P=1-2-2-3-3-2            CUTOFF     bound=1.9855056 nodes=   3680545 t=    895.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:18:54]  72/225 P=1-2-2-2-3-1-1-1        CUTOFF     bound=1.9855056 nodes=     53742 t=     10.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:18:59]  73/225 P=1-2-2-2-3-1-2          CUTOFF     bound=1.9855056 nodes=     18255 t=      5.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:00]  74/225 P=1-2-2-3-1-2-2          CUTOFF     bound=1.9855056 nodes=      1470 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:00]  75/225 P=1-2-2-4-1-1-1-1        CUTOFF     bound=1.9855056 nodes=       156 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:00]  76/225 P=1-2-2-4-1-1-2          CUTOFF     bound=1.9855056 nodes=       125 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:00]  77/225 P=1-2-3-1-2-2-2          CUTOFF     bound=1.9855056 nodes=       779 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:00]  78/225 P=1-2-3-1-2-4            INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:01]  79/225 P=1-2-3-2-1-1-2-1        CUTOFF     bound=1.9855056 nodes=      2586 t=      0.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:02]  80/225 P=1-2-3-2-1-2-1-1        CUTOFF     bound=1.9855056 nodes=      2201 t=      0.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:02]  81/225 P=1-2-4-1-1-2-2          CUTOFF     bound=1.9855056 nodes=        32 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:02]  82/225 P=1-2-1-1-1-2-3-2        CUTOFF     bound=1.9855056 nodes=       422 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:02]  83/225 P=1-2-1-1-1-2-4-1        CUTOFF     bound=1.9855056 nodes=        27 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:03]  84/225 P=1-2-1-1-2-2-3-1        CUTOFF     bound=1.9855056 nodes=      1658 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:03]  85/225 P=1-2-1-1-2-4-1-1        CUTOFF     bound=1.9855056 nodes=        39 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:05]  86/225 P=1-2-1-2-2-2-2-1        CUTOFF     bound=1.9855056 nodes=      9209 t=      2.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:06]  87/225 P=1-2-1-2-2-2-3          CUTOFF     bound=1.9855056 nodes=       372 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:06]  88/225 P=1-2-1-2-2-3-1-1        CUTOFF     bound=1.9855056 nodes=      2360 t=      0.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:06]  89/225 P=1-2-1-2-4-1-1-1        CUTOFF     bound=1.9855056 nodes=        27 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:06]  90/225 P=1-2-1-2-4-1-2          CUTOFF     bound=1.9855056 nodes=        23 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:07]  91/225 P=1-2-2-1-1-2-3-1        CUTOFF     bound=1.9855056 nodes=       850 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:08]  92/225 P=1-2-2-1-2-2-2-1        CUTOFF     bound=1.9855056 nodes=      5870 t=      1.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:12]  93/225 P=1-2-2-1-2-2-3          CUTOFF     bound=1.9855056 nodes=       257 t=      3.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:12]  94/225 P=1-2-2-1-2-3-1-1        CUTOFF     bound=1.9855056 nodes=      1465 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:15]  95/225 P=1-2-2-2-1-2-2-1        CUTOFF     bound=1.9855056 nodes=      9256 t=      2.6s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:15]  96/225 P=1-2-2-2-1-2-3          CUTOFF     bound=1.9855056 nodes=       185 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:19]  97/225 P=1-2-2-2-2-1-2-1        CUTOFF     bound=1.9855056 nodes=     14394 t=      3.5s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:20]  98/225 P=1-2-2-3-1-1-2-1        CUTOFF     bound=1.9855056 nodes=      2964 t=      0.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:20]  99/225 P=1-2-2-3-1-2-1-1        CUTOFF     bound=1.9855056 nodes=      1846 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:20] 100/225 P=1-2-3-1-1-2-2-1        CUTOFF     bound=1.9855056 nodes=       680 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:21] 101/225 P=1-2-3-1-1-2-3          CUTOFF     bound=1.9855056 nodes=       106 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:21] 102/225 P=1-2-3-1-2-2-1-1        CUTOFF     bound=1.9855056 nodes=       712 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:21] 103/225 P=1-2-3-2-1-1-1-1-1      CUTOFF     bound=1.9855056 nodes=       911 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 104/225 P=1-2-3-2-1-1-1-2        CUTOFF     bound=1.9855056 nodes=      1064 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 105/225 P=1-2-4-1-1-1-2-1        CUTOFF     bound=1.9855056 nodes=        22 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 106/225 P=1-2-4-1-1-2-1-1        CUTOFF     bound=1.9855056 nodes=        31 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 107/225 P=1-2-4-1-2-1-1-1        CUTOFF     bound=1.9855056 nodes=        27 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 108/225 P=1-2-4-1-2-1-2          CUTOFF     bound=1.9855056 nodes=        13 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 109/225 P=1-2-1-1-2-2-2-2        CUTOFF     bound=1.9855056 nodes=      1171 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:22] 110/225 P=1-2-1-1-2-2-4          CUTOFF     bound=1.9855056 nodes=         5 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:23] 111/225 P=1-2-1-2-1-2-3-1        CUTOFF     bound=1.9855056 nodes=       444 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:23] 112/225 P=1-2-1-2-3-1-2-1        CUTOFF     bound=1.9855056 nodes=       281 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:23] 113/225 P=1-2-2-1-1-2-2-2        CUTOFF     bound=1.9855056 nodes=       848 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:23] 114/225 P=1-2-2-1-1-2-4          INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:24] 115/225 P=1-2-2-2-1-1-2-2        CUTOFF     bound=1.9855056 nodes=      1515 t=      0.4s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:25] 116/225 P=1-2-2-2-2-1-1-1-1      CUTOFF     bound=1.9855056 nodes=      8533 t=      1.7s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:27] 117/225 P=1-2-2-2-2-1-1-2        CUTOFF     bound=1.9855056 nodes=      8132 t=      1.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 118/225 P=1-2-2-3-1-1-1-1-1      CUTOFF     bound=1.9855056 nodes=      1073 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 119/225 P=1-2-2-3-1-1-1-2        CUTOFF     bound=1.9855056 nodes=       607 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 120/225 P=1-2-3-1-1-1-2-2        CUTOFF     bound=1.9855056 nodes=       263 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 121/225 P=1-2-3-1-2-1-2-1        CUTOFF     bound=1.9855056 nodes=       289 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 122/225 P=1-2-4-1-1-1-1-1-1      CUTOFF     bound=1.9855056 nodes=        10 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:28] 123/225 P=1-2-4-1-1-1-1-2        CUTOFF     bound=1.9855056 nodes=        15 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 124/225 P=1-2-1-1-1-1-2-3-1      CUTOFF     bound=1.9855056 nodes=       108 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 125/225 P=1-2-1-1-1-2-2-2-1      CUTOFF     bound=1.9855056 nodes=       595 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 126/225 P=1-2-1-1-1-2-2-3        CUTOFF     bound=1.9855056 nodes=        30 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 127/225 P=1-2-1-1-1-2-3-1-1      CUTOFF     bound=1.9855056 nodes=       162 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 128/225 P=1-2-1-1-2-2-2-1-1      CUTOFF     bound=1.9855056 nodes=       871 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:29] 129/225 P=1-2-1-1-2-3-1-1-1      CUTOFF     bound=1.9855056 nodes=       528 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 130/225 P=1-2-1-1-2-3-1-2        CUTOFF     bound=1.9855056 nodes=       176 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 131/225 P=1-2-1-2-1-2-2-2        CUTOFF     bound=1.9855056 nodes=       288 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 132/225 P=1-2-1-2-1-2-4          INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 133/225 P=1-2-1-2-2-1-2-2        CUTOFF     bound=1.9855056 nodes=       292 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 134/225 P=1-2-1-2-2-2-1-1-1      CUTOFF     bound=1.9855056 nodes=       901 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:30] 135/225 P=1-2-1-2-2-2-1-2        CUTOFF     bound=1.9855056 nodes=       365 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:31] 136/225 P=1-2-1-2-3-1-1-1-1      CUTOFF     bound=1.9855056 nodes=       750 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:31] 137/225 P=1-2-1-2-3-1-1-2        CUTOFF     bound=1.9855056 nodes=       147 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:31] 138/225 P=1-2-2-1-1-1-2-2-1      CUTOFF     bound=1.9855056 nodes=       511 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:31] 139/225 P=1-2-2-1-1-1-2-3        CUTOFF     bound=1.9855056 nodes=         8 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:31] 140/225 P=1-2-2-1-1-2-2-1-1      CUTOFF     bound=1.9855056 nodes=      1144 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:32] 141/225 P=1-2-2-1-2-1-2-2        CUTOFF     bound=1.9855056 nodes=       296 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:32] 142/225 P=1-2-2-1-2-2-1-1-1      CUTOFF     bound=1.9855056 nodes=       984 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:32] 143/225 P=1-2-2-1-2-2-1-2        CUTOFF     bound=1.9855056 nodes=       401 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:33] 144/225 P=1-2-2-2-1-1-1-2-1      CUTOFF     bound=1.9855056 nodes=      1364 t=      0.3s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:33] 145/225 P=1-2-2-2-1-1-2-1-1      CUTOFF     bound=1.9855056 nodes=      2301 t=      0.8s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 146/225 P=1-2-2-2-1-2-1-1-1      CUTOFF     bound=1.9855056 nodes=       702 t=      0.2s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 147/225 P=1-2-2-2-1-2-1-2        CUTOFF     bound=1.9855056 nodes=       473 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 148/225 P=1-2-3-1-1-1-1-2-1      CUTOFF     bound=1.9855056 nodes=       117 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 149/225 P=1-2-3-1-1-1-2-1-1      CUTOFF     bound=1.9855056 nodes=       230 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 150/225 P=1-2-3-1-1-2-1-1-1      CUTOFF     bound=1.9855056 nodes=       159 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 151/225 P=1-2-3-1-1-2-1-2        CUTOFF     bound=1.9855056 nodes=       124 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:34] 152/225 P=1-2-3-1-2-1-1-1-1      CUTOFF     bound=1.9855056 nodes=        92 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 153/225 P=1-2-3-1-2-1-1-2        CUTOFF     bound=1.9855056 nodes=       134 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 154/225 P=1-2-1-1-1-1-2-2-2      CUTOFF     bound=1.9855056 nodes=       106 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 155/225 P=1-2-1-1-1-1-2-4        INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 156/225 P=1-2-1-1-2-1-2-2-1      CUTOFF     bound=1.9855056 nodes=       126 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 157/225 P=1-2-1-1-2-1-2-3        CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 158/225 P=1-2-1-1-2-2-1-2-1      CUTOFF     bound=1.9855056 nodes=       301 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 159/225 P=1-2-1-2-1-1-2-2-1      CUTOFF     bound=1.9855056 nodes=       184 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:35] 160/225 P=1-2-1-2-1-1-2-3        CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 161/225 P=1-2-1-2-1-2-2-1-1      CUTOFF     bound=1.9855056 nodes=       307 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 162/225 P=1-2-1-2-2-1-1-2-1      CUTOFF     bound=1.9855056 nodes=       226 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 163/225 P=1-2-1-2-2-1-2-1-1      CUTOFF     bound=1.9855056 nodes=       275 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 164/225 P=1-2-2-1-1-1-1-2-2      CUTOFF     bound=1.9855056 nodes=       165 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 165/225 P=1-2-2-1-1-2-1-2-1      CUTOFF     bound=1.9855056 nodes=       160 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:36] 166/225 P=1-2-2-1-2-1-1-2-1      CUTOFF     bound=1.9855056 nodes=       161 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 167/225 P=1-2-2-1-2-1-2-1-1      CUTOFF     bound=1.9855056 nodes=       142 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 168/225 P=1-2-2-2-1-1-1-1-1-1    CUTOFF     bound=1.9855056 nodes=       221 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 169/225 P=1-2-2-2-1-1-1-1-2      CUTOFF     bound=1.9855056 nodes=       198 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 170/225 P=1-2-3-1-1-1-1-1-1-1    CUTOFF     bound=1.9855056 nodes=        39 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 171/225 P=1-2-3-1-1-1-1-1-2      CUTOFF     bound=1.9855056 nodes=        32 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 172/225 P=1-2-1-1-1-1-1-2-2-1    CUTOFF     bound=1.9855056 nodes=        48 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 173/225 P=1-2-1-1-1-1-1-2-3      CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 174/225 P=1-2-1-1-1-1-2-2-1-1    CUTOFF     bound=1.9855056 nodes=       179 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:37] 175/225 P=1-2-1-1-1-2-1-2-2      CUTOFF     bound=1.9855056 nodes=        42 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 176/225 P=1-2-1-1-1-2-2-1-1-1    CUTOFF     bound=1.9855056 nodes=        58 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 177/225 P=1-2-1-1-1-2-2-1-2      CUTOFF     bound=1.9855056 nodes=        29 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 178/225 P=1-2-1-1-2-1-1-2-2      CUTOFF     bound=1.9855056 nodes=        36 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 179/225 P=1-2-1-1-2-2-1-1-1-1    CUTOFF     bound=1.9855056 nodes=       157 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 180/225 P=1-2-1-1-2-2-1-1-2      CUTOFF     bound=1.9855056 nodes=        68 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 181/225 P=1-2-1-2-1-1-1-2-2      CUTOFF     bound=1.9855056 nodes=        39 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 182/225 P=1-2-1-2-1-2-1-2-1      CUTOFF     bound=1.9855056 nodes=        53 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:38] 183/225 P=1-2-1-2-2-1-1-1-1-1    CUTOFF     bound=1.9855056 nodes=        55 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 184/225 P=1-2-1-2-2-1-1-1-2      CUTOFF     bound=1.9855056 nodes=        50 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 185/225 P=1-2-2-1-1-1-1-1-2-1    CUTOFF     bound=1.9855056 nodes=        44 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 186/225 P=1-2-2-1-1-1-1-2-1-1    CUTOFF     bound=1.9855056 nodes=        76 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 187/225 P=1-2-2-1-1-1-2-1-1-1    CUTOFF     bound=1.9855056 nodes=        91 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 188/225 P=1-2-2-1-1-1-2-1-2      CUTOFF     bound=1.9855056 nodes=        42 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 189/225 P=1-2-2-1-1-2-1-1-1-1    CUTOFF     bound=1.9855056 nodes=        47 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 190/225 P=1-2-2-1-1-2-1-1-2      CUTOFF     bound=1.9855056 nodes=        37 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 191/225 P=1-2-2-1-2-1-1-1-1-1    CUTOFF     bound=1.9855056 nodes=        39 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:39] 192/225 P=1-2-2-1-2-1-1-1-2      CUTOFF     bound=1.9855056 nodes=        33 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 193/225 P=1-2-1-1-1-1-1-1-2-2    CUTOFF     bound=1.9855056 nodes=         9 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 194/225 P=1-2-1-1-1-1-2-1-2-1    CUTOFF     bound=1.9855056 nodes=        21 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 195/225 P=1-2-1-1-1-2-1-1-2-1    CUTOFF     bound=1.9855056 nodes=        31 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 196/225 P=1-2-1-1-1-2-1-2-1-1    CUTOFF     bound=1.9855056 nodes=        12 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 197/225 P=1-2-1-1-2-1-1-1-2-1    CUTOFF     bound=1.9855056 nodes=        20 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 198/225 P=1-2-1-1-2-1-1-2-1-1    CUTOFF     bound=1.9855056 nodes=        10 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 199/225 P=1-2-1-1-2-1-2-1-1-1    CUTOFF     bound=1.9855056 nodes=        33 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 200/225 P=1-2-1-1-2-1-2-1-2      CUTOFF     bound=1.9855056 nodes=        14 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 201/225 P=1-2-1-2-1-1-1-1-2-1    CUTOFF     bound=1.9855056 nodes=        26 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:40] 202/225 P=1-2-1-2-1-1-1-2-1-1    CUTOFF     bound=1.9855056 nodes=        22 t=      0.1s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 203/225 P=1-2-1-2-1-1-2-1-1-1    CUTOFF     bound=1.9855056 nodes=        21 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 204/225 P=1-2-1-2-1-1-2-1-2      CUTOFF     bound=1.9855056 nodes=        12 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 205/225 P=1-2-1-2-1-2-1-1-1-1    CUTOFF     bound=1.9855056 nodes=        15 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 206/225 P=1-2-1-2-1-2-1-1-2      CUTOFF     bound=1.9855056 nodes=        17 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 207/225 P=1-2-2-1-1-1-1-1-1-1-1  CUTOFF     bound=1.9855056 nodes=        11 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 208/225 P=1-2-2-1-1-1-1-1-1-2    CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 209/225 P=1-2-1-1-1-1-1-1-1-2-1  CUTOFF     bound=1.9855056 nodes=         3 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 210/225 P=1-2-1-1-1-1-1-1-2-1-1  CUTOFF     bound=1.9855056 nodes=         5 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 211/225 P=1-2-1-1-1-1-1-2-1-1-1  CUTOFF     bound=1.9855056 nodes=         6 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 212/225 P=1-2-1-1-1-1-1-2-1-2    CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 213/225 P=1-2-1-1-1-1-2-1-1-1-1  CUTOFF     bound=1.9855056 nodes=         9 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:41] 214/225 P=1-2-1-1-1-1-2-1-1-2    CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 215/225 P=1-2-1-1-1-2-1-1-1-1-1  CUTOFF     bound=1.9855056 nodes=         7 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 216/225 P=1-2-1-1-1-2-1-1-1-2    CUTOFF     bound=1.9855056 nodes=         4 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 217/225 P=1-2-1-1-2-1-1-1-1-1-1  CUTOFF     bound=1.9855056 nodes=         7 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 218/225 P=1-2-1-1-2-1-1-1-1-2    CUTOFF     bound=1.9855056 nodes=         6 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 219/225 P=1-2-1-2-1-1-1-1-1-1-1  CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 220/225 P=1-2-1-2-1-1-1-1-1-2    CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 221/225 P=1-2-1-1-1-1-1-1-1-1-1-1 CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+Academic license 2815369 - for non-commercial use only - registered to az___@wakayama-u.ac.jp
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-22 22:19:42] 222/225 P=1-2-1-1-1-1-1-1-1-1-2  CUTOFF     bound=1.9855056 nodes=         1 t=      0.0s
+[2026-11-22 22:35:13] 223/225 P=1-2-2-3-2-2-1          CUTOFF     bound=1.9855056 nodes=   8580812 t=   1794.6s
+[2026-11-22 22:56:17] 224/225 P=1-2-2-2-2-2-1-1        CUTOFF     bound=1.9855056 nodes=  12994300 t=   2534.6s
+~/miniconda3/envs/exp-env/lib/python3.10/multiprocessing/resource_tracker.py:224: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

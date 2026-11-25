@@ -1,0 +1,10 @@
+{
+  "layer": 5,
+  "status": "CUTOFF",
+  "nodes": 178158263,
+  "bound": 1.9855055566499997,
+  "objective": null,
+  "runtime_sec": 15586.907228469849,
+  "phase": 2,
+  "threads": 3
+}

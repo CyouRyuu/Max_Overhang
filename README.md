@@ -1,0 +1,129 @@
+# Max_Overhang
+
+Code, certificates and exact data for the paper
+
+> A. Zha, Q. Zhuang, Q. Chang.
+> **Certified Global Optimization for the Single-Root Maximum Overhang Problem: Spinal Cuts, Layer-Profile
+> Decomposition, and Exact Rational Lower Bounds.** 2026 (preprint).
+
+The repository contains everything needed to reproduce the paper's results:
+
+* **certified upper bounds** $\overline{z}(N)$ for $N = 5,\dots,16$ (spinal-cut layer-profile decomposition, solved
+  with Gurobi);
+* **non-spinal exclusion** at $\gamma_{\mathrm{ns}}(N) = 0.99\,S^*(N)$ for $N = 5,\dots,16$;
+* **exact rational optimal stacks** for $N = 4,\dots,16$, verified in exact arithmetic with zero residual
+  (Appendix A), together with independent checks of the base-singleton (S2+) and non-spinal chains;
+* the **baselines and cross-checks** of the methodological-progression table ($N = 12, 13$);
+* the **archived solver records** of all runs reported in the paper.
+
+## Layout
+
+```
+src/                 Python sources
+  certify_m0.py        baseline formulation M0 (monolithic runs of the progression table)
+  certify_run.py       shared model builders (M0, M1u, Mrel) and the structural reductions; N = 4 anchor
+  ablation_m1_order_prune.py, maxOverhang_proposed.py
+                       order-pruned formulation (the base of model M1u) and shared solve/report utilities
+  profile_run.py       layer-profile decomposition over P_2(N), with energy filter (--energy) and spinal cuts (--spine)
+  pd_certificate.py    assembles and audits a decomposition certificate (every profile closed?)
+  ns_check.py          non-spinal exclusion branches S_ns(n, l*, gamma_ns); --split-t0 for the t0 split
+  pd_race.py           re-solves open profiles of a run in a separate process (more threads / other seed)
+  pd_split.py          rightmost-layer split of one profile (independent cross-check at N = 13)
+  verify_rational_stacks.py
+                       exact rational construction and zero-residual verification of the stacks N = 4..16
+  check_exact_stacks.py
+                       independent exact re-check of the stacks, distances to S*(N), S2+ and non-spinal chains
+  summarize_certify.py collects result JSON files of monolithic runs into one table
+scripts/             one shell script per experiment (see the table below)
+data/                rational_stacks.json: exact fractions of all blocks and contact forces, N = 4..16
+results/             archived results of the runs reported in the paper (see results/README.md)
+```
+
+## Requirements
+
+* Python 3.10 (the paper used 3.10.18), `numpy`, `scipy`, `mpmath` (see `requirements.txt` or
+  `environment.yml`).
+* **Gurobi** with `gurobipy` (the paper used Gurobi 13.0.1). A license is required:
+  free academic licenses are available from Gurobi. Without a license, the `gurobipy` package from PyPI runs
+  in a size-limited mode that is sufficient for the certificates and the non-spinal checks for $N \le 9$
+  (tested with `gurobipy` 14.0.0); larger sizes need a full license.
+* The exact-arithmetic checks (`scripts/verify_exact.sh`) need **no** optimization solver.
+
+```bash
+conda env create -f environment.yml && conda activate maxoverhang
+# or: pip install -r requirements.txt
+```
+
+## Quick start
+
+```bash
+scripts/verify_exact.sh          # exact stacks N = 4..16, S2+ chain and non-spinal chain (seconds, no solver)
+scripts/anchor_n4.sh             # N = 4 anchor with M0 at gap 1e-9
+scripts/certify.sh 9 4           # tight certificate for N = 9 with 4 parallel workers (seconds)
+scripts/nonspinal.sh 9 4         # non-spinal exclusion for N = 9
+```
+
+New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the archived results in
+`results/` are never overwritten. All scripts use `python3` (change with `PYTHON=...`).
+
+## Paper ↔ scripts ↔ archived results
+
+| Paper item | Script | Archived result |
+|---|---|---|
+| Exact rational stacks, Appendix A | `scripts/verify_exact.sh` | `data/rational_stacks.json` |
+| S2+ chain table; non-spinal chain margins (Section 6.1) | `scripts/verify_exact.sh` | — (exact computation) |
+| Anchor $\overline{z}(4) = 1.1678933$ | `scripts/anchor_n4.sh` | `results/anchor_n4/` |
+| Main certificate table, tight certificates $N = 5..16$ | `scripts/certify.sh N [workers]` | `results/certificates/` |
+| Main certificate table, non-spinal exclusion $N = 5..16$ | `scripts/nonspinal.sh N [workers]` | `results/nonspinal/` |
+| $N = 16$ sub-branch table (Appendix B) | `scripts/nonspinal_n16_split.sh` | `results/nonspinal/` |
+| Positive reverse controls (Section 6.1) | `scripts/reverse_controls.sh` | — |
+| Methodological-progression table ($N = 12, 13$) | `scripts/baselines.sh {m0_12, m0_13, pd_12, pd_13, pd_13_race, pd_13_split, pd_13_cert}` | `results/baselines/` |
+
+### Reference effort (single-thread subproblems, Intel Core Ultra 7 265K)
+
+| | $N \le 12$ | $N = 13$ | $N = 14$ | $N = 15$ | $N = 16$ |
+|---|---|---|---|---|---|
+| tight certificate (thread-s) | $\le 37$ | 247 | 1,279 | 8,641 | 72,855 |
+| non-spinal exclusion (thread-s) | $\le 46$ | 320 | 1,344 | 16,499 | 96,756 + 16,244 (t0 split) |
+
+The monolithic baselines of the progression table run for 48–72 hours each.
+
+## Settings used in the paper
+
+* Tight cutoff $\gamma_N = \underline{z}_{\mathbb{Q}}(N) + 10^{-5}$, rounded upward at the 7th decimal
+  (`CUT` in `scripts/common.sh`).
+* Certificate options (identical for every $N$):
+  `profile_run.py N --model M1u --strengthen TB,S1,S2P,S4,C2 --rank-box --c2-layer --energy --spine
+  --cutoff γ_N --param Heuristics=0.0 --param IntFeasTol=1e-9`; one thread per subproblem.
+* Non-spinal exclusion: `ns_check.py N --rel 1e-2` (per-branch limit 7,200 s), the same options plus the
+  branch constraints; at $N = 16$ the three branches left open are split by the lowest impure layer $t_0$.
+
+Option names follow the paper: `TB` coordinate and contact boxes, `S1` table-edge equality, `S2P` base-singleton
+reduction S2+ ($n_2 = 2$), `S4` base right-corner equality, `C2` / `--c2-layer` cut-set cuts C2 and
+C2-Layer, `--rank-box` relative-rank boxes, `--energy` energy filter, `--spine` spinal cuts (family SP).
+
+## Notes
+
+* **Base-singleton precondition.** `certify_run.KNOWN_LB` and `certify_run.CERT_UB` hold the exact lower bounds
+  $\underline{z}_{\mathbb{Q}}(N)$ (truncated) and the certified upper bounds $\overline{z}(N)$ of the paper. They
+  are used only to check the S2+ precondition $\overline{z}(N-1) + 1/(2N) < \underline{z}_{\mathbb{Q}}(N)$, which
+  never enters the optimization model. The archived runs checked the same precondition with earlier, valid but
+  looser constants; the models, and hence all results, are identical.
+* **Other Gurobi versions.** Node counts and run times depend on the Gurobi version and the machine; the
+  certificates themselves (every profile and branch closed) do not. For example, with `gurobipy` 14.0.0 the
+  certificates for $N = 5..9$ close with 12, 3, 109, 98 and 539 nodes (paper: 12, 3, 204, 85, 486), and the
+  $N = 7$ reverse control recovers the same non-spinal stack of overhang 1.3842371. With default tolerances,
+  Gurobi 14.0.0 reports 1.1678937 for the $N = 4$ anchor; adding
+  `--param FeasibilityTol=1e-9 --param IntFeasTol=1e-9` gives 1.1678932, as with Gurobi 13.0.1.
+* **Exact arithmetic.** The lower bounds of the paper come from `verify_rational_stacks.py`, which uses Python
+  `fractions.Fraction` only (no floating point); `check_exact_stacks.py` re-checks every stack with a separate
+  equilibrium checker.
+
+## License
+
+Code (`src/`, `scripts/`): MIT License, see `LICENSE`.
+Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
+
+## Citation
+
+Please cite the paper and this archive; see `CITATION.cff`. Archived version: [TBD: Zenodo DOI].

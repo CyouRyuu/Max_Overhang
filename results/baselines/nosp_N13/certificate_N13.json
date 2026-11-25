@@ -1,0 +1,89 @@
+{
+  "N": 13,
+  "certified": true,
+  "lower_bound_feasible": 1.9845133,
+  "cutoff_upper_bound": 1.9855055566499997,
+  "relative_gap": 0.0004999999999998997,
+  "profiles_total": 225,
+  "profiles_closed": 225,
+  "missing": [],
+  "open": [],
+  "max_profile_bound": 1.9855055566499997,
+  "total_nodes": 57847794,
+  "total_thread_seconds": 13265.579289913177,
+  "S2plus_margin": 0.020900961538461438,
+  "S2plus_uses_CERT_UB_N_minus_1": 1.9251508,
+  "status_counts": {
+    "CUTOFF": 220,
+    "INFEASIBLE": 5
+  },
+  "slowest": [
+    {
+      "profile": "1-2-2-2-2-2-1-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 12994300,
+      "runtime_sec": 2534.5661952495575,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-2-3-2-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 29361715,
+      "runtime_sec": 2385.601010322571,
+      "threads": 3,
+      "seed": 1,
+      "source": "results_pd13_race/P1-2-2-2-3-2-1_s1_result.json"
+    },
+    {
+      "profile": "1-2-2-3-2-2-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 8580812,
+      "runtime_sec": 1794.6214015483856,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-3-3-2",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 3680545,
+      "runtime_sec": 895.1934471130371,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-2-2-2-2",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 1479951,
+      "runtime_sec": 326.44933104515076,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-3-3-2-1-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 253179,
+      "runtime_sec": 72.82610774040222,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-2-2-3-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 271659,
+      "runtime_sec": 71.10919737815857,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-3-3-1-1",
+      "status": "CUTOFF",
+      "bound": 1.9855055566499997,
+      "nodes": 182874,
+      "runtime_sec": 48.935827016830444,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
+    }
+  ],
+  "created": "2026-11-23 11:01:21"
+}

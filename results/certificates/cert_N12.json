@@ -1,0 +1,87 @@
+{
+  "N": 12,
+  "certified": true,
+  "lower_bound_feasible": 1.9250913,
+  "cutoff_upper_bound": 1.9251014,
+  "relative_gap": 5.246504412492983e-06,
+  "profiles_total": 126,
+  "profiles_closed": 126,
+  "missing": [],
+  "open": [],
+  "max_profile_bound": 1.9251014,
+  "total_nodes": 125352,
+  "total_thread_seconds": 37.092978954315186,
+  "S2plus_margin": 0.02463503333333339,
+  "S2plus_uses_CERT_UB_N_minus_1": 1.8587896,
+  "status_counts": {
+    "CUTOFF": 106,
+    "INFEASIBLE": 20
+  },
+  "slowest": [
+    {
+      "profile": "1-2-2-2-2-2-1",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 33098,
+      "runtime_sec": 7.831042289733887,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-3-3-2-1",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 11069,
+      "runtime_sec": 3.515282154083252,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-2-3-2",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 7492,
+      "runtime_sec": 2.515315294265747,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-3-2-2-2",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 7843,
+      "runtime_sec": 2.4206948280334473,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-3-2-1-1",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 9867,
+      "runtime_sec": 2.2956907749176025,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-3-2-2",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 8362,
+      "runtime_sec": 2.2516133785247803,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-3-3-1",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 6458,
+      "runtime_sec": 2.016350269317627,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-3-2-3-1",
+      "status": "CUTOFF",
+      "bound": 1.9251014,
+      "nodes": 6282,
+      "runtime_sec": 1.8599164485931396,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9251014-C2L-SP1-PDcert_N12_s42_profiles.csv"
+    }
+  ],
+  "created": "2026-11-25 06:29:33"
+}

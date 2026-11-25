@@ -1,0 +1,55 @@
+{
+  "method": "ProfileDecomp M1u ['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] rank_box=True c2_layer=True tail=False params=['Heuristics=0.0', 'IntFeasTol=1e-9'] (unconditional; n_2 = 2 by S2+)",
+  "N": 8,
+  "eta": 0.0,
+  "seed": 42,
+  "threads": 1,
+  "mip_gap_target": 0.0005,
+  "time_limit_sec": 3600.0,
+  "gurobi_version": "13.0.1",
+  "host": "workstation",
+  "status": "OPTIMAL",
+  "objective": 1.6315068,
+  "objective_source": "known LB",
+  "bound": 1.6315169,
+  "gap_pct": 0.0006190596324896653,
+  "runtime_sec": 0.3242018222808838,
+  "cpu_sec": 0.26191282272338867,
+  "nodes": 85,
+  "profiles": 12,
+  "cutoff": 1.6315169,
+  "milestones": {},
+  "slowest": [
+    {
+      "profile": "1-2-2-2-1",
+      "status": "CUTOFF",
+      "nodes": 60,
+      "runtime_sec": 0.06197834014892578
+    },
+    {
+      "profile": "1-2-1-2-2",
+      "status": "CUTOFF",
+      "nodes": 8,
+      "runtime_sec": 0.028076648712158203
+    },
+    {
+      "profile": "1-2-1-2-1-1",
+      "status": "CUTOFF",
+      "nodes": 3,
+      "runtime_sec": 0.027098894119262695
+    },
+    {
+      "profile": "1-2-2-1-1-1",
+      "status": "CUTOFF",
+      "nodes": 4,
+      "runtime_sec": 0.02678680419921875
+    },
+    {
+      "profile": "1-2-2-3",
+      "status": "CUTOFF",
+      "nodes": 1,
+      "runtime_sec": 0.0238800048828125
+    }
+  ],
+  "stack": null
+}

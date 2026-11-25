@@ -1,0 +1,37 @@
+{
+  "method": "ProfileDecomp M1u ['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] rank_box=True c2_layer=True tail=False params=['Heuristics=0.0', 'IntFeasTol=1e-9'] (unconditional; n_2 = 2 by S2+)",
+  "N": 5,
+  "eta": 0.0,
+  "seed": 42,
+  "threads": 1,
+  "mip_gap_target": 0.0005,
+  "time_limit_sec": 3600.0,
+  "gurobi_version": "13.0.1",
+  "host": "workstation",
+  "status": "OPTIMAL",
+  "objective": 1.3045549,
+  "objective_source": "known LB",
+  "bound": 1.3045649,
+  "gap_pct": 0.0007665449725299768,
+  "runtime_sec": 0.034723520278930664,
+  "cpu_sec": 0.019389867782592773,
+  "nodes": 12,
+  "profiles": 2,
+  "cutoff": 1.3045649,
+  "milestones": {},
+  "slowest": [
+    {
+      "profile": "1-2-2",
+      "status": "CUTOFF",
+      "nodes": 11,
+      "runtime_sec": 0.014519929885864258
+    },
+    {
+      "profile": "1-2-1-1",
+      "status": "CUTOFF",
+      "nodes": 1,
+      "runtime_sec": 0.004869937896728516
+    }
+  ],
+  "stack": null
+}

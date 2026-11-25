@@ -1,0 +1,55 @@
+{
+  "N": 6,
+  "certified": true,
+  "lower_bound_feasible": 1.4367002,
+  "cutoff_upper_bound": 1.4367103,
+  "relative_gap": 7.0299983254153504e-06,
+  "profiles_total": 4,
+  "profiles_closed": 4,
+  "missing": [],
+  "open": [],
+  "max_profile_bound": 1.4367103,
+  "total_nodes": 3,
+  "total_thread_seconds": 0.03214454650878906,
+  "S2plus_margin": 0.04880196666666681,
+  "S2plus_uses_CERT_UB_N_minus_1": 1.3045649,
+  "status_counts": {
+    "CUTOFF": 3,
+    "INFEASIBLE": 1
+  },
+  "slowest": [
+    {
+      "profile": "1-2-3",
+      "status": "INFEASIBLE",
+      "bound": -Infinity,
+      "nodes": 0,
+      "runtime_sec": 0.011171579360961914,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-1",
+      "status": "CUTOFF",
+      "bound": 1.4367103,
+      "nodes": 1,
+      "runtime_sec": 0.00832056999206543,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-1-1",
+      "status": "CUTOFF",
+      "bound": 1.4367103,
+      "nodes": 1,
+      "runtime_sec": 0.00696110725402832,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-2",
+      "status": "CUTOFF",
+      "bound": 1.4367103,
+      "nodes": 1,
+      "runtime_sec": 0.0056912899017333984,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv"
+    }
+  ],
+  "created": "2026-11-25 06:29:33"
+}

@@ -1,0 +1,11 @@
+name: maxoverhang
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10.18
+  - numpy=2.2.6
+  - scipy=1.15.3
+  - mpmath=1.4.1
+  - pip
+  - pip:
+      - gurobipy==13.0.1

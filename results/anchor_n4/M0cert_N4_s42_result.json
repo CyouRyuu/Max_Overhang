@@ -1,0 +1,90 @@
+{
+  "method": "M0_Certify (unconditional)",
+  "N": 4,
+  "eta": 0.0,
+  "seed": 42,
+  "threads": 1,
+  "mip_gap_target": 1e-09,
+  "strengthen": [],
+  "params": [],
+  "branch_priority": false,
+  "callback": true,
+  "cutoff": null,
+  "time_limit_sec": 600.0,
+  "gurobi_version": "13.0.1",
+  "host": "workstation",
+  "status": "OPTIMAL",
+  "objective": 1.1678932263720068,
+  "bound": 1.1678932263720068,
+  "gap_pct": 0.0,
+  "runtime_sec": 0.04774165153503418,
+  "nodes": 33,
+  "sol_count": 7,
+  "first_sol_sec": 0.00756525993347168,
+  "milestones": {
+    "0.0005": {
+      "wall_sec": 0.05,
+      "incumbent": 1.1678932150307368,
+      "bound": 1.1678936282940307,
+      "nodes": 27
+    },
+    "0.0001": {
+      "wall_sec": 0.05,
+      "incumbent": 1.1678932150307368,
+      "bound": 1.1678936282940307,
+      "nodes": 27
+    },
+    "1e-05": {
+      "wall_sec": 0.05,
+      "incumbent": 1.1678932150307368,
+      "bound": 1.1678936282940307,
+      "nodes": 27
+    },
+    "1e-06": {
+      "wall_sec": 0.05,
+      "incumbent": 1.1678932150307368,
+      "bound": 1.1678936282940307,
+      "nodes": 27
+    }
+  },
+  "tolerances": {
+    "FeasibilityTol": 1e-06,
+    "IntFeasTol": 1e-05,
+    "OptimalityTol": 1e-06
+  },
+  "stack": [
+    {
+      "block": 4,
+      "layer": 3,
+      "center_x": -0.026029297642772217,
+      "supported_by": [
+        2,
+        3
+      ]
+    },
+    {
+      "block": 3,
+      "layer": 2,
+      "center_x": -0.6632622973697705,
+      "supported_by": [
+        1
+      ]
+    },
+    {
+      "block": 2,
+      "layer": 2,
+      "center_x": 0.6678932263720067,
+      "supported_by": [
+        1
+      ]
+    },
+    {
+      "block": 1,
+      "layer": 1,
+      "center_x": 0.021398368640535965,
+      "supported_by": [
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Layer-profile certificate, N = 6
+
+- certified: **True**
+- feasible value (lower bound): 1.4367002
+- upper bound (cutoff): 1.43671030  (relative gap 7.03e-06)
+- profiles: 4 / 4 closed; status counts {'CUTOFF': 3, 'INFEASIBLE': 1}
+- S2+ (n_2 = 2) margin: 0.04880 using certified UB z*(5) <= 1.3045649
+- total nodes 3; total thread-seconds 0
+
+| slowest profile | status | nodes | seconds | source |
+|---|---|---|---|---|
+| 1-2-3 | INFEASIBLE | 0 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv |
+| 1-2-2-1 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv |
+| 1-2-1-1-1 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv |
+| 1-2-1-2 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.4367103-C2L-SP1-PDcert_N6_s42_profiles.csv |

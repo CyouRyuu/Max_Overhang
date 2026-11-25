@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite the paper and this archive."
+title: "Max_Overhang: code and certificates for certified global optimization of the single-root maximum overhang problem"
+version: 1.0.0
+date-released: 2026-12-01
+license: MIT
+repository-code: "https://github.com/CyouRyuu/Max_Overhang"
+authors:
+  - family-names: Zha
+    given-names: Aolong
+    orcid: "https://orcid.org/0000-0003-2480-6597"
+    affiliation: "Faculty of Systems Engineering, Wakayama University"
+  - family-names: Zhuang
+    given-names: Qianwei
+    orcid: "https://orcid.org/0000-0002-1057-357X"
+    affiliation: "Research Center for Advanced Science and Technology, The University of Tokyo"
+  - family-names: Chang
+    given-names: Qiong
+    orcid: "https://orcid.org/0000-0002-4447-0480"
+    affiliation: "School of Computing, Institute of Science Tokyo"
+keywords:
+  - maximum overhang
+  - global optimization
+  - mixed-integer bilinear programming
+  - spatial branch-and-bound
+  - certified optimality
+  - exact rational arithmetic
+preferred-citation:
+  type: article
+  title: "Certified Global Optimization for the Single-Root Maximum Overhang Problem: Spinal Cuts, Layer-Profile Decomposition, and Exact Rational Lower Bounds"
+  authors:
+    - family-names: Zha
+      given-names: Aolong
+    - family-names: Zhuang
+      given-names: Qianwei
+    - family-names: Chang
+      given-names: Qiong
+  year: 2026
+  notes: "Preprint."
