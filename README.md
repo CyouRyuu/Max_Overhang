@@ -1,5 +1,7 @@
 # Max_Overhang
 
+[![DOI](https://zenodo.org/badge/1471033814.svg)](https://doi.org/10.5281/zenodo.24518950)
+
 Code, certificates and exact data for the paper
 
 > A. Zha, Q. Zhuang, Q. Chang.
@@ -90,7 +92,7 @@ The monolithic baselines of the progression table run for 48–72 hours each.
 
 ## Settings used in the paper
 
-* Tight cutoff $\gamma_N = \underline{z}_{\mathbb{Q}}(N) + 10^{-5}$, rounded upward at the 7th decimal
+* Tight cutoff $\gamma_N = \underline{z}\_{\mathbb{Q}}(N) + 10^{-5}$, rounded upward at the 7th decimal
   (`CUT` in `scripts/common.sh`).
 * Certificate options (identical for every $N$):
   `profile_run.py N --model M1u --strengthen TB,S1,S2P,S4,C2 --rank-box --c2-layer --energy --spine
@@ -106,7 +108,7 @@ C2-Layer, `--rank-box` relative-rank boxes, `--energy` energy filter, `--spine` 
 
 * **Base-singleton precondition.** `certify_run.KNOWN_LB` and `certify_run.CERT_UB` hold the exact lower bounds
   $\underline{z}\_{\mathbb{Q}}(N)$ (truncated) and the certified upper bounds $\overline{z}(N)$ of the paper. They
-  are used only to check the S2+ precondition $\overline{z}(N-1) + 1/(2N) < \underline{z}_{\mathbb{Q}}(N)$, which
+  are used only to check the S2+ precondition $\overline{z}(N-1) + 1/(2N) < \underline{z}\_{\mathbb{Q}}(N)$, which
   never enters the optimization model. The archived runs checked the same precondition with earlier, valid but
   looser constants; the models, and hence all results, are identical.
 * **Other Gurobi versions.** Node counts and run times depend on the Gurobi version and the machine; the
@@ -126,4 +128,6 @@ Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
 
 ## Citation
 
-Please cite the paper and this archive; see `CITATION.cff`. Archived version: [TBD: Zenodo DOI].
+Please cite the paper and this archive; see `CITATION.cff`.
+Archived on Zenodo: version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951)
+(the paper's version); all versions, [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950).
