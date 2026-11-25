@@ -105,7 +105,7 @@ C2-Layer, `--rank-box` relative-rank boxes, `--energy` energy filter, `--spine` 
 ## Notes
 
 * **Base-singleton precondition.** `certify_run.KNOWN_LB` and `certify_run.CERT_UB` hold the exact lower bounds
-  $\underline{z}_{\mathbb{Q}}(N)$ (truncated) and the certified upper bounds $\overline{z}(N)$ of the paper. They
+  $\underline{z}\_{\mathbb{Q}}(N)$ (truncated) and the certified upper bounds $\overline{z}(N)$ of the paper. They
   are used only to check the S2+ precondition $\overline{z}(N-1) + 1/(2N) < \underline{z}_{\mathbb{Q}}(N)$, which
   never enters the optimization model. The archived runs checked the same precondition with earlier, valid but
   looser constants; the models, and hence all results, are identical.
