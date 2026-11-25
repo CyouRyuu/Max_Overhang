@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software or data, please cite the paper and this archive."
 title: "Max_Overhang: code and certificates for certified global optimization of the single-root maximum overhang problem"
 version: 1.0.0
-date-released: 2026-12-01
+date-released: 2026-11-25
 license: MIT
 repository-code: "https://github.com/CyouRyuu/Max_Overhang"
 authors:
