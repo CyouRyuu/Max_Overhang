@@ -186,7 +186,15 @@ def stack_from_values(N, val):
         layer = int(round(val[f"L_{i}"]))
         pos = val[f"X_{i}"]
         supports = [j for j in range(0, N + 1) if j != i and val.get(f"T_{i}_{j}", 0.0) > 0.5]
-        rows.append({"block": i, "layer": layer, "center_x": pos, "supported_by": supports})
+        # contact forces and contact points (P, or torque / force when P is not a model variable)
+        contacts = []
+        for j in supports:
+            F = val.get(f"F_{i}_{j}")
+            P = val.get(f"P_{i}_{j}")
+            if P is None and F and val.get(f"Torque_{i}_{j}") is not None:
+                P = val[f"Torque_{i}_{j}"] / F
+            contacts.append({"on": j, "F": F, "P": P})
+        rows.append({"block": i, "layer": layer, "center_x": pos, "supported_by": supports, "contacts": contacts})
     rows.sort(key=lambda r: (-r["layer"], r["center_x"]))
     return rows
 

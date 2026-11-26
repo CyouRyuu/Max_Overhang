@@ -4,6 +4,9 @@
 - feasible value (lower bound): 1.7152728
 - upper bound (cutoff): 1.71528290  (relative gap 5.89e-06)
 - profiles: 22 / 22 closed; status counts {'CUTOFF': 18, 'INFEASIBLE': 4}
+- missing 0, unexpected 0, repeated records 0 (last record used)
+- cutoff of the run: 1.7152829 (<= certificate cutoff)
+- closed records with bound above the cutoff: 0; split profiles with missing/open layers: 0
 - S2+ (n_2 = 2) margin: 0.02820 using certified UB z*(8) <= 1.6315169
 - total nodes 486; total thread-seconds 1
 

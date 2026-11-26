@@ -11,18 +11,37 @@ or all rightmost-layer branches of pd_split.py closed), and writes <out>.json an
       --race results_pd13_race --split results_pd13_split/1-2-2-2-3-2-1 --out certificate_N13
 (--split DIR may be repeated; DIR must contain the L<l>_result.json files of one profile, and the profile is
  taken from the directory name or from --split-profile.)
+
+Checks: every expected profile has a record and no record lies outside P_2(N); records repeated by a resumed run
+are reported (the last one is used); every closed record (CUTOFF) carries a bound <= the certificate cutoff; the
+cutoff stored in the run's *_result.json (required unless --allow-missing-run-record) is <= the certificate
+cutoff; a profile closed by --split has a closed L<l>_result.json for every candidate layer l (layers whose
+rightmost block can exceed the cutoff by the base envelope and the energy layer bounds).  Needs no solver.
 """
 import os
+import sys
 import csv
 import json
 import glob
 import argparse
 from datetime import datetime
 
-import certify_run as cr
-import profile_run as pr
+import profiles as pf
 
 CLOSED = ("CUTOFF", "INFEASIBLE")
+
+
+def split_candidate_layers(N, profile, cutoff, eta=0.0):
+    """Layers l >= 2 whose rightmost block can exceed the cutoff: X_first(l) + W <= x1ub + W + 2w (l - 1) with the
+    tightened base envelope x1ub = (N - 3) w / N - eps, and X_first(l) + W <= energy layer bound.  Every stack of
+    the profile above the cutoff has its principal block in one of these layers."""
+    W = 0.5; w = W * (1.0 - eta); eps = W * eta
+    x1ub = (N - 3) * w / N - eps
+    ok, _, ubs = pf.energy_profile_check(N, profile, eta)
+    if not ok:
+        return []
+    return [l for l in range(2, len(profile) + 1)
+            if x1ub + W + 2 * w * (l - 1) > cutoff and (l not in ubs or ubs[l] > cutoff)]
 
 
 def main():
@@ -35,47 +54,74 @@ def main():
     ap.add_argument("--gap", type=float, default=5e-4)
     ap.add_argument("--cutoff", type=float, default=None, help="absolute cutoff used by the runs (overrides gap)")
     ap.add_argument("--lb", type=float, default=None, help="exactly verified lower bound (default KNOWN_LB)")
+    ap.add_argument("--allow-missing-run-record", action="store_true",
+                    help="accept a profile CSV without its *_result.json (e.g. a run stopped by hand)")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
 
-    lb = cr.KNOWN_LB[a.N] if a.lb is None else a.lb
+    lb = pf.KNOWN_LB[a.N] if a.lb is None else a.lb
     cutoff = lb * (1 + a.gap) if a.cutoff is None else a.cutoff
-    rows = {}
+    rows, seen = {}, {}
     with open(a.csv, encoding="utf-8") as f:
         for r in csv.DictReader(f):
+            # a run continued with --resume may record a profile again; the last record is the one used
+            seen[r["profile"]] = seen.get(r["profile"], 0) + 1
             rows[r["profile"]] = {"status": r["status"], "bound": float(r["bound"]), "nodes": int(float(r["nodes"])),
                                   "runtime_sec": float(r["runtime_sec"]), "source": os.path.basename(a.csv)}
+    duplicates = {p: c for p, c in seen.items() if c > 1}
+    # the cutoff actually used by the run is stored in its *_result.json next to the CSV
+    run_json = a.csv.replace("_profiles.csv", "_result.json")
+    run_cutoff = json.load(open(run_json)).get("cutoff") if os.path.exists(run_json) else None
     for d in a.race:
         for p in glob.glob(os.path.join(d, "P*_result.json")):
             r = json.load(open(p))
             prof = r["profile"]
-            if r["status"] in CLOSED or (prof not in rows or rows[prof]["status"] not in CLOSED):
-                if prof not in rows or rows[prof]["status"] not in CLOSED:
-                    rows[prof] = {"status": r["status"], "bound": r["bound"], "nodes": r["nodes"],
-                                  "runtime_sec": r["runtime_sec"], "threads": r.get("threads"),
-                                  "seed": r.get("seed"), "source": os.path.relpath(p)}
+            if prof not in rows or rows[prof]["status"] not in CLOSED:
+                rows[prof] = {"status": r["status"], "bound": r["bound"], "nodes": r["nodes"],
+                              "runtime_sec": r["runtime_sec"], "threads": r.get("threads"),
+                              "seed": r.get("seed"), "source": os.path.relpath(p)}
+    split_issues = {}
     for k, d in enumerate(a.split):
         prof = a.split_profile[k] if k < len(a.split_profile) else os.path.basename(os.path.normpath(d))
+        if prof.startswith("split_"):
+            prof = prof[len("split_"):]
         br = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(d, "L*_result.json")))]
-        if br and all(b["status"] in CLOSED for b in br) and (prof not in rows or rows[prof]["status"] not in CLOSED):
+        need = split_candidate_layers(a.N, [int(x) for x in prof.split("-")], cutoff)
+        have = {b["layer"]: b for b in br}
+        bad = sorted(l for l in need if l not in have or have[l]["status"] not in CLOSED
+                     or have[l]["bound"] > cutoff + 1e-12)
+        if bad:
+            split_issues[prof] = bad
+            continue
+        if br and (prof not in rows or rows[prof]["status"] not in CLOSED):
             rows[prof] = {"status": "CUTOFF", "bound": cutoff, "nodes": sum(b["nodes"] for b in br),
                           "runtime_sec": sum(b["runtime_sec"] for b in br),
                           "source": f"pd_split {os.path.relpath(d)} ({len(br)} branches)"}
 
-    profiles = ["-".join(map(str, p)) for p in pr.enumerate_profiles(a.N, 2)]
+    profiles = ["-".join(map(str, p)) for p in pf.enumerate_profiles(a.N, 2)]
     missing = [p for p in profiles if p not in rows]
+    unexpected = sorted(p for p in rows if p not in set(profiles))
+    if run_cutoff is None:
+        cutoff_ok = a.allow_missing_run_record
+    else:
+        cutoff_ok = run_cutoff <= cutoff + 1e-12
+    above = sorted(p for p in profiles if p in rows and rows[p]["status"] in CLOSED
+                   and rows[p]["bound"] > cutoff + 1e-12)
     openp = [p for p in profiles if p in rows and not (rows[p]["status"] in CLOSED or
                                                         (rows[p]["status"] == "OPTIMAL" and rows[p]["bound"] <= cutoff))]
     bound = max((rows[p]["bound"] for p in profiles if p in rows), default=float("nan"))
-    ok = not missing and not openp and bound <= cutoff + 1e-12
+    ok = (not missing and not openp and not unexpected and not above and not split_issues and cutoff_ok
+          and bound <= cutoff + 1e-12)
     nodes = sum(rows[p]["nodes"] for p in profiles if p in rows)
     cpu = sum(rows[p]["runtime_sec"] * (rows[p].get("threads") or 1) for p in profiles if p in rows)
     slow = sorted((p for p in profiles if p in rows), key=lambda p: -rows[p]["runtime_sec"])[:8]
-    margin = lb - (cr.CERT_UB.get(a.N - 1, float("nan")) + 0.5 / a.N)
+    margin = lb - (pf.CERT_UB.get(a.N - 1, float("nan")) + 0.5 / a.N)
     res = {"N": a.N, "certified": ok, "lower_bound_feasible": lb, "cutoff_upper_bound": cutoff,
            "relative_gap": (cutoff - lb) / lb, "profiles_total": len(profiles), "profiles_closed": len(profiles) - len(missing) - len(openp),
-           "missing": missing, "open": openp, "max_profile_bound": bound, "total_nodes": nodes,
-           "total_thread_seconds": cpu, "S2plus_margin": margin, "S2plus_uses_CERT_UB_N_minus_1": cr.CERT_UB.get(a.N - 1),
+           "missing": missing, "open": openp, "unexpected": unexpected, "duplicates_last_record_used": duplicates,
+           "run_cutoff": run_cutoff, "run_cutoff_within_certificate": cutoff_ok,
+           "closed_above_cutoff": above, "split_missing_or_open_layers": split_issues, "max_profile_bound": bound, "total_nodes": nodes,
+           "total_thread_seconds": cpu, "S2plus_margin": margin, "S2plus_uses_CERT_UB_N_minus_1": pf.CERT_UB.get(a.N - 1),
            "status_counts": {s: sum(1 for p in profiles if p in rows and rows[p]["status"] == s)
                              for s in sorted({r["status"] for r in rows.values()})},
            "slowest": [{"profile": p, **rows[p]} for p in slow], "created": f"{datetime.now():%F %T}"}
@@ -87,16 +133,25 @@ def main():
              f"- feasible value (lower bound): {lb:.7f}",
              f"- upper bound (cutoff): {cutoff:.8f}  (relative gap {res['relative_gap']:.2e})",
              f"- profiles: {res['profiles_closed']} / {len(profiles)} closed; status counts {res['status_counts']}",
-             f"- S2+ (n_2 = 2) margin: {margin:.5f} using certified UB z*({a.N - 1}) <= {cr.CERT_UB.get(a.N - 1)}",
+             f"- missing {len(missing)}, unexpected {len(unexpected)}, repeated records {len(duplicates)} (last record used)",
+             ("- cutoff of the run: record missing (accepted with --allow-missing-run-record)" if run_cutoff is None
+              and cutoff_ok else f"- cutoff of the run: {run_cutoff} "
+              f"({'<= certificate cutoff' if cutoff_ok else 'NOT <= certificate cutoff or record missing'})"),
+             f"- closed records with bound above the cutoff: {len(above)}; split profiles with missing/open layers: "
+             f"{len(split_issues)}",
+             f"- S2+ (n_2 = 2) margin: {margin:.5f} using certified UB z*({a.N - 1}) <= {pf.CERT_UB.get(a.N - 1)}",
              f"- total nodes {nodes:,}; total thread-seconds {cpu:,.0f}", "",
              "| slowest profile | status | nodes | seconds | source |", "|---|---|---|---|---|"]
     lines += [f"| {p} | {rows[p]['status']} | {rows[p]['nodes']:,} | {rows[p]['runtime_sec']:.1f} | {rows[p]['source']} |"
               for p in slow]
-    if missing or openp:
-        lines += ["", f"missing: {missing}", f"open: {openp}"]
+    if missing or openp or unexpected or duplicates or above or split_issues or not cutoff_ok:
+        lines += ["", f"missing: {missing}", f"open: {openp}", f"unexpected: {unexpected}", f"repeated: {duplicates}",
+                  f"closed above cutoff: {above}", f"split layers missing or open: {split_issues}",
+                  f"run record: {'cutoff ' + str(run_cutoff) if run_cutoff is not None else 'missing'}"]
     with open(out + ".md", "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print("\n".join(lines))
+    sys.exit(0 if ok else 1)
 
 
 if __name__ == "__main__":

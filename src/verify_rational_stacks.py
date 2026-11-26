@@ -251,7 +251,7 @@ def verify_all_n4_to_n16():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Exact rational verification of the optimal stacks, N = 4..16.")
+    parser = argparse.ArgumentParser(description="Exact rational verification of the feasible stacks (lower-bound witnesses), N = 4..16.")
     parser.add_argument("--print-all", action="store_true", help="Print full exact fractions for every block and contact.")
     parser.add_argument("--dump-json", type=str, default=None, help="Export exact verified stacks to JSON.")
     args = parser.parse_args()

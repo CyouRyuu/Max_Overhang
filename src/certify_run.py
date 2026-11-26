@@ -110,18 +110,7 @@ def add_forced_3support(model, N, log):
 # ---------------------------------------------------------------------------------------------
 # Structural strengthening (Sections 3 and 4 of the paper)
 # ---------------------------------------------------------------------------------------------
-# Exactly verified lower bounds z_Q(N), truncated at the 7th decimal (Table 4 of the paper; exact fractions in
-# data/rational_stacks.json), and certified upper bounds z_bar(N) of the unified tight chain (Table 3 of the paper:
-# N = 4 from monolithic M0 at relative gap 1e-9, N >= 5 from the spinal-cut layer-profile certificates).
-# They are used only by the base-singleton precondition of S2P,  CERT_UB[N - 1] + w / N < KNOWN_LB[N],  which never
-# enters the optimization model.  (The original runs checked the same precondition with earlier, valid but looser
-# constants; the models and hence all results are identical.)
-KNOWN_LB = {4: 1.1678932, 5: 1.3045548, 6: 1.4367002, 7: 1.5300452, 8: 1.6315068, 9: 1.7152728,
-            10: 1.7871258, 11: 1.8587795, 12: 1.9250913, 13: 1.9845089, 14: 2.0382169, 15: 2.0928962,
-            16: 2.1438427}
-CERT_UB = {4: 1.1678933, 5: 1.3045649, 6: 1.4367103, 7: 1.5300553, 8: 1.6315169, 9: 1.7152829,
-           10: 1.7871359, 11: 1.8587896, 12: 1.9251014, 13: 1.9845190, 14: 2.0382270, 15: 2.0929064,
-           16: 2.1438528}
+from profiles import KNOWN_LB, CERT_UB  # noqa: E402,F401  (exact lower bounds and certified upper bounds)
 
 
 def layer_capacity(n2, lmax=40):

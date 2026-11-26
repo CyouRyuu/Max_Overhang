@@ -8,6 +8,12 @@
   "profiles_closed": 39,
   "missing": [],
   "open": [],
+  "unexpected": [],
+  "duplicates_last_record_used": {},
+  "run_cutoff": 1.7871359,
+  "run_cutoff_within_certificate": true,
+  "closed_above_cutoff": [],
+  "split_missing_or_open_layers": {},
   "max_profile_bound": 1.7871359,
   "total_nodes": 5229,
   "total_thread_seconds": 2.3153011798858643,
@@ -83,5 +89,5 @@
       "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.7871359-C2L-SP1-PDcert_N10_s42_profiles.csv"
     }
   ],
-  "created": "2026-11-25 06:29:33"
+  "created": "2026-11-25 19:36:20"
 }

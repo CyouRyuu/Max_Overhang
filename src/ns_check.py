@@ -28,6 +28,7 @@ Results: <outdir>/ns_N<N>_rel<rel>.csv (one row per (profile, l*)) and a summary
 import os
 import sys
 import csv
+import json
 import time
 import argparse
 import multiprocessing as mp
@@ -41,8 +42,7 @@ import pd_split as ps
 CLOSED = ("INFEASIBLE", "CUTOFF", "EMPTY", "TIE")
 
 
-def spinal_opt(N):
-    return max(pr.spinal_bound(r, N) for r in range(2, N + 1))
+from profiles import spinal_opt  # noqa: E402
 
 
 def solve_branch(job):
@@ -90,7 +90,10 @@ def solve_branch(job):
         m.setParam("DualReductions", 0); m.reset(); m.optimize(); st = m.Status
     name = {GRB.INFEASIBLE: "INFEASIBLE", GRB.CUTOFF: "CUTOFF", GRB.OPTIMAL: "OPTIMAL",
             GRB.TIME_LIMIT: "TIME_LIMIT"}.get(st, f"STATUS_{st}")
-    res = {**base, "status": name, "nodes": int(m.NodeCount),
+    witness = None
+    if m.SolCount > 0:                               # feasible stack found (only when a branch is not closed)
+        witness = pr.base.stack_from_values(N, {v.VarName: v.X for v in m.getVars()})
+    res = {**base, "status": name, "nodes": int(m.NodeCount), "witness": witness,
            "bound": (m.ObjBound if name not in CLOSED else gamma),
            "objective": (m.ObjVal if m.SolCount > 0 else float("nan")), "runtime_sec": time.time() - t0}
     m.dispose()
@@ -114,6 +117,8 @@ def main():
                     help="re-run only these branches: comma-separated profile:lstar, e.g. 1-2-2-3-2:5,1-2-3-3:4")
     a = ap.parse_args()
     opts = sorted({s.strip().upper() for s in a.strengthen.split(",") if s.strip()} | {"EN", "SP"})
+    # solver threshold in double precision; it does not exceed gamma_ns(N) = 0.99 S*(N) rounded upward at the
+    # 7th decimal (checked by ns_audit.py), so every exclusion proved here holds above gamma_ns(N)
     gamma = a.gamma if a.gamma is not None else spinal_opt(a.N) * (1.0 - a.rel)
     os.makedirs(a.outdir, exist_ok=True)
     tag = f"ns_N{a.N}_" + (f"g{a.gamma:.7f}" if a.gamma is not None else f"rel{a.rel:g}")
@@ -147,15 +152,24 @@ def main():
         wr.writeheader()
         it = (map(solve_branch, jobs) if a.workers <= 1 else
               mp.get_context("spawn").Pool(a.workers, maxtasksperchild=20).imap_unordered(solve_branch, jobs))
+        witnesses = []
         for r in it:
+            wit = r.pop("witness", None)
+            if wit is not None:
+                witnesses.append({"profile": r["profile"], "lstar": r["lstar"], "t0": r["t0"],
+                                  "overhang": r["objective"], "stack": wit})
             rows.append(r); wr.writerow(r); f.flush()
+    if witnesses:                                    # feasible non-spinal stacks above gamma (reverse controls)
+        witnesses.sort(key=lambda x: -x["overhang"])
+        with open(os.path.join(a.outdir, tag + "_witnesses.json"), "w") as fw:
+            json.dump({"N": a.N, "gamma": gamma, "witnesses": witnesses}, fw, indent=1)
     bad = [r for r in rows if r["status"] not in CLOSED]
     best = max([r["objective"] for r in rows if r["objective"] == r["objective"]], default=float("nan"))
     cpu = sum(r["runtime_sec"] for r in rows)
     line = (f"N={a.N}" + (f" ({len(a.only.split(','))} selected branches, time limit {a.time_limit:.0f}s, {a.threads} thread(s))"
                if a.only else "")
             + (" (split by lowest impure layer t0)" if a.split_t0 else "")
-            + f" gamma={gamma:.7f} (S*={spinal_opt(a.N):.7f}) branches={len(rows)} open={len(bad)} "
+            + f" gamma={gamma:.12f} (S*={spinal_opt(a.N):.7f}) branches={len(rows)} open={len(bad)} "
             f"nodes={sum(r['nodes'] for r in rows)} thread_s={cpu:.0f} wall={time.time()-t0:.0f}s "
             f"best_nonspinal_found={best:.7f} => " + ("NO non-spinal stack above gamma" if not bad else "NOT CERTIFIED"))
     print(line)

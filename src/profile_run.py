@@ -43,33 +43,8 @@ import gurobipy as gp
 from gurobipy import GRB
 
 import certify_run as cr
+from profiles import enumerate_profiles, layers_of, energy_profile_check, spinal_bound  # noqa: F401
 import certify_m0 as base
-
-
-def enumerate_profiles(N, n2_fixed=2):
-    out = []
-
-    def rec(prof, s):
-        if s == N:
-            out.append(tuple(prof)); return
-        l = len(prof) + 1
-        hi = min(2 * prof[-1], 2 * l - 2, N - s)
-        for n in range(1, hi + 1):
-            if l == 2 and n2_fixed is not None and n != n2_fixed:
-                continue
-            rec(prof + [n], s + n)
-    rec([1], 1)
-    return out
-
-
-def layers_of(profile):
-    lay, blocks, k = {}, {}, 1
-    for l, n in enumerate(profile, start=1):
-        blocks[l] = list(range(k, k + n))
-        for i in blocks[l]:
-            lay[i] = l
-        k += n
-    return lay, blocks
 
 
 def add_rank_box(model, N, profile, blocks, V, w, W):
@@ -114,29 +89,6 @@ def tighten_contact_boxes(model, profile, blocks, V, w):
     model.update()
 
 
-def energy_profile_check(N, profile, eta=0.0):
-    """Second-moment energy test (paper: second-moment energy theorem and its two corollaries).
-    Every feasible stack, translated so that P_10 = -eps, satisfies
-        sum_b (X_b + eps)^2 + N (X_1 + eps)^2 <= w^2 sum_b (L_b - 1) =: E(n),
-    and the layer of m blocks has within-layer second moment >= m(m^2-1)/12.  So dE < 0 => no feasible
-    stack with this profile.  layer_ubs[l] bounds X_first(l) + W for stacks with sum_b X_b = -N eps (S1)."""
-    import math
-    W = 0.5; w = W * (1.0 - float(eta))
-    E = w * w * sum((l - 1) * n for l, n in enumerate(profile, start=1))
-    dE = E - sum(n * (n * n - 1) / 12.0 for n in profile)
-    if dE < -1e-12:
-        return False, dE, {}
-    dE = max(0.0, dE); ubs = {}
-    for l in range(2, len(profile) + 1):
-        m = profile[l - 1]
-        Am = m + m * m / ((N - m - 1.0) + 1.0 / (N + 1.0))
-        if m == 1 or 2.0 * math.sqrt(Am * dE) <= m:
-            ubs[l] = w + 0.5 * (m - 1) + math.sqrt(dE / Am)
-        else:
-            ubs[l] = w + math.sqrt((1.0 / Am + (m - 1.0) / m) * (dE + 0.25 * m * (m - 1)))
-    return True, dE, ubs
-
-
 def add_c2_layer_cuts(model, profile, blocks, V, rel, w):
     """Family C2-Layer (paper: two-block layer cut-set RLT cuts).  For every non-top layer l with
     n_l = 2 (blocks u1 < u2): the blocks above weigh M, F1 = sum_k F_{k,u1}, Delta = X_u1 - X_u2 in
@@ -171,38 +123,6 @@ def add_c2_layer_cuts(model, profile, blocks, V, rel, w):
         n += 1
     model.update()
     return n
-
-
-def spinal_bound(r, F):
-    """Paterson-Zwick loaded-spine optimum S*_r(F) (PZ 2009, Lemmas 3.4-3.5), in units of 2w.
-    Unconstrained version (no t_i - t_{i-1} >= 1): S^_r(F) = max_{u_1..u_{r-1} > 0, u_r = F}
-    sum_s [1 - (u_{s-1} + 1/2) / u_s], u_0 = 0.  Strictly convex in log u, unique stationary point
-    u_{s+1} = u_s^2 / (u_{s-1} + 1/2); u_r is increasing in u_1, so bisection on u_1.
-    Paper, spinal-cut proposition (family SP): if s_2..s_r are each supported ONLY by the rightmost
-    block of the layer below, then X_{s_r} + W <= 2w * S^_r(N)."""
-    F = float(F)
-    if r <= 1:
-        return 1.0 - 0.5 / F
-
-    def last(u1):
-        a, b = 0.0, u1
-        for _ in range(r - 1):
-            a, b = b, b * b / (a + 0.5)
-        return b
-    lo, hi = 0.0, 1.0
-    while last(hi) < F:
-        hi *= 2.0
-    for _ in range(200):
-        mid = 0.5 * (lo + hi)
-        if last(mid) < F:
-            lo = mid
-        else:
-            hi = mid
-    us = [0.0, 0.5 * (lo + hi)]
-    for _ in range(r - 1):
-        us.append(us[-1] * us[-1] / (us[-2] + 0.5))
-    us[-1] = F
-    return sum(1.0 - (us[s - 1] + 0.5) / us[s] for s in range(1, r + 1))
 
 
 def add_spinal_cuts(model, N, profile, blocks, V, w, W, cands, cutoff):

@@ -30,7 +30,9 @@ case "${1:-}" in
              --param Heuristics=0.0 --cutoff $CUT13 --threads-budget 3 --outdir "$OUT/nosp_N13_split" ;;
   pd_13_cert)
          CSV=$(ls "$OUT"/nosp_N13/*_profiles.csv)
+         # the main run is stopped by hand once the race has closed the hard profile, so it has no result record
          "$PY" "$SRC/pd_certificate.py" 13 "$CSV" --race "$OUT/nosp_N13_race" --cutoff $CUT13 \
+             --split "$OUT/nosp_N13_split" --split-profile 1-2-2-2-3-2-1 --allow-missing-run-record \
              --out "$OUT/nosp_N13/certificate_N13" ;;
   *) sed -n '2,12p' "$0"; exit 1 ;;
 esac

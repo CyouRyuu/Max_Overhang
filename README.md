@@ -11,9 +11,9 @@ Code, certificates and exact data for the paper
 The repository contains everything needed to reproduce the paper's results:
 
 * **certified upper bounds** $\overline{z}(N)$ for $N = 5,\dots,16$ (spinal-cut layer-profile decomposition, solved
-  with Gurobi);
-* **non-spinal exclusion** at $\gamma_{\mathrm{ns}}(N) = 0.99\,S^*(N)$ for $N = 5,\dots,16$;
-* **exact rational optimal stacks** for $N = 4,\dots,16$, verified in exact arithmetic with zero residual
+  with Gurobi, valid within its numerical tolerances);
+* **non-spinal exclusion** above $\gamma_{\mathrm{ns}}(N)$, the value $0.99\,S^*(N)$ rounded upward at the 7th decimal, for $N = 5,\dots,16$;
+* **exact rational feasible stacks** (the lower-bound witnesses) for $N = 4,\dots,16$, verified in exact arithmetic with zero residual
   (Appendix A), together with independent checks of the base-singleton (S2+) and non-spinal chains;
 * the **baselines and cross-checks** of the methodological-progression table ($N = 12, 13$);
 * the **archived solver records** of all runs reported in the paper.
@@ -27,15 +27,20 @@ src/                 Python sources
   ablation_m1_order_prune.py, maxOverhang_proposed.py
                        order-pruned formulation (the base of model M1u) and shared solve/report utilities
   profile_run.py       layer-profile decomposition over P_2(N), with energy filter (--energy) and spinal cuts (--spine)
-  pd_certificate.py    assembles and audits a decomposition certificate (every profile closed?)
+  pd_certificate.py    assembles and audits a decomposition certificate: every expected profile present and closed,
+                       no unexpected profile, repeated records reported, run cutoff within the certificate cutoff
+  ns_audit.py          audits non-spinal exclusion records: expected branches (and t0 sub-branches) present and
+                       closed, no unexpected branch, solver threshold <= gamma_ns(N)
   ns_check.py          non-spinal exclusion branches S_ns(n, l*, gamma_ns); --split-t0 for the t0 split
   pd_race.py           re-solves open profiles of a run in a separate process (more threads / other seed)
   pd_split.py          rightmost-layer split of one profile (independent cross-check at N = 13)
   verify_rational_stacks.py
                        exact rational construction and zero-residual verification of the stacks N = 4..16
+  check_witness.py     re-checks a feasible stack reported by a solver run (forces, moments, contacts, spinality)
   check_exact_stacks.py
                        independent exact re-check of the stacks, distances to S*(N), S2+ and non-spinal chains
   summarize_certify.py collects result JSON files of monolithic runs into one table
+  profiles.py          solver-free helpers (profile enumeration, energy test, loaded-spine bound, bound tables)
 scripts/             one shell script per experiment (see the table below)
 data/                rational_stacks.json: exact fractions of all blocks and contact forces, N = 4..16
 results/             archived results of the runs reported in the paper (see results/README.md)
@@ -49,7 +54,8 @@ results/             archived results of the runs reported in the paper (see res
   free academic licenses are available from Gurobi. Without a license, the `gurobipy` package from PyPI runs
   in a size-limited mode that is sufficient for the certificates and the non-spinal checks for $N \le 9$
   (tested with `gurobipy` 14.0.0); larger sizes need a full license.
-* The exact-arithmetic checks (`scripts/verify_exact.sh`) need **no** optimization solver.
+* The exact-arithmetic checks (`scripts/verify_exact.sh`) and the auditors (`scripts/audit_archive.sh`,
+  `src/pd_certificate.py`, `src/ns_audit.py`) need **no** optimization solver: only Python with `mpmath`.
 
 ```bash
 conda env create -f environment.yml && conda activate maxoverhang
@@ -78,7 +84,10 @@ New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the ar
 | Main certificate table, tight certificates $N = 5..16$ | `scripts/certify.sh N [workers]` | `results/certificates/` |
 | Main certificate table, non-spinal exclusion $N = 5..16$ | `scripts/nonspinal.sh N [workers]` | `results/nonspinal/` |
 | $N = 16$ sub-branch table (Appendix B) | `scripts/nonspinal_n16_split.sh` | `results/nonspinal/` |
-| Positive reverse controls (Section 6.1) | `scripts/reverse_controls.sh` | — |
+| Re-audit of all archived certificates and exclusions | `scripts/audit_archive.sh` | `results/` |
+| Positive reverse controls with witnesses (Section 6) | `scripts/reverse_controls.sh` | `results/reverse_controls/` |
+| Stability under tighter tolerances (Section 6.1) | `scripts/tolerance_check.sh` | `results/tolerance_check/` |
+| Matched comparison with and without spinal cuts ($N = 11, 12, 13$, Section 6.2) | `scripts/ablation_sp.sh [workers]` | `results/ablation_sp/` |
 | Methodological-progression table ($N = 12, 13$) | `scripts/baselines.sh {m0_12, m0_13, pd_12, pd_13, pd_13_race, pd_13_split, pd_13_cert}` | `results/baselines/` |
 
 ### Reference effort (single-thread subproblems, Intel Core Ultra 7 265K)
@@ -93,7 +102,7 @@ The monolithic baselines of the progression table run for 48–72 hours each.
 ## Settings used in the paper
 
 * Tight cutoff $\gamma_N = \underline{z}\_{\mathbb{Q}}(N) + 10^{-5}$, rounded upward at the 7th decimal
-  (`CUT` in `scripts/common.sh`).
+  (`CUT` in `scripts/common.sh`); at $N = 15$ the runs used the slightly larger cutoff 2.0929064 instead of 2.0929063.
 * Certificate options (identical for every $N$):
   `profile_run.py N --model M1u --strengthen TB,S1,S2P,S4,C2 --rank-box --c2-layer --energy --spine
   --cutoff γ_N --param Heuristics=0.0 --param IntFeasTol=1e-9`; one thread per subproblem.
@@ -117,6 +126,15 @@ C2-Layer, `--rank-box` relative-rank boxes, `--energy` energy filter, `--spine` 
   $N = 7$ reverse control recovers the same non-spinal stack of overhang 1.3842371. With default tolerances,
   Gurobi 14.0.0 reports 1.1678937 for the $N = 4$ anchor; adding
   `--param FeasibilityTol=1e-9 --param IntFeasTol=1e-9` gives 1.1678932, as with Gurobi 13.0.1.
+* **Rounding.** Profiles are pruned by the energy test in exact arithmetic (every pruned profile has margin
+  at most -1/4), and candidate layers are removed with margins of at least 0.0165 (`check_exact_stacks.py`,
+  part 5). The loaded-spine constants are computed in double precision and increased by 1e-9; they differ from
+  a 60-digit evaluation by at most 2e-15 for all $\ell \le N \le 20$ (1.2e-15 with Python 3.10; Python 3.12 and later
+  sum floating-point numbers more accurately and give 4.7e-16; the archived runs used Python 3.10), and for $N \le 16$ the optimal loads of the
+  maximizing height have increments of at least 1.19, so $\hat{S}(N) = S^*(N)$ (part 6). The non-spinal threshold is $\gamma_{\mathrm{ns}}(N)$, the value $0.99\,S^*(N)$ rounded upward at the
+  7th decimal; the double-precision threshold used by the solver does not exceed it, and every closed record
+  stores the threshold of its run (`ns_audit.py`). The archived `ns_summary.txt` prints the solver threshold
+  rounded to the nearest 7th decimal, so it can show 1e-7 less than $\gamma_{\mathrm{ns}}(N)$.
 * **Exact arithmetic.** The lower bounds of the paper come from `verify_rational_stacks.py`, which uses Python
   `fractions.Fraction` only (no floating point); `check_exact_stacks.py` re-checks every stack with a separate
   equilibrium checker.
@@ -129,5 +147,7 @@ Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
 ## Citation
 
 Please cite the paper and this archive; see `CITATION.cff`.
-Archived on Zenodo: version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951)
-(the paper's version); all versions, [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950).
+Archived on Zenodo; all versions: [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950). The paper uses
+version 1.0.1 (this version); version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
+first release; version 1.0.1 adds the solver-free auditing tools and the records of the matched comparison, the
+tolerance check and the reverse controls.

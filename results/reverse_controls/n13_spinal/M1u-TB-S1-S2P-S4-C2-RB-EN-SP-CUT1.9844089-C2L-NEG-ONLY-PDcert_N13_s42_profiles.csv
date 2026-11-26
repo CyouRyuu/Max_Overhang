@@ -1,0 +1,2 @@
+profile,H,status,objective,bound,nodes,runtime_sec,pairs_fixed0,noncross,c2_general,tail_m,rank_box,c2_layer,energy_dE,vars,constrs
+1-2-2-2-3-2-1,7,OPTIMAL,1.984508892339226,1.9846833857786652,110255,36.39673590660095,54,2,0,0,24,4,,370,1071

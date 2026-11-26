@@ -1,0 +1,25 @@
+nohup: ignoring input
+================================================================================
+META: ProfileDecomp | model=M1u strengthen=['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] tail=False | N=13 | profiles=1 | LB=1.9845089 | Cutoff=1.9844089 | gap=0.0001 | seed=42 | workers=1 x threads=1 | TL/sub=3600s
+  Host=workstation | Gurobi=13.0.1 | Start=2026-11-26 07:00:45 | PID=272273
+================================================================================
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-26 07:01:22]   1/1 P=1-2-2-2-3-2-1          OPTIMAL    bound=1.9846834 nodes=    110255 t=     36.4s
+
+================================================================================
+SUMMARY_REPORT:
+  Status           : OPTIMAL
+  ObjVal           : 1.9845089
+  BestBound        : 1.9846834
+  Gap_rel          : 8.792e-05
+  Runtime_Sec      : 36.4  (sum over subproblems 36.4)
+  NodeCount        : 110255
+  Slowest profiles : 1-2-2-2-3-2-1 36.4s/110255n
+================================================================================
+profile - l*=-: overhang 1.9845089; spinal (closed / Paterson-Zwick): True / True; max violations force_balance 2.1e-13, moment_balance 5.7e-13, contact_interval 0.0e+00, negative_force 0.0e+00, layer_link 0.0e+00, same_layer_spacing 0.0e+00
+N=7 gamma=1.380000000000 (S*=1.5318708) branches=23 open=1 nodes=121 thread_s=0 wall=0s best_nonspinal_found=1.3842371 => NOT CERTIFIED
+profile 1-2-1-2-1 l*=4: overhang 1.3842371; spinal (closed / Paterson-Zwick): False / True; max violations force_balance 0.0e+00, moment_balance 4.5e-07, contact_interval 8.9e-16, negative_force 0.0e+00, layer_link 0.0e+00, same_layer_spacing 0.0e+00
+N=9 gamma=1.600000000000 (S*=1.7152728) branches=92 open=1 nodes=3615 thread_s=1 wall=1s best_nonspinal_found=1.6318871 => NOT CERTIFIED
+profile 1-2-1-2-2-1 l*=5: overhang 1.6318871; spinal (closed / Paterson-Zwick): False / True; max violations force_balance 8.9e-16, moment_balance 8.9e-07, contact_interval 8.9e-16, negative_force 0.0e+00, layer_link 0.0e+00, same_layer_spacing 0.0e+00
+N=9 gamma=1.663814631062 (S*=1.7152728) branches=92 open=0 nodes=558 thread_s=1 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma

@@ -1,0 +1,1 @@
+N=7 gamma=1.380000000000 (S*=1.5318708) branches=23 open=1 nodes=121 thread_s=0 wall=0s best_nonspinal_found=1.3842371 => NOT CERTIFIED

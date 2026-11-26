@@ -1,18 +1,24 @@
 {
   "N": 13,
   "certified": true,
-  "lower_bound_feasible": 1.9845133,
-  "cutoff_upper_bound": 1.9855055566499997,
-  "relative_gap": 0.0004999999999998997,
+  "lower_bound_feasible": 1.9845089,
+  "cutoff_upper_bound": 1.9855055567,
+  "relative_gap": 0.0005022183070078101,
   "profiles_total": 225,
   "profiles_closed": 225,
   "missing": [],
   "open": [],
+  "unexpected": [],
+  "duplicates_last_record_used": {},
+  "run_cutoff": null,
+  "run_cutoff_within_certificate": true,
+  "closed_above_cutoff": [],
+  "split_missing_or_open_layers": {},
   "max_profile_bound": 1.9855055566499997,
   "total_nodes": 57847794,
   "total_thread_seconds": 13265.579289913177,
-  "S2plus_margin": 0.020900961538461438,
-  "S2plus_uses_CERT_UB_N_minus_1": 1.9251508,
+  "S2plus_margin": 0.02094596153846151,
+  "S2plus_uses_CERT_UB_N_minus_1": 1.9251014,
   "status_counts": {
     "CUTOFF": 220,
     "INFEASIBLE": 5
@@ -34,7 +40,7 @@
       "runtime_sec": 2385.601010322571,
       "threads": 3,
       "seed": 1,
-      "source": "results_pd13_race/P1-2-2-2-3-2-1_s1_result.json"
+      "source": "results/baselines/nosp_N13/race/P1-2-2-2-3-2-1_s1_result.json"
     },
     {
       "profile": "1-2-2-3-2-2-1",
@@ -85,5 +91,5 @@
       "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
     }
   ],
-  "created": "2026-11-23 11:01:21"
+  "created": "2026-11-25 19:36:20"
 }

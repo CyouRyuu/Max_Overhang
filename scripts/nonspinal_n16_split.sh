@@ -9,3 +9,5 @@ W="${1:-11}"
 "$PY" "$SRC/ns_check.py" 16 --rel 1e-2 \
     --only "1-2-2-2-2-2-3-2:7,1-2-2-2-2-3-3-1:7,1-2-2-2-3-3-2-1:6" \
     --split-t0 --workers "$W" --threads 1 --time-limit 86400 --outdir "$OUT/nonspinal_n16_split"
+"$PY" "$SRC/ns_audit.py" 16 "$OUT/nonspinal/ns_N16_rel0.01.csv" \
+    --split "$OUT/nonspinal_n16_split/ns_N16_rel0.01_only_t0.csv"

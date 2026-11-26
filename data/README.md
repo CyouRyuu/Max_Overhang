@@ -1,6 +1,6 @@
 # data/
 
-`rational_stacks.json` — the optimal single-root stacks for N = 4..16 in exact rational arithmetic
+`rational_stacks.json` — the single-root feasible stacks (lower-bound witnesses) for N = 4..16 in exact rational arithmetic
 (Appendix A of the paper), written by
 
     python3 src/verify_rational_stacks.py --dump-json data/rational_stacks.json

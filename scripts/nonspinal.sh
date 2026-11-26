@@ -7,3 +7,5 @@ set -euo pipefail
 source "$(dirname "$0")/common.sh"
 N="$1"; W="${2:-7}"
 "$PY" "$SRC/ns_check.py" "$N" --rel 1e-2 --workers "$W" --outdir "$OUT/nonspinal"
+CSV="$OUT/nonspinal/ns_N${N}_rel0.01.csv"
+[[ "$N" == 16 ]] || "$PY" "$SRC/ns_audit.py" "$N" "$CSV"

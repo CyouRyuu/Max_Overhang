@@ -1,0 +1,2 @@
+N=9 gamma=1.600000000000 (S*=1.7152728) branches=92 open=1 nodes=3615 thread_s=1 wall=1s best_nonspinal_found=1.6318871 => NOT CERTIFIED
+N=9 gamma=1.663814631062 (S*=1.7152728) branches=92 open=0 nodes=558 thread_s=1 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma

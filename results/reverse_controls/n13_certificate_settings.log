@@ -1,0 +1,18 @@
+================================================================================
+META: ProfileDecomp | model=M1u strengthen=['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] tail=False | N=13 | profiles=1 | LB=1.9845089 | Cutoff=1.9844089 | gap=0.0005 | seed=42 | workers=1 x threads=1 | TL/sub=3600s
+  Host=workstation | Gurobi=13.0.1 | Start=2026-11-25 22:55:12 | PID=267899
+================================================================================
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-25 23:55:18]   1/1 P=1-2-2-2-3-2-1          TIMEOUT    bound=1.9845089 nodes=  27038557 t=   3600.4s
+
+================================================================================
+SUMMARY_REPORT:
+  Status           : TIME_LIMIT
+  ObjVal           : 1.9845089
+  BestBound        : 1.9845089
+  Gap_rel          : 2.143e-09
+  Runtime_Sec      : 3605.2  (sum over subproblems 3600.4)
+  NodeCount        : 27038557
+  Slowest profiles : 1-2-2-2-3-2-1 3600.4s/27038557n
+================================================================================

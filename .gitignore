@@ -32,3 +32,6 @@ Thumbs.db
 .idea/
 *~
 *.swp
+
+# The archived records in results/ are always committed, including their logs
+!results/**/*.log

@@ -1,0 +1,1 @@
+N=8 gamma=1.600000000000 (S*=1.6315068) branches=48 open=0 nodes=61 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
