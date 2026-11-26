@@ -5,13 +5,17 @@ Checks, for one N:
     energy filter, l* = 2..H): no branch missing, no unexpected branch, repeated records reported;
   * every branch is closed (INFEASIBLE, CUTOFF, EMPTY, or TIE), or, if it is open in the main run, it is
     covered by a t0 split (--split) in which every expected sub-branch t0 in J_{l*} is present and closed;
+  * the analytic statuses are checked mechanically: a main record is EMPTY exactly when J_{l*} is empty, a
+    split record is TIE exactly when t0 = l*, and a recorded closure kind (newer runs) agrees with the status;
+    repeated records with conflicting closed statuses fail the audit;
   * the threshold: gamma_ns(N) = ceil_7((1 - rel) S*(N)) is computed so that rounding errors cannot change the
     seventh decimal (the computed value must lie at least 1e-5 grid units from a grid point), and every closed
     record (CUTOFF, INFEASIBLE) carries the threshold its run used, which must not exceed gamma_ns(N); the solver
     threshold of ns_check.py (double precision) is checked in the same way;
   * with --prev-cert / --prev-ns, the condition of the corollary that excludes the stacks with n_2 = 1:
     zbar(N-1) + 1/(2N) < gamma_ns(N), or gamma_ns(N-1) + 1/(2N) < gamma_ns(N) with the exclusion at N - 1
-    certified (its JSON from --out).  Needs no solver.
+    certified (its JSON from --out).  Without these options only the branch coverage is audited, and the
+    report says so.  Needs no solver.
 
   python3 src/ns_audit.py 16 results/nonspinal/ns_N16_rel0.01.csv --split results/nonspinal/ns_N16_rel0.01_only_t0.csv
 """
@@ -27,14 +31,40 @@ import profiles as pf
 CLOSED = {"INFEASIBLE", "CUTOFF", "EMPTY", "TIE"}
 
 
+KIND = {"EMPTY": "analytic: J empty", "TIE": "analytic: t0 = l*"}
+
+
 def read(path, with_t0):
-    recs, cnt = {}, Counter()
+    recs, cnt, hist = {}, Counter(), {}
     with open(path, encoding="utf-8") as f:
         for r in csv.DictReader(f):
             key = (r["profile"], int(r["lstar"])) + ((int(r["t0"]),) if with_t0 and r.get("t0") not in (None, "") else ())
             cnt[key] += 1
+            hist.setdefault(key, []).append(r["status"])
             recs[key] = r
-    return recs, {k: c for k, c in cnt.items() if c > 1}
+    conflicts = {k: h for k, h in hist.items() if len(h) > 1 and
+                 (len({x for x in h if x in CLOSED}) > 1 or (h[-1] not in CLOSED and any(x in CLOSED for x in h)))}
+    return recs, {k: c for k, c in cnt.items() if c > 1}, conflicts
+
+
+def status_errors(recs, J, split):
+    """Mechanical check of the analytic statuses (see the module docstring)."""
+    bad = []
+    for k, r in recs.items():
+        st, kind = r["status"], (r.get("closure") or "").strip()
+        jk = J.get(k[:2])
+        if jk is None:
+            continue                                   # unexpected record, reported elsewhere
+        if split:
+            t0 = k[2] if len(k) > 2 else None
+            ok = (st == "TIE") == (t0 is not None and t0 == k[1]) and st != "EMPTY"
+        else:
+            ok = (st == "EMPTY") == (not jk) and st != "TIE"
+        if kind:
+            ok = ok and (KIND.get(st) == kind if st in KIND else not kind.startswith("analytic"))
+        if not ok:
+            bad.append(k + (st, kind))
+    return sorted(bad)
 
 
 def main():
@@ -62,14 +92,17 @@ def main():
             expected.add((ptxt, l))
             J[(ptxt, l)] = [t for t in range(3, l + 1) if p[t - 2] >= 2]
 
-    recs, dup = read(a.csv, with_t0=False)
+    recs, dup, conflicts = read(a.csv, with_t0=False)
+    status_bad = status_errors(recs, J, split=False)
     missing = sorted(expected - set(recs))
     unexpected = sorted(set(recs) - expected)
     open_main = sorted(k for k in expected & set(recs) if recs[k]["status"] not in CLOSED)
 
     split_missing, split_open, split_unexpected, split_dup = [], [], [], {}
     if a.split:
-        srecs, split_dup = read(a.split, with_t0=True)
+        srecs, split_dup, split_conflicts = read(a.split, with_t0=True)
+        status_bad += status_errors(srecs, J, split=True)
+        conflicts = {**conflicts, **split_conflicts}
         want = {k + (t,) for k in open_main for t in J[k]} | {k for k in open_main if not J[k]}
         split_missing = sorted(want - set(srecs))
         split_unexpected = sorted(set(srecs) - want)
@@ -106,7 +139,8 @@ def main():
     above = [b for b in used if b > gamma_ns]
     gamma_ok = robust and solver_gamma <= gamma_ns and not above and not bad_bound
 
-    ok = not (missing or unexpected or still_open or split_missing or split_open or split_unexpected) and gamma_ok
+    ok = not (missing or unexpected or still_open or split_missing or split_open or split_unexpected
+              or status_bad or conflicts) and gamma_ok
 
     # Stacks with n_2 = 1 are not enumerated; the corollary excludes them above gamma_ns(N) if
     #   zbar(N-1) + 1/(2N) < gamma_ns(N)          (general condition, zbar from the certificate of N - 1), or
@@ -140,7 +174,9 @@ def main():
     for name, v in [("missing", missing), ("unexpected", unexpected), ("repeated", dup),
                     ("open (no split given)", still_open), ("split missing", split_missing),
                     ("split unexpected", split_unexpected), ("split open", split_open),
-                    ("closed records without a finite threshold", bad_bound)]:
+                    ("closed records without a finite threshold", bad_bound),
+                    ("analytic status not matching its condition", status_bad),
+                    ("conflicting repeated records", conflicts)]:
         if v:
             print(f"  {name}: {v}")
     if chain["checked"]:
@@ -149,12 +185,17 @@ def main():
         print(f"  stacks with n_2 = 1 (condition of the corollary): {'; '.join(parts)}")
     else:
         print("  stacks with n_2 = 1: condition not checked here (pass --prev-cert and/or --prev-ns)")
-    print(f"  NON-SPINAL EXCLUSION {'CERTIFIED' if ok else 'NOT CERTIFIED'} above gamma_ns({a.N}) = {gamma_ns:.7f}")
+    print(f"  analytic statuses checked: EMPTY iff J empty, TIE iff t0 = l*; violations {len(status_bad)}, "
+          f"conflicting repeated records {len(conflicts)}")
+    print(f"  NON-SPINAL EXCLUSION {'CERTIFIED' if ok else 'NOT CERTIFIED'} above gamma_ns({a.N}) = {gamma_ns:.7f}"
+          + ("" if chain["checked"] else " (branch coverage only; n_2 = 1 condition not checked)"))
     if a.out:
         with open(a.out, "w", encoding="utf-8") as f:
             json.dump({"N": a.N, "certified": ok, "gamma_ns": gamma_ns, "solver_gamma": solver_gamma,
                        "branches": len(expected), "open_main": len(open_main), "split_subbranches": len(want),
-                       "n2_equals_1_condition": chain}, f, indent=2)
+                       "n2_equals_1_condition": chain, "chain_checked": chain["checked"],
+                       "analytic_status_violations": [list(map(str, x)) for x in status_bad],
+                       "conflicting_repeated_records": {str(k): v for k, v in conflicts.items()}}, f, indent=2)
     sys.exit(0 if ok else 1)
 
 

@@ -273,7 +273,8 @@ def build_profile_model(N, profile, model_name, opts, eta, cutoff, tail, log, ra
 
 def solve_one(job):
     (N, profile, model_name, opts, eta, cutoff, gap, seed, threads, tlim, tail, logdir, rank_box, c2_layer,
-     params) = job
+     params) = job[:15]
+    write_model = job[15] if len(job) > 15 else False      # --write-models: model file next to the log
     t0 = time.time()
     lines = []
     model, info = build_profile_model(N, profile, model_name, set(opts), eta, cutoff, tail, lines.append,
@@ -284,10 +285,10 @@ def solve_one(job):
         if info.get("energy_infeasible"):   # energy test: no feasible stack has this profile
             return {"profile": ptxt, "H": len(profile), "status": "INFEASIBLE", "objective": float("nan"),
                     "bound": float("-inf"), "nodes": 0, "runtime_sec": time.time() - t0, "stack": None,
-                    **info, "vars": 0, "constrs": 0}
+                    **info, "vars": 0, "constrs": 0, "closure": "analytic: energy test", "cutoff": cutoff}
         return {"profile": ptxt, "H": len(profile), "status": "CUTOFF", "objective": float("nan"),
                 "bound": cutoff, "nodes": 0, "runtime_sec": time.time() - t0, "stack": None, **info,
-                "vars": 0, "constrs": 0}
+                "vars": 0, "constrs": 0, "closure": "analytic: no candidate layer", "cutoff": cutoff}
     model.setParam("OutputFlag", 1); model.setParam("LogToConsole", 0)
     if logdir:
         model.setParam("LogFile", os.path.join(logdir, f"P{ptxt}.log"))
@@ -305,6 +306,8 @@ def solve_one(job):
             except ValueError:
                 val = v
         model.setParam(k.strip(), val)
+    if logdir and write_model:
+        model.update(); model.write(os.path.join(logdir, f"P{ptxt}.mps.gz"))
     model.optimize()
     st = model.Status
     nodes_extra = 0
@@ -325,7 +328,12 @@ def solve_one(job):
     if model.SolCount > 0:
         val = {v.VarName: v.X for v in model.getVars()}
         stack = base.stack_from_values(N, val)
+    try:
+        objbound = model.ObjBound
+    except gp.GurobiError:                  # not available, e.g. after an infeasibility proof
+        objbound = float("nan")
     res = {"profile": ptxt, "H": len(profile), "status": status, "objective": obj, "bound": bound,
+           "closure": "solver", "gurobi_status": int(st), "obj_bound": objbound, "cutoff": cutoff,
            "nodes": int(model.NodeCount) + nodes_extra, "runtime_sec": time.time() - t0, "stack": stack, **info,
            "vars": model.NumVars, "constrs": model.NumConstrs}
     model.dispose()
@@ -346,6 +354,8 @@ def main():
     ap.add_argument("--time-limit", type=float, default=3600.0, help="seconds per subproblem")
     ap.add_argument("--outdir", default="results_profile")
     ap.add_argument("--keep-logs", action="store_true", help="write one Gurobi log per profile")
+    ap.add_argument("--write-models", action="store_true",
+                    help="with --keep-logs: also write the model of every solved profile (MPS, gzip)")
     ap.add_argument("--rank-box", action="store_true", help="layer-rank coordinate box (M1u)")
     ap.add_argument("--c2-layer", action="store_true", help="Family C2-Layer rows on two-block layers")
     ap.add_argument("--energy", action="store_true",
@@ -424,13 +434,13 @@ def main():
     solver_params = [f"NodefileStart={a.nodefile_start}", f"SoftMemLimit={a.soft_mem_limit}",
                      f"NodefileDir={nodedir}"] + list(a.param)
     jobs = [(a.N, p, a.model, sorted(opts), eta, cutoff, a.gap, a.seed, a.threads, a.time_limit, a.tail, logdir,
-             a.rank_box, a.c2_layer, solver_params)
+             a.rank_box, a.c2_layer, solver_params, a.write_models)
             for p in profiles if "-".join(map(str, p)) not in prev]
     t0 = time.time()
     rows = list(prev.values())
     fields = ["profile", "H", "status", "objective", "bound", "nodes", "runtime_sec",
               "pairs_fixed0", "noncross", "c2_general", "tail_m", "rank_box", "c2_layer", "energy_dE",
-              "vars", "constrs"]
+              "vars", "constrs", "closure", "gurobi_status", "obj_bound", "cutoff"]
     new_file = not (a.resume and os.path.exists(csv_path))
     with open(csv_path, "w" if new_file else "a", newline="", encoding="utf-8") as fcsv:
         wr = csv.DictWriter(fcsv, fieldnames=fields, extrasaction="ignore")

@@ -48,20 +48,21 @@ from profiles import spinal_opt  # noqa: E402
 def solve_branch(job):
     N, profile, lstar, opts, gamma, threads, tlim, params = job[:8]
     tz = job[8] if len(job) > 8 else None          # first impure layer (None = unsplit branch)
+    logdir = job[9] if len(job) > 9 else None      # Gurobi log and model file per branch (--logdir)
     t0 = time.time()
     J = [t for t in range(3, lstar + 1) if profile[t - 2] >= 2]
     ptxt = "-".join(map(str, profile))
     base = {"profile": ptxt, "lstar": lstar, "t0": ("" if tz is None else tz)}
     if not J:
-        return {**base, "status": "EMPTY", "nodes": 0, "bound": float("-inf"),
+        return {**base, "status": "EMPTY", "closure": "analytic: J empty", "nodes": 0, "bound": float("-inf"),
                 "objective": float("nan"), "runtime_sec": 0.0}
     if tz is not None and tz == lstar:
-        return {**base, "status": "TIE", "nodes": 0, "bound": float("-inf"),
+        return {**base, "status": "TIE", "closure": "analytic: t0 = l*", "nodes": 0, "bound": float("-inf"),
                 "objective": float("nan"), "runtime_sec": 0.0}
     m = ps.build_branch(N, profile, opts, gamma, lstar, True, True, False)
     if m is None:
-        return {**base, "status": "INFEASIBLE", "nodes": 0, "bound": float("-inf"),
-                "objective": float("nan"), "runtime_sec": time.time() - t0}
+        return {**base, "status": "INFEASIBLE", "closure": "bounds before solving", "nodes": 0,
+                "bound": float("-inf"), "objective": float("nan"), "runtime_sec": time.time() - t0}
     V = m.getVarByName
     _, blocks = pr.layers_of(profile)
     if tz is None:
@@ -80,10 +81,16 @@ def solve_branch(job):
         m.addConstr(V(f"X_{sp}") + W <= 2.0 * w * pr.spinal_bound(tz - 1, N) + 1e-9, name="LowerSpine")
         m.update()
     m.setParam("OutputFlag", 0); m.setParam("NonConvex", 2); m.setParam("Threads", threads)
+    if logdir:
+        name_ = f"{ptxt}_l{lstar}" + ("" if tz is None else f"_t{tz}")
+        m.setParam("OutputFlag", 1); m.setParam("LogToConsole", 0)
+        m.setParam("LogFile", os.path.join(logdir, name_ + ".log"))
     m.setParam("MIPGap", 1e-4); m.setParam("TimeLimit", float(tlim)); m.setParam("Cutoff", gamma)
     for kv in params:
         k, v = kv.split("=", 1)
         m.setParam(k.strip(), float(v) if any(c in v for c in ".eE") else int(v))
+    if logdir:
+        m.update(); m.write(os.path.join(logdir, name_ + ".mps.gz"))
     m.optimize()
     st = m.Status
     if st == GRB.INF_OR_UNBD:
@@ -93,7 +100,12 @@ def solve_branch(job):
     witness = None
     if m.SolCount > 0:                               # feasible stack found (only when a branch is not closed)
         witness = pr.base.stack_from_values(N, {v.VarName: v.X for v in m.getVars()})
-    res = {**base, "status": name, "nodes": int(m.NodeCount), "witness": witness,
+    try:
+        objbound = m.ObjBound
+    except gp.GurobiError:                           # not available, e.g. after an infeasibility proof
+        objbound = float("nan")
+    res = {**base, "status": name, "closure": "solver", "gurobi_status": int(st), "obj_bound": objbound,
+           "cutoff": gamma, "nodes": int(m.NodeCount), "witness": witness,
            "bound": (m.ObjBound if name not in CLOSED else gamma),
            "objective": (m.ObjVal if m.SolCount > 0 else float("nan")), "runtime_sec": time.time() - t0}
     m.dispose()
@@ -113,6 +125,8 @@ def main():
     ap.add_argument("--outdir", default="results_ns")
     ap.add_argument("--split-t0", action="store_true",
                     help="split every branch by the lowest impure layer t0 (see module docstring)")
+    ap.add_argument("--logdir", default=None,
+                    help="write a Gurobi log and the model (MPS, gzip) of every solved branch into this folder")
     ap.add_argument("--only", default=None,
                     help="re-run only these branches: comma-separated profile:lstar, e.g. 1-2-2-3-2:5,1-2-3-3:4")
     a = ap.parse_args()
@@ -129,7 +143,10 @@ def main():
             continue
         H = len(p)
         for l in range(2, H + 1):
-            jobs.append((a.N, p, l, opts, gamma, a.threads, a.time_limit, ["Heuristics=0.0", "IntFeasTol=1e-9"] + a.param))
+            jobs.append((a.N, p, l, opts, gamma, a.threads, a.time_limit, ["Heuristics=0.0", "IntFeasTol=1e-9"] + a.param,
+                         None, a.logdir))
+    if a.logdir:
+        os.makedirs(a.logdir, exist_ok=True)
     if a.only:
         keep = {(x.split(":")[0].strip(), int(x.split(":")[1])) for x in a.only.split(",") if x.strip()}
         jobs = [j for j in jobs if ("-".join(map(str, j[1])), j[2]) in keep]
@@ -141,14 +158,15 @@ def main():
         for j in jobs:
             p, l = j[1], j[2]
             Jl = [t for t in range(3, l + 1) if p[t - 2] >= 2]
-            sub.extend([j + (t,) for t in Jl] if Jl else [j])
+            sub.extend([j[:8] + (t, j[9]) for t in Jl] if Jl else [j])
         jobs = sub
         tag += "_t0"
     t0 = time.time()
     rows = []
     path = os.path.join(a.outdir, tag + ".csv")
     with open(path, "w", newline="") as f:
-        wr = csv.DictWriter(f, fieldnames=["profile", "lstar", "t0", "status", "objective", "bound", "nodes", "runtime_sec"])
+        wr = csv.DictWriter(f, fieldnames=["profile", "lstar", "t0", "status", "objective", "bound", "nodes", "runtime_sec",
+                                           "closure", "gurobi_status", "obj_bound", "cutoff"], extrasaction="ignore")
         wr.writeheader()
         it = (map(solve_branch, jobs) if a.workers <= 1 else
               mp.get_context("spawn").Pool(a.workers, maxtasksperchild=20).imap_unordered(solve_branch, jobs))

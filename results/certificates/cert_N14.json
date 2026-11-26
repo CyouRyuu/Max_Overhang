@@ -23,6 +23,10 @@
   "S2plus_upper_bound_source": "cert_N13.json",
   "S2plus_previous_certified": true,
   "family_SP": true,
+  "chain_checked": true,
+  "conflicting_repeated_records": {},
+  "analytic_records_checked": 403,
+  "analytic_record_mismatches": [],
   "analytic_closures": {
     "energy": 25,
     "no_candidate_layer": 1,
@@ -127,5 +131,5 @@
       "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT2.0382270-C2L-SP1-PDcert_N14_s42_profiles.csv"
     }
   ],
-  "created": "2026-11-26 17:34:35"
+  "created": "2026-11-26 19:34:46"
 }

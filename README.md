@@ -104,6 +104,7 @@ New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the ar
 | Index of every archived run (solver version, options, parameters, cutoff or threshold, files) | `python3 src/make_index.py` | `results/INDEX.csv` |
 | Positive reverse controls with witnesses, and the exactly balanced rational non-spinal stack at $`N = 9`$ (Section 6) | `scripts/reverse_controls.sh`; `src/exact_witness.py --check` (no solver) | `results/reverse_controls/` |
 | Stability under tighter tolerances (Section 6.1): hardest certificate profiles at $`N = 14, 15`$; $`N = 16`$ non-spinal sub-branches | `scripts/tolerance_check.sh`; `scripts/tolerance_check_ns16.sh` | `results/tolerance_check/` |
+| Raw Gurobi logs and model files (MPS) of key instances: certificates and non-spinal exclusions at $`N = 5, 7`$, and the 11 $`N = 16`$ sub-branches that need the solver; every record also stores the closure kind (analytic or solver), the raw Gurobi status, ObjBound and the cutoff | `scripts/raw_logs.sh [workers]` | `results/raw_logs/` |
 | Matched comparison with and without spinal cuts ($`N = 11, 12, 13`$, Section 6.2) | `scripts/ablation_sp.sh [workers]` | `results/ablation_sp/` |
 | Methodological-progression table ($`N = 12, 13`$) | `scripts/baselines.sh {m0_12, m0_13, pd_12, pd_13, pd_13_race, pd_13_split, pd_13_cert}` | `results/baselines/` |
 

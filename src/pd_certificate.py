@@ -19,7 +19,9 @@ cutoff; a profile closed by --split has a closed L<l>_result.json for every cand
 rightmost block can exceed the cutoff by the base envelope and the energy layer bounds); with --prev-cert, the
 S2+ condition zbar(N-1) + 1/(2N) < lower bound against the audited certificate of N - 1 (part of the pass
 condition).  Profiles closed without a solver run are listed with their analytic reason (energy test, or no
-candidate layer).  Needs no solver.
+candidate layer), and each such record (no model built: vars = 0) is checked against the analytic reason
+recomputed here, in both directions; repeated records with conflicting closed statuses fail the check.  Needs no
+solver.
 """
 import os
 import math
@@ -35,28 +37,30 @@ import profiles as pf
 CLOSED = ("CUTOFF", "INFEASIBLE")
 
 
-def split_candidate_layers(N, profile, cutoff, eta=0.0):
+def split_candidate_layers(N, profile, cutoff, eta=0.0, energy=True):
     """Layers l >= 2 whose rightmost block can exceed the cutoff: X_first(l) + W <= x1ub + W + 2w (l - 1) with the
     tightened base envelope x1ub = (N - 3) w / N - eps, and X_first(l) + W <= energy layer bound.  Every stack of
     the profile above the cutoff has its principal block in one of these layers."""
     W = 0.5; w = W * (1.0 - eta); eps = W * eta
     x1ub = (N - 3) * w / N - eps
     ok, _, ubs = pf.energy_profile_check(N, profile, eta)
+    if not energy:
+        ok, ubs = True, {}
     if not ok:
         return []
     return [l for l in range(2, len(profile) + 1)
             if x1ub + W + 2 * w * (l - 1) > cutoff and (l not in ubs or ubs[l] > cutoff)]
 
 
-def closure_reason(N, profile, cutoff, spine, eta=0.0):
+def closure_reason(N, profile, cutoff, spine, eta=0.0, energy=True):
     """Analytic reason why a profile needs no solver run, or None.  'energy': the second-moment energy test
     rejects the profile (Delta E < 0); 'no candidate layer': no layer can hold a principal block above the cutoff
     (base envelope, energy layer bounds and, with family SP, the pure-chain bound 2w S^_l(N) of the spinal cuts)."""
     ok, dE, _ = pf.energy_profile_check(N, profile, eta)
-    if not ok:
+    if energy and not ok:
         return "energy", dE
     W = 0.5; w = W * (1.0 - eta)
-    cands = split_candidate_layers(N, profile, cutoff, eta)
+    cands = split_candidate_layers(N, profile, cutoff, eta, energy)
     if spine:
         cands = [l for l in cands if [t for t in range(3, l + 1) if profile[t - 2] >= 2]
                  or 2.0 * w * pf.spinal_bound(l, N) + 1e-9 > cutoff]
@@ -85,19 +89,27 @@ def main():
 
     lb = pf.KNOWN_LB[a.N] if a.lb is None else a.lb
     cutoff = lb * (1 + a.gap) if a.cutoff is None else a.cutoff
-    rows, seen = {}, {}
+    rows, seen, hist, csv_meta = {}, {}, {}, {}
     with open(a.csv, encoding="utf-8") as f:
         for r in csv.DictReader(f):
             # a run continued with --resume may record a profile again; the last record is the one used
             seen[r["profile"]] = seen.get(r["profile"], 0) + 1
+            hist.setdefault(r["profile"], []).append(r["status"])
+            csv_meta[r["profile"]] = (r["status"], (r.get("vars") or "").strip(), (r.get("closure") or "").strip())
             rows[r["profile"]] = {"status": r["status"], "bound": float(r["bound"]), "nodes": int(float(r["nodes"])),
                                   "runtime_sec": float(r["runtime_sec"]), "source": os.path.basename(a.csv)}
     duplicates = {p: c for p, c in seen.items() if c > 1}
+    # repeated records conflict if two of them are closed with different statuses, or if a closed record is
+    # followed by an open one (a resumed run only re-solves profiles that were open)
+    conflicts = {p: h for p, h in hist.items() if len(h) > 1 and
+                 (len({x for x in h if x in CLOSED}) > 1 or (h[-1] not in CLOSED and any(x in CLOSED for x in h)))}
     # the cutoff actually used by the run is stored in its *_result.json next to the CSV
     run_json = a.csv.replace("_profiles.csv", "_result.json")
     run_rec = json.load(open(run_json)) if os.path.exists(run_json) else {}
     run_cutoff = run_rec.get("cutoff")
     spine = "'SP'" in str(run_rec.get("method", ""))
+    # the energy test runs only with option EN (in the run tag, e.g. ...-RB-EN-...)
+    energy = "-EN-" in os.path.basename(a.csv) or "'EN'" in str(run_rec.get("method", ""))
     for d in a.race:
         for p in glob.glob(os.path.join(d, "P*_result.json")):
             r = json.load(open(p))
@@ -137,7 +149,7 @@ def main():
                                                         (rows[p]["status"] == "OPTIMAL" and rows[p]["bound"] <= cutoff))]
     bound = max((rows[p]["bound"] for p in profiles if p in rows), default=float("nan"))
     ok = (not missing and not openp and not unexpected and not above and not split_issues and cutoff_ok
-          and bound <= cutoff + 1e-12)
+          and bound <= cutoff + 1e-12 and not conflicts)
     nodes = sum(rows[p]["nodes"] for p in profiles if p in rows)
     cpu = sum(rows[p]["runtime_sec"] * (rows[p].get("threads") or 1) for p in profiles if p in rows)
     slow = sorted((p for p in profiles if p in rows), key=lambda p: -rows[p]["runtime_sec"])[:8]
@@ -157,9 +169,20 @@ def main():
     reasons = {}
     for p in profiles:
         if p in rows and rows[p]["status"] in CLOSED:
-            r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine)
+            r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine, energy=energy)
             if r:
                 reasons[p] = r
+    # records written without a solver run (vars = 0) must match the recomputed analytic reason, and conversely
+    analytic_mismatch = []
+    for p, (st, nv, cl) in csv_meta.items():
+        if p not in set(profiles) or nv == "":
+            continue
+        r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine, energy=energy)
+        want = None if r is None else ("INFEASIBLE" if r[0] == "energy" else "CUTOFF")
+        if (nv == "0") != (r is not None) or (r is not None and st != want) or \
+                (cl.startswith("analytic") and r is None):
+            analytic_mismatch.append((p, st, nv, cl, None if r is None else r[0]))
+    ok = ok and not analytic_mismatch
     n_energy = sum(1 for r in reasons.values() if r[0] == "energy")
     n_empty = sum(1 for r in reasons.values() if r[0] == "no candidate layer")
     worst_dE = max((r[1] for r in reasons.values() if r[0] == "energy"), default=None)
@@ -171,6 +194,9 @@ def main():
            "total_thread_seconds": cpu, "S2plus_margin": margin, "S2plus_ok": s2p_ok,
            "S2plus_upper_bound_N_minus_1": prev_ub, "S2plus_upper_bound_source": prev_src,
            "S2plus_previous_certified": prev_ok, "family_SP": spine,
+           "chain_checked": bool(a.prev_cert), "conflicting_repeated_records": conflicts,
+           "analytic_records_checked": sum(1 for v in csv_meta.values() if v[1] != ""),
+           "analytic_record_mismatches": analytic_mismatch,
            "analytic_closures": {"energy": n_energy, "no_candidate_layer": n_empty,
                                  "largest_energy_margin": (str(worst_dE) if worst_dE is not None else None),
                                  "profiles": {p: r[0] for p, r in reasons.items()}},
@@ -195,14 +221,20 @@ def main():
              f"- S2+ (n_2 = 2) condition zbar({a.N - 1}) + 1/(2N) < lower bound: margin {margin:.5f} "
              f"({'holds' if s2p_ok else 'FAILS'}); zbar({a.N - 1}) = {prev_ub} from {prev_src}"
              + ("" if prev_ok is None else f", certified: {prev_ok}"),
+             ("- S2+ precondition checked against the audited certificate of N - 1" if a.prev_cert else
+              "- S2+ precondition checked against the table CERT_UB only (coverage audit; pass --prev-cert to check the chain)"),
              f"- closures without a solver run: {n_energy} by the energy test (largest Delta E {worst_dE}), "
              f"{n_empty} with no candidate layer; {res['solver_closures']} closed by the solver",
+             f"- records without a solver run checked against the recomputed analytic reason: "
+             f"{res['analytic_records_checked']} records, {len(analytic_mismatch)} mismatches; conflicting repeated "
+             f"records: {len(conflicts)}",
              f"- total nodes {nodes:,}; total thread-seconds {cpu:,.0f}", "",
              "| slowest profile | status | nodes | seconds | source |", "|---|---|---|---|---|"]
     lines += [f"| {p} | {rows[p]['status']} | {rows[p]['nodes']:,} | {rows[p]['runtime_sec']:.1f} | {rows[p]['source']} |"
               for p in slow]
-    if missing or openp or unexpected or duplicates or above or split_issues or not cutoff_ok:
+    if missing or openp or unexpected or duplicates or above or split_issues or not cutoff_ok or analytic_mismatch:
         lines += ["", f"missing: {missing}", f"open: {openp}", f"unexpected: {unexpected}", f"repeated: {duplicates}",
+                  f"conflicting repeated records: {conflicts}", f"analytic record mismatches: {analytic_mismatch}",
                   f"closed above cutoff: {above}", f"split layers missing or open: {split_issues}",
                   f"run record: {'cutoff ' + str(run_cutoff) if run_cutoff is not None else 'missing'}"]
     with open(out + ".md", "w", encoding="utf-8") as f:

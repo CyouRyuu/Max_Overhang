@@ -13,6 +13,7 @@
 6. The loaded-spine constants: the double-precision values of S^_r(N) used by the cuts differ from a 60-digit
    evaluation by far less than the safety margin 1e-9, and for N <= 16 the optimal loads of the maximizing height
    have increments >= 1, so S^(N) = S*(N).
+7. Directed rounding: the constants used in the cuts exceed rigorous interval upper bounds of 2w S^_r(N).
 
   python3 src/check_exact_stacks.py
 """
@@ -217,4 +218,12 @@ inc = min(min(b - a for a, b in zip(u[:-1], u[1:]))
 assert dev < 1e-12 and inc >= 1
 print(f"== 6. loaded-spine constants: max |double - 60 digits| = {float(dev):.1e} (margin used 1e-9); "
       f"smallest load increment at the maximizing height, N <= 16: {float(inc):.3f}")
+# 7. Directed check with rigorous interval enclosures (mpmath.iv, outward rounding; the enclosure of Appendix C):
+#    the constant written into the cuts, 2w S^_r(N) + 1e-9 in double precision (2w = 1 at eta = 0), exceeds the
+#    upper end of the enclosure of 2w S^_r(N) for every r <= N <= 20.
+from spine_faces import shat_enclosure  # noqa: E402
+exc = min(mpf(pf.spinal_bound(r, N) + 1e-9) - mpf(shat_enclosure(r, N).b) for N in range(4, 21) for r in range(1, N + 1))
+assert exc > 0
+print(f"== 7. directed rounding of the loaded-spine constants: the constants used exceed rigorous upper bounds "
+      f"of 2w S^_r(N) for all r <= N <= 20, by at least {float(exc):.2e}")
 print("ALL CHECKS PASSED")
