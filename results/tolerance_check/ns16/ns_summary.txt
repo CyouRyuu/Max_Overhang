@@ -1,0 +1,1 @@
+N=16 (3 selected branches, time limit 172800s, 1 thread(s)) (split by lowest impure layer t0) gamma=2.122404368664 (S*=2.1438428) branches=14 open=0 nodes=56439244 thread_s=23443 wall=9477s best_nonspinal_found=nan => NO non-spinal stack above gamma

@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software or data, please cite the paper and this archive."
 title: "Max_Overhang: code and certificates for certified global optimization of the single-root maximum overhang problem"
-version: 1.0.1
+version: 1.0.2
 doi: "10.5281/zenodo.24518950"
 date-released: 2026-11-26
 license: MIT
@@ -28,7 +28,7 @@ keywords:
   - exact rational arithmetic
 preferred-citation:
   type: article
-  title: "Certified Global Optimization for the Single-Root Maximum Overhang Problem: Spinal Cuts, Layer-Profile Decomposition, and Exact Rational Lower Bounds"
+  title: "Certified Global Optimization for the Single-Root Maximum Overhang Problem"
   authors:
     - family-names: Zha
       given-names: Aolong

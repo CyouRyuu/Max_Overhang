@@ -5,8 +5,7 @@
 Code, certificates and exact data for the paper
 
 > A. Zha, Q. Zhuang, Q. Chang.
-> **Certified Global Optimization for the Single-Root Maximum Overhang Problem: Spinal Cuts, Layer-Profile
-> Decomposition, and Exact Rational Lower Bounds.** 2026 (preprint).
+> **Certified Global Optimization for the Single-Root Maximum Overhang Problem.** 2026 (preprint).
 
 The repository contains everything needed to reproduce the paper's results:
 
@@ -15,6 +14,9 @@ The repository contains everything needed to reproduce the paper's results:
 * **non-spinal exclusion** above $`\gamma_{\mathrm{ns}}(N)`$, the value $`0.99\,S^*(N)`$ rounded upward at the 7th decimal, for $`N = 5,\dots,16`$;
 * **exact rational feasible stacks** (the lower-bound witnesses) for $`N = 4,\dots,16`$, verified in exact arithmetic with zero residual
   (Appendix A), together with independent checks of the base-singleton (S2+) and non-spinal chains;
+* **exact spinal optima** (Appendix C): stacks with exact algebraic loads that attain the loaded-spine bound, so
+  $`S(N) = S^*(N)`$ for $`N = 4, 6, 8, \dots, 19`$, and the closed forms $`S(5) = (12 - \sqrt{30})/5`$ and
+  $`S(7) = \hat S_3(7)`$ at the exception sizes, checked by two independent verifiers without any solver;
 * the **baselines and cross-checks** of the methodological-progression table ($`N = 12, 13`$);
 * the **archived solver records** of all runs reported in the paper.
 
@@ -23,14 +25,20 @@ The repository contains everything needed to reproduce the paper's results:
 ```
 src/                 Python sources
   certify_m0.py        baseline formulation M0 (monolithic runs of the progression table)
-  certify_run.py       shared model builders (M0, M1u, Mrel) and the structural reductions; N = 4 anchor
+  certify_run.py       shared model builders (M0, M1u) and the structural reductions; N = 4 anchor; it also contains
+                       an experimental centre-relative moment model (Mrel) that the paper does not use
   ablation_m1_order_prune.py, maxOverhang_proposed.py
                        order-pruned formulation (the base of model M1u) and shared solve/report utilities
   profile_run.py       layer-profile decomposition over P_2(N), with energy filter (--energy) and spinal cuts (--spine)
   pd_certificate.py    assembles and audits a decomposition certificate: every expected profile present and closed,
-                       no unexpected profile, repeated records reported, run cutoff within the certificate cutoff
+                       no unexpected profile, repeated records reported, run cutoff within the certificate cutoff,
+                       S2+ condition against the audited certificate of N - 1, analytic closures listed separately
   ns_audit.py          audits non-spinal exclusion records: expected branches (and t0 sub-branches) present and
-                       closed, no unexpected branch, solver threshold <= gamma_ns(N)
+                       closed, no unexpected branch, solver threshold <= gamma_ns(N), condition for n_2 = 1 against
+                       the audited results of N - 1
+  chain_summary.py     summary of the audited chain N = 5..16 (exit 1 unless every link holds)
+  make_index.py        writes results/INDEX.csv (one row per archived run)
+  exact_witness.py     turns a solver witness into an exactly balanced rational stack (--check: verify only)
   ns_check.py          non-spinal exclusion branches S_ns(n, l*, gamma_ns); --split-t0 for the t0 split
   pd_race.py           re-solves open profiles of a run in a separate process (more threads / other seed)
   pd_split.py          rightmost-layer split of one profile (independent cross-check at N = 13)
@@ -41,6 +49,11 @@ src/                 Python sources
                        independent exact re-check of the stacks, distances to S*(N), S2+ and non-spinal chains
   summarize_certify.py collects result JSON files of monolithic runs into one table
   profiles.py          solver-free helpers (profile enumeration, energy test, loaded-spine bound, bound tables)
+  exact_spines/        first verifier of the exact spinal optima (interval arithmetic, standard library; README inside)
+  check_algebraic_spines.py
+                       second verifier: the stacks of Appendix C in the field Q(x) (SymPy); signs by interval
+                       enclosure on the isolating interval, else by exact Sturm counting
+  spine_faces.py       second verifier: upper bounds at the exception sizes N = 5, 7 (fixed-load bound, box covering)
 scripts/             one shell script per experiment (see the table below)
 data/                rational_stacks.json: exact fractions of all blocks and contact forces, N = 4..16
 results/             archived results of the runs reported in the paper (see results/README.md)
@@ -56,6 +69,7 @@ results/             archived results of the runs reported in the paper (see res
   (tested with `gurobipy` 14.0.0); larger sizes need a full license.
 * The exact-arithmetic checks (`scripts/verify_exact.sh`) and the auditors (`scripts/audit_archive.sh`,
   `src/pd_certificate.py`, `src/ns_audit.py`) need **no** optimization solver: only Python with `mpmath`.
+  The verifiers of the exact spinal optima (`scripts/exact_spines.sh`) also need `sympy`.
 
 ```bash
 conda env create -f environment.yml && conda activate maxoverhang
@@ -66,6 +80,7 @@ conda env create -f environment.yml && conda activate maxoverhang
 
 ```bash
 scripts/verify_exact.sh          # exact stacks N = 4..16, S2+ chain and non-spinal chain (seconds, no solver)
+scripts/exact_spines.sh          # exact spinal optima N = 4..19, Appendix C (seconds, no solver; needs sympy)
 scripts/anchor_n4.sh             # N = 4 anchor with M0 at gap 1e-9
 scripts/certify.sh 9 4           # tight certificate for N = 9 with 4 parallel workers (seconds)
 scripts/nonspinal.sh 9 4         # non-spinal exclusion for N = 9
@@ -80,13 +95,15 @@ New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the ar
 |---|---|---|
 | Exact rational stacks, Appendix A | `scripts/verify_exact.sh` | `data/rational_stacks.json` |
 | S2+ chain table; non-spinal chain margins (Section 6.1) | `scripts/verify_exact.sh` | — (exact computation) |
+| Exact spinal optima, Theorem 30(a) and Appendix C | `scripts/exact_spines.sh` (no solver) | `results/exact_spines/` |
 | Anchor $`\overline{z}(4) = 1.1678933`$ | `scripts/anchor_n4.sh` | `results/anchor_n4/` |
 | Main certificate table, tight certificates $`N = 5..16`$ | `scripts/certify.sh N [workers]` | `results/certificates/` |
 | Main certificate table, non-spinal exclusion $`N = 5..16`$ | `scripts/nonspinal.sh N [workers]` | `results/nonspinal/` |
 | $`N = 16`$ sub-branch table (Appendix B) | `scripts/nonspinal_n16_split.sh` | `results/nonspinal/` |
-| Re-audit of all archived certificates and exclusions | `scripts/audit_archive.sh` | `results/` |
-| Positive reverse controls with witnesses (Section 6) | `scripts/reverse_controls.sh` | `results/reverse_controls/` |
-| Stability under tighter tolerances (Section 6.1) | `scripts/tolerance_check.sh` | `results/tolerance_check/` |
+| Re-audit of all archived certificates and exclusions, including the S2+ and non-spinal conditions between consecutive sizes, the analytic closures and the chain summary | `scripts/audit_archive.sh` (no solver) | `results/` |
+| Index of every archived run (solver version, options, parameters, cutoff or threshold, files) | `python3 src/make_index.py` | `results/INDEX.csv` |
+| Positive reverse controls with witnesses, and the exactly balanced rational non-spinal stack at $`N = 9`$ (Section 6) | `scripts/reverse_controls.sh`; `src/exact_witness.py --check` (no solver) | `results/reverse_controls/` |
+| Stability under tighter tolerances (Section 6.1): hardest certificate profiles at $`N = 14, 15`$; $`N = 16`$ non-spinal sub-branches | `scripts/tolerance_check.sh`; `scripts/tolerance_check_ns16.sh` | `results/tolerance_check/` |
 | Matched comparison with and without spinal cuts ($`N = 11, 12, 13`$, Section 6.2) | `scripts/ablation_sp.sh [workers]` | `results/ablation_sp/` |
 | Methodological-progression table ($`N = 12, 13`$) | `scripts/baselines.sh {m0_12, m0_13, pd_12, pd_13, pd_13_race, pd_13_split, pd_13_cert}` | `results/baselines/` |
 
@@ -148,6 +165,9 @@ Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
 
 Please cite the paper and this archive; see `CITATION.cff`.
 Archived on Zenodo; all versions: [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950). The paper uses
-version 1.0.1 (this version); version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
-first release; version 1.0.1 adds the solver-free auditing tools and the records of the matched comparison, the
-tolerance check and the reverse controls.
+version 1.0.2 (this version). Version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
+first release; version 1.0.1, [10.5281/zenodo.24546538](https://doi.org/10.5281/zenodo.24546538), adds the solver-free
+auditing tools and the records of the matched comparison, the tolerance check and the reverse controls; version 1.0.2
+adds the two verifiers of the exact spinal optima (Appendix C) with their outputs, the exactly balanced rational
+non-spinal stack at $`N = 9`$, the tolerance check of the $`N = 16`$ non-spinal sub-branches, and the audit of the
+conditions that link consecutive sizes.

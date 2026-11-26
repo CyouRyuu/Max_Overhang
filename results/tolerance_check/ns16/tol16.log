@@ -1,0 +1,5 @@
+N=16 (3 selected branches, time limit 172800s, 1 thread(s)) (split by lowest impure layer t0) gamma=2.122404368664 (S*=2.1438428) branches=14 open=0 nodes=56439244 thread_s=23443 wall=9477s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=16: expected branches 10905, records 10905, missing 0, unexpected 0, repeated 0, open in main run 3
+  t0 split: expected sub-branches 14, missing 0, unexpected 0, repeated 0, open 0; status counts {'CUTOFF': 11, 'TIE': 3}
+  solver threshold 2.122404368664169 <= gamma_ns(N) = 2.1224044 (rounding robust: True); closed records with a recorded threshold: 9687, max 2.122404368664169, above gamma_ns: 0
+  NON-SPINAL EXCLUSION CERTIFIED above gamma_ns(16) = 2.1224044

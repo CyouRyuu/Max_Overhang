@@ -6,8 +6,9 @@ energy_profile_check, spinal_bound), ns_check.py (spinal_opt) and certify_run.py
 re-export them under their old names.
 """
 
-# Exactly verified lower bounds z_Q(N), truncated at the 7th decimal (Table 4 of the paper; exact fractions in
-# data/rational_stacks.json), and certified upper bounds z_bar(N) of the unified tight chain (Table 3 of the paper:
+# Exactly verified lower bounds z_Q(N), truncated at the 7th decimal (main certificate table of the paper; exact
+# fractions in data/rational_stacks.json), and certified upper bounds z_bar(N) of the unified tight chain (S2+ chain
+# table of the paper:
 # N = 4 from monolithic M0 at relative gap 1e-9, N >= 5 from the spinal-cut layer-profile certificates).
 # They are used only by the base-singleton precondition of S2P,  CERT_UB[N - 1] + w / N < KNOWN_LB[N],  which never
 # enters the optimization model.  (The original runs checked the same precondition with earlier, valid but looser

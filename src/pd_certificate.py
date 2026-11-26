@@ -12,13 +12,17 @@ or all rightmost-layer branches of pd_split.py closed), and writes <out>.json an
 (--split DIR may be repeated; DIR must contain the L<l>_result.json files of one profile, and the profile is
  taken from the directory name or from --split-profile.)
 
-Checks: every expected profile has a record and no record lies outside P_2(N); records repeated by a resumed run
-are reported (the last one is used); every closed record (CUTOFF) carries a bound <= the certificate cutoff; the
+Checks: every expected profile has a record and no record lies outside P_2(N); repeated records are reported
+(the last one is used); every closed record (CUTOFF) carries a bound <= the certificate cutoff; the
 cutoff stored in the run's *_result.json (required unless --allow-missing-run-record) is <= the certificate
 cutoff; a profile closed by --split has a closed L<l>_result.json for every candidate layer l (layers whose
-rightmost block can exceed the cutoff by the base envelope and the energy layer bounds).  Needs no solver.
+rightmost block can exceed the cutoff by the base envelope and the energy layer bounds); with --prev-cert, the
+S2+ condition zbar(N-1) + 1/(2N) < lower bound against the audited certificate of N - 1 (part of the pass
+condition).  Profiles closed without a solver run are listed with their analytic reason (energy test, or no
+candidate layer).  Needs no solver.
 """
 import os
+import math
 import sys
 import csv
 import json
@@ -44,6 +48,23 @@ def split_candidate_layers(N, profile, cutoff, eta=0.0):
             if x1ub + W + 2 * w * (l - 1) > cutoff and (l not in ubs or ubs[l] > cutoff)]
 
 
+def closure_reason(N, profile, cutoff, spine, eta=0.0):
+    """Analytic reason why a profile needs no solver run, or None.  'energy': the second-moment energy test
+    rejects the profile (Delta E < 0); 'no candidate layer': no layer can hold a principal block above the cutoff
+    (base envelope, energy layer bounds and, with family SP, the pure-chain bound 2w S^_l(N) of the spinal cuts)."""
+    ok, dE, _ = pf.energy_profile_check(N, profile, eta)
+    if not ok:
+        return "energy", dE
+    W = 0.5; w = W * (1.0 - eta)
+    cands = split_candidate_layers(N, profile, cutoff, eta)
+    if spine:
+        cands = [l for l in cands if [t for t in range(3, l + 1) if profile[t - 2] >= 2]
+                 or 2.0 * w * pf.spinal_bound(l, N) + 1e-9 > cutoff]
+    if not cands:
+        return "no candidate layer", None
+    return None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("N", type=int)
@@ -56,6 +77,9 @@ def main():
     ap.add_argument("--lb", type=float, default=None, help="exactly verified lower bound (default KNOWN_LB)")
     ap.add_argument("--allow-missing-run-record", action="store_true",
                     help="accept a profile CSV without its *_result.json (e.g. a run stopped by hand)")
+    ap.add_argument("--prev-cert", default=None,
+                    help="certificate JSON of N - 1 (this script's output) or the M0 anchor result JSON for N = 5; "
+                         "its upper bound enters the S2+ condition zbar(N-1) + 1/(2N) < lower bound, which must hold")
     ap.add_argument("--out", default=None)
     a = ap.parse_args()
 
@@ -71,7 +95,9 @@ def main():
     duplicates = {p: c for p, c in seen.items() if c > 1}
     # the cutoff actually used by the run is stored in its *_result.json next to the CSV
     run_json = a.csv.replace("_profiles.csv", "_result.json")
-    run_cutoff = json.load(open(run_json)).get("cutoff") if os.path.exists(run_json) else None
+    run_rec = json.load(open(run_json)) if os.path.exists(run_json) else {}
+    run_cutoff = run_rec.get("cutoff")
+    spine = "'SP'" in str(run_rec.get("method", ""))
     for d in a.race:
         for p in glob.glob(os.path.join(d, "P*_result.json")):
             r = json.load(open(p))
@@ -115,13 +141,40 @@ def main():
     nodes = sum(rows[p]["nodes"] for p in profiles if p in rows)
     cpu = sum(rows[p]["runtime_sec"] * (rows[p].get("threads") or 1) for p in profiles if p in rows)
     slow = sorted((p for p in profiles if p in rows), key=lambda p: -rows[p]["runtime_sec"])[:8]
-    margin = lb - (pf.CERT_UB.get(a.N - 1, float("nan")) + 0.5 / a.N)
+    if a.prev_cert:
+        pc = json.load(open(a.prev_cert))
+        if "certified" in pc:
+            prev_ub, prev_ok = pc["cutoff_upper_bound"], bool(pc["certified"]) and pc.get("N") == a.N - 1
+        else:   # M0 anchor result (N = 4): closed run, upper bound = final dual bound rounded up at the 7th decimal
+            prev_ub = math.ceil(pc["bound"] * 1e7 - 1e-6) / 1e7
+            prev_ok = pc.get("status") == "OPTIMAL" and pc.get("N", a.N - 1) == a.N - 1
+        prev_src = os.path.basename(a.prev_cert)
+    else:
+        prev_ub, prev_ok, prev_src = pf.CERT_UB.get(a.N - 1, float("nan")), None, "table CERT_UB (not re-audited)"
+    margin = lb - (prev_ub + 0.5 / a.N)
+    s2p_ok = margin > 0 and prev_ok is not False
+    ok = ok and s2p_ok
+    reasons = {}
+    for p in profiles:
+        if p in rows and rows[p]["status"] in CLOSED:
+            r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine)
+            if r:
+                reasons[p] = r
+    n_energy = sum(1 for r in reasons.values() if r[0] == "energy")
+    n_empty = sum(1 for r in reasons.values() if r[0] == "no candidate layer")
+    worst_dE = max((r[1] for r in reasons.values() if r[0] == "energy"), default=None)
     res = {"N": a.N, "certified": ok, "lower_bound_feasible": lb, "cutoff_upper_bound": cutoff,
            "relative_gap": (cutoff - lb) / lb, "profiles_total": len(profiles), "profiles_closed": len(profiles) - len(missing) - len(openp),
            "missing": missing, "open": openp, "unexpected": unexpected, "duplicates_last_record_used": duplicates,
            "run_cutoff": run_cutoff, "run_cutoff_within_certificate": cutoff_ok,
            "closed_above_cutoff": above, "split_missing_or_open_layers": split_issues, "max_profile_bound": bound, "total_nodes": nodes,
-           "total_thread_seconds": cpu, "S2plus_margin": margin, "S2plus_uses_CERT_UB_N_minus_1": pf.CERT_UB.get(a.N - 1),
+           "total_thread_seconds": cpu, "S2plus_margin": margin, "S2plus_ok": s2p_ok,
+           "S2plus_upper_bound_N_minus_1": prev_ub, "S2plus_upper_bound_source": prev_src,
+           "S2plus_previous_certified": prev_ok, "family_SP": spine,
+           "analytic_closures": {"energy": n_energy, "no_candidate_layer": n_empty,
+                                 "largest_energy_margin": (str(worst_dE) if worst_dE is not None else None),
+                                 "profiles": {p: r[0] for p, r in reasons.items()}},
+           "solver_closures": sum(1 for p in profiles if p in rows and rows[p]["status"] in CLOSED) - len(reasons),
            "status_counts": {s: sum(1 for p in profiles if p in rows and rows[p]["status"] == s)
                              for s in sorted({r["status"] for r in rows.values()})},
            "slowest": [{"profile": p, **rows[p]} for p in slow], "created": f"{datetime.now():%F %T}"}
@@ -139,7 +192,11 @@ def main():
               f"({'<= certificate cutoff' if cutoff_ok else 'NOT <= certificate cutoff or record missing'})"),
              f"- closed records with bound above the cutoff: {len(above)}; split profiles with missing/open layers: "
              f"{len(split_issues)}",
-             f"- S2+ (n_2 = 2) margin: {margin:.5f} using certified UB z*({a.N - 1}) <= {pf.CERT_UB.get(a.N - 1)}",
+             f"- S2+ (n_2 = 2) condition zbar({a.N - 1}) + 1/(2N) < lower bound: margin {margin:.5f} "
+             f"({'holds' if s2p_ok else 'FAILS'}); zbar({a.N - 1}) = {prev_ub} from {prev_src}"
+             + ("" if prev_ok is None else f", certified: {prev_ok}"),
+             f"- closures without a solver run: {n_energy} by the energy test (largest Delta E {worst_dE}), "
+             f"{n_empty} with no candidate layer; {res['solver_closures']} closed by the solver",
              f"- total nodes {nodes:,}; total thread-seconds {cpu:,.0f}", "",
              "| slowest profile | status | nodes | seconds | source |", "|---|---|---|---|---|"]
     lines += [f"| {p} | {rows[p]['status']} | {rows[p]['nodes']:,} | {rows[p]['runtime_sec']:.1f} | {rows[p]['source']} |"

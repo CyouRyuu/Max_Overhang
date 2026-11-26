@@ -18,7 +18,32 @@
   "total_nodes": 697072,
   "total_thread_seconds": 246.67878794670105,
   "S2plus_margin": 0.02094596153846151,
-  "S2plus_uses_CERT_UB_N_minus_1": 1.9251014,
+  "S2plus_ok": true,
+  "S2plus_upper_bound_N_minus_1": 1.9251014,
+  "S2plus_upper_bound_source": "cert_N12.json",
+  "S2plus_previous_certified": true,
+  "family_SP": true,
+  "analytic_closures": {
+    "energy": 13,
+    "no_candidate_layer": 0,
+    "largest_energy_margin": "-1.25",
+    "profiles": {
+      "1-2-2-3-5": "energy",
+      "1-2-2-4-4": "energy",
+      "1-2-3-3-4": "energy",
+      "1-2-3-4-3": "energy",
+      "1-2-3-5-1-1": "energy",
+      "1-2-3-5-2": "energy",
+      "1-2-3-6-1": "energy",
+      "1-2-4-2-4": "energy",
+      "1-2-4-3-3": "energy",
+      "1-2-4-4-1-1": "energy",
+      "1-2-4-4-2": "energy",
+      "1-2-4-5-1": "energy",
+      "1-2-4-6": "energy"
+    }
+  },
+  "solver_closures": 212,
   "status_counts": {
     "CUTOFF": 200,
     "INFEASIBLE": 25
@@ -89,5 +114,5 @@
       "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.9845190-C2L-SP1-PDcert_N13_s42_profiles.csv"
     }
   ],
-  "created": "2026-11-25 19:36:20"
+  "created": "2026-11-26 17:34:35"
 }

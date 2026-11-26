@@ -1,0 +1,17 @@
+N= 4: S(N) = S*(N) = S*_2(N) ~ 1.167893218813; t_1 of degree 2; exact balance, all inequalities verified; height gap 0.01209
+N= 5: spinal stack of overhang (12 - sqrt(30))/5 = 1.304554884990: exact balance, all inequalities verified (upper bound: spine_faces.py)
+N= 6: S(N) = S*(N) = S*_3(N) ~ 1.436700214371; t_1 of degree 4; exact balance, all inequalities verified; height gap 0.02647
+N= 7: spinal stack at height 3 of overhang 1.530045237061 (8x^4 - 14x - 7 = 0): exact balance, all inequalities verified (upper bound: spine_faces.py)
+N= 8: S(N) = S*(N) = S*_4(N) ~ 1.631506820608; t_1 of degree 8; exact balance, all inequalities verified; height gap 0.02583
+N= 9: S(N) = S*(N) = S*_4(N) ~ 1.715272815528; t_1 of degree 8; exact balance, all inequalities verified; height gap 0.01667
+N=10: S(N) = S*(N) = S*_4(N) ~ 1.787125861965; t_1 of degree 8; exact balance, all inequalities verified; height gap 0.00313
+N=11: S(N) = S*(N) = S*_5(N) ~ 1.858779550311; t_1 of degree 16; exact balance, all inequalities verified; height gap 0.00903
+N=12: S(N) = S*(N) = S*_5(N) ~ 1.925091375263; t_1 of degree 16; exact balance, all inequalities verified; height gap 0.01547
+N=13: S(N) = S*(N) = S*_5(N) ~ 1.984508903252; t_1 of degree 16; exact balance, all inequalities verified; height gap 0.00784
+N=14: S(N) = S*(N) = S*_5(N) ~ 2.038216944562; t_1 of degree 16; exact balance, all inequalities verified; height gap 0.00078
+N=15: S(N) = S*(N) = S*_6(N) ~ 2.092896303216; t_1 of degree 32; exact balance, all inequalities verified; height gap 0.00577
+N=16: S(N) = S*(N) = S*_6(N) ~ 2.143842796630; t_1 of degree 32; exact balance, all inequalities verified; height gap 0.01080
+N=17: S(N) = S*(N) = S*_6(N) ~ 2.190898459596; t_1 of degree 32; exact balance, all inequalities verified; height gap 0.00634
+N=18: S(N) = S*(N) = S*_6(N) ~ 2.234570823586; t_1 of degree 32; exact balance, all inequalities verified; height gap 0.00213
+N=19: S(N) = S*(N) = S*_7(N) ~ 2.277130167643; t_1 of degree 64; exact balance, all inequalities verified; height gap 0.00185
+ALL ALGEBRAIC SPINAL STACKS VERIFIED (N = 4..19)

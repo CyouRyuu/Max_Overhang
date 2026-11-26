@@ -1,0 +1,4 @@
+N=5: S*(N) = S*_3(N) > 1.3171617921; other heights and stacks with several roots below 1.30455; face w_2 = 0: 55 boxes, largest bound 1.3041667 (rounded upward); face w_3 = 0: 17 boxes, largest bound 1.3031250 (rounded upward)
+N=7: S*(N) = S*_4(N) > 1.5318707919; other heights and stacks with several roots below 1.53004; face w_1 = 0: 4311 boxes, largest bound 1.5300399 (rounded upward); face w_2 = 0: 1541 boxes, largest bound 1.5300262 (rounded upward); face w_3 = 0: 1584 boxes, largest bound 1.5300246 (rounded upward); face w_4 = 0: 644 boxes, largest bound 1.5299587 (rounded upward)
+N=5: face w_1 = 0 is concave with maximum (12 - sqrt 30)/5 = 1.304554884990 at t_2 = sqrt(15/2)
+SPINAL OPTIMA AT N = 5, 7 VERIFIED

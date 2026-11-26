@@ -8,12 +8,16 @@ Checks, for one N:
   * the threshold: gamma_ns(N) = ceil_7((1 - rel) S*(N)) is computed so that rounding errors cannot change the
     seventh decimal (the computed value must lie at least 1e-5 grid units from a grid point), and every closed
     record (CUTOFF, INFEASIBLE) carries the threshold its run used, which must not exceed gamma_ns(N); the solver
-    threshold of ns_check.py (double precision) is checked in the same way.  Needs no solver.
+    threshold of ns_check.py (double precision) is checked in the same way;
+  * with --prev-cert / --prev-ns, the condition of the corollary that excludes the stacks with n_2 = 1:
+    zbar(N-1) + 1/(2N) < gamma_ns(N), or gamma_ns(N-1) + 1/(2N) < gamma_ns(N) with the exclusion at N - 1
+    certified (its JSON from --out).  Needs no solver.
 
   python3 src/ns_audit.py 16 results/nonspinal/ns_N16_rel0.01.csv --split results/nonspinal/ns_N16_rel0.01_only_t0.csv
 """
 import argparse
 import csv
+import json
 import math
 import sys
 from collections import Counter
@@ -41,6 +45,10 @@ def main():
     ap.add_argument("--rel", type=float, default=1e-2)
     ap.add_argument("--gamma", type=float, default=None,
                     help="absolute threshold of the run (ns_check.py --gamma); overrides --rel")
+    ap.add_argument("--prev-cert", default=None,
+                    help="certificate JSON of N - 1 (pd_certificate.py output, or the M0 anchor result for N = 5)")
+    ap.add_argument("--prev-ns", default=None, help="this script's JSON output (--out) for N - 1")
+    ap.add_argument("--out", default=None, help="write a JSON summary")
     a = ap.parse_args()
 
     expected = set()
@@ -99,6 +107,27 @@ def main():
     gamma_ok = robust and solver_gamma <= gamma_ns and not above and not bad_bound
 
     ok = not (missing or unexpected or still_open or split_missing or split_open or split_unexpected) and gamma_ok
+
+    # Stacks with n_2 = 1 are not enumerated; the corollary excludes them above gamma_ns(N) if
+    #   zbar(N-1) + 1/(2N) < gamma_ns(N)          (general condition, zbar from the certificate of N - 1), or
+    #   gamma_ns(N-1) + 1/(2N) < gamma_ns(N)      (sharper condition, needs the exclusion at N - 1).
+    chain = {"checked": False}
+    if a.prev_cert or a.prev_ns:
+        chain["checked"] = True
+        if a.prev_cert:
+            pc = json.load(open(a.prev_cert))
+            if "certified" in pc:
+                ub, cok = pc["cutoff_upper_bound"], bool(pc["certified"]) and pc.get("N") == a.N - 1
+            else:
+                ub, cok = math.ceil(pc["bound"] * 1e7 - 1e-6) / 1e7, pc.get("status") == "OPTIMAL"
+            chain["general_margin"] = gamma_ns - (ub + 0.5 / a.N)
+            chain["general_ok"] = cok and chain["general_margin"] > 0
+        if a.prev_ns:
+            pn = json.load(open(a.prev_ns))
+            chain["sharper_margin"] = gamma_ns - (pn["gamma_ns"] + 0.5 / a.N)
+            chain["sharper_ok"] = bool(pn["certified"]) and pn.get("N") == a.N - 1 and chain["sharper_margin"] > 0
+        chain["ok"] = bool(chain.get("general_ok") or chain.get("sharper_ok"))
+        ok = ok and chain["ok"]
     print(f"N={a.N}: expected branches {len(expected)}, records {len(recs)}, missing {len(missing)}, "
           f"unexpected {len(unexpected)}, repeated {len(dup)}, open in main run {len(open_main)}")
     if a.split:
@@ -114,7 +143,18 @@ def main():
                     ("closed records without a finite threshold", bad_bound)]:
         if v:
             print(f"  {name}: {v}")
+    if chain["checked"]:
+        parts = [f"{k.split('_')[0]} margin {chain[k]:+.6f} ({'holds' if chain[k.replace('margin', 'ok')] else 'fails'})"
+                 for k in ("general_margin", "sharper_margin") if k in chain]
+        print(f"  stacks with n_2 = 1 (condition of the corollary): {'; '.join(parts)}")
+    else:
+        print("  stacks with n_2 = 1: condition not checked here (pass --prev-cert and/or --prev-ns)")
     print(f"  NON-SPINAL EXCLUSION {'CERTIFIED' if ok else 'NOT CERTIFIED'} above gamma_ns({a.N}) = {gamma_ns:.7f}")
+    if a.out:
+        with open(a.out, "w", encoding="utf-8") as f:
+            json.dump({"N": a.N, "certified": ok, "gamma_ns": gamma_ns, "solver_gamma": solver_gamma,
+                       "branches": len(expected), "open_main": len(open_main), "split_subbranches": len(want),
+                       "n2_equals_1_condition": chain}, f, indent=2)
     sys.exit(0 if ok else 1)
 
 

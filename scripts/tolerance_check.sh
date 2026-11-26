@@ -2,7 +2,7 @@
 # Stability of the certificates under tighter numerical settings: re-solve the three most expensive profiles
 # of the tight certificates at N = 14 and N = 15 with FeasibilityTol = OptimalityTol = IntFeasTol = 1e-9 and
 # NumericFocus = 3 (same model, same cutoff).  Every profile must close again (CUTOFF or INFEASIBLE).
-#   scripts/tolerance_check.sh [WORKERS]
+#   scripts/tolerance_check.sh [WORKERS]   (N = 16 non-spinal sub-branches: scripts/tolerance_check_ns16.sh)
 # Optional, long: N = 16, most expensive profile (12,475 s at default settings):
 #   EXTRA16=1 scripts/tolerance_check.sh
 set -euo pipefail

@@ -2,5 +2,6 @@
 gurobipy==13.0.1     # needs a Gurobi license; see README (other versions run, solver statistics differ)
 numpy==2.2.6
 scipy==1.15.3
-mpmath==1.4.1
+mpmath==1.3.0        # sympy 1.14.0 requires mpmath < 1.4; the archived runs used 1.4.1 with identical exact checks
+sympy==1.14.0        # only for the exact spinal optima (scripts/exact_spines.sh)
 # optional: matplotlib (only for maxOverhang_proposed.py --plot)

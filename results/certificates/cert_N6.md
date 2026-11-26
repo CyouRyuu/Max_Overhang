@@ -7,7 +7,8 @@
 - missing 0, unexpected 0, repeated records 0 (last record used)
 - cutoff of the run: 1.4367103 (<= certificate cutoff)
 - closed records with bound above the cutoff: 0; split profiles with missing/open layers: 0
-- S2+ (n_2 = 2) margin: 0.04880 using certified UB z*(5) <= 1.3045649
+- S2+ (n_2 = 2) condition zbar(5) + 1/(2N) < lower bound: margin 0.04880 (holds); zbar(5) = 1.3045649 from cert_N5.json, certified: True
+- closures without a solver run: 1 by the energy test (largest Delta E -0.5), 0 with no candidate layer; 3 closed by the solver
 - total nodes 3; total thread-seconds 0
 
 | slowest profile | status | nodes | seconds | source |

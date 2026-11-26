@@ -24,5 +24,6 @@ D="$OUT/reverse_controls"; mkdir -p "$D"
 "$PY" "$SRC/check_witness.py" "$D/n7/ns_N7_g1.3800000_witnesses.json" 1
 "$PY" "$SRC/ns_check.py" 9 --gamma 1.60 --workers 4 --outdir "$D/n9" || true
 "$PY" "$SRC/check_witness.py" "$D/n9/ns_N9_g1.6000000_witnesses.json" 1
+"$PY" "$SRC/exact_witness.py" "$D/n9/ns_N9_g1.6000000_witnesses.json" 0 --out "$D/n9/ns_N9_exact_stack.json"
 "$PY" "$SRC/ns_check.py" 8 --gamma 1.60 --workers 4 --outdir "$D/n8"
 "$PY" "$SRC/ns_check.py" 9 --rel 3e-2 --workers 4 --outdir "$D/n9"
