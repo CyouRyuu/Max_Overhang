@@ -1,0 +1,6 @@
+profile,lstar,t0,status,objective,bound,nodes,runtime_sec,closure,gurobi_status,obj_bound,cutoff
+1-2-1-1,2,,EMPTY,nan,-inf,0,0.0,analytic: J empty,,,
+1-2-2,2,,EMPTY,nan,-inf,0,0.0,analytic: J empty,,,
+1-2-1-1,3,,INFEASIBLE,nan,1.3039901742745292,0,0.008845090866088867,solver,3,-inf,1.3039901742745292
+1-2-1-1,4,,INFEASIBLE,nan,1.3039901742745292,0,0.00708317756652832,solver,3,-inf,1.3039901742745292
+1-2-2,3,,INFEASIBLE,nan,1.3039901742745292,0,0.007561683654785156,solver,3,-inf,1.3039901742745292

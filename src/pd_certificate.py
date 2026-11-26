@@ -20,8 +20,12 @@ rightmost block can exceed the cutoff by the base envelope and the energy layer 
 S2+ condition zbar(N-1) + 1/(2N) < lower bound against the audited certificate of N - 1 (part of the pass
 condition).  Profiles closed without a solver run are listed with their analytic reason (energy test, or no
 candidate layer), and each such record (no model built: vars = 0) is checked against the analytic reason
-recomputed here, in both directions; repeated records with conflicting closed statuses fail the check.  Needs no
-solver.
+recomputed here, in both directions, and the recorded closure kind must agree with it; repeated records with
+conflicting closed statuses fail the check.  Every bound must be a number (no NaN), and a CUTOFF or OPTIMAL record
+must carry a finite bound.  When the profile CSV has the columns gurobi_status, obj_bound and cutoff (newer runs),
+a CUTOFF record closed by the solver must have Gurobi status 6 and obj_bound <= its cutoff, an INFEASIBLE one
+status 3, an OPTIMAL one status 2, an analytic record no Gurobi status, and every recorded cutoff must not exceed
+the certificate cutoff.  Needs no solver.
 """
 import os
 import math
@@ -35,6 +39,15 @@ from datetime import datetime
 import profiles as pf
 
 CLOSED = ("CUTOFF", "INFEASIBLE")
+GUROBI_STATUS = {"CUTOFF": "6", "INFEASIBLE": "3", "OPTIMAL": "2"}
+ANALYTIC_KIND = {"energy": "analytic: energy test", "no candidate layer": "analytic: no candidate layer"}
+
+
+def as_float(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return float("nan")
 
 
 def split_candidate_layers(N, profile, cutoff, eta=0.0, energy=True):
@@ -89,14 +102,17 @@ def main():
 
     lb = pf.KNOWN_LB[a.N] if a.lb is None else a.lb
     cutoff = lb * (1 + a.gap) if a.cutoff is None else a.cutoff
-    rows, seen, hist, csv_meta = {}, {}, {}, {}
+    rows, seen, hist, csv_meta, extra = {}, {}, {}, {}, {}
     with open(a.csv, encoding="utf-8") as f:
-        for r in csv.DictReader(f):
+        reader = csv.DictReader(f)
+        cols = set(reader.fieldnames or [])
+        for r in reader:
             # a run continued with --resume may record a profile again; the last record is the one used
             seen[r["profile"]] = seen.get(r["profile"], 0) + 1
             hist.setdefault(r["profile"], []).append(r["status"])
             csv_meta[r["profile"]] = (r["status"], (r.get("vars") or "").strip(), (r.get("closure") or "").strip())
-            rows[r["profile"]] = {"status": r["status"], "bound": float(r["bound"]), "nodes": int(float(r["nodes"])),
+            extra[r["profile"]] = tuple((r.get(c) or "").strip() for c in ("gurobi_status", "obj_bound", "cutoff"))
+            rows[r["profile"]] = {"status": r["status"], "bound": as_float(r["bound"]), "nodes": int(float(r["nodes"])),
                                   "runtime_sec": float(r["runtime_sec"]), "source": os.path.basename(a.csv)}
     duplicates = {p: c for p, c in seen.items() if c > 1}
     # repeated records conflict if two of them are closed with different statuses, or if a closed record is
@@ -115,7 +131,7 @@ def main():
             r = json.load(open(p))
             prof = r["profile"]
             if prof not in rows or rows[prof]["status"] not in CLOSED:
-                rows[prof] = {"status": r["status"], "bound": r["bound"], "nodes": r["nodes"],
+                rows[prof] = {"status": r["status"], "bound": as_float(r["bound"]), "nodes": r["nodes"],
                               "runtime_sec": r["runtime_sec"], "threads": r.get("threads"),
                               "seed": r.get("seed"), "source": os.path.relpath(p)}
     split_issues = {}
@@ -124,10 +140,10 @@ def main():
         if prof.startswith("split_"):
             prof = prof[len("split_"):]
         br = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(d, "L*_result.json")))]
-        need = split_candidate_layers(a.N, [int(x) for x in prof.split("-")], cutoff)
+        need = split_candidate_layers(a.N, [int(x) for x in prof.split("-")], cutoff, energy=energy)
         have = {b["layer"]: b for b in br}
         bad = sorted(l for l in need if l not in have or have[l]["status"] not in CLOSED
-                     or have[l]["bound"] > cutoff + 1e-12)
+                     or math.isnan(as_float(have[l]["bound"])) or as_float(have[l]["bound"]) > cutoff + 1e-12)
         if bad:
             split_issues[prof] = bad
             continue
@@ -147,9 +163,12 @@ def main():
                    and rows[p]["bound"] > cutoff + 1e-12)
     openp = [p for p in profiles if p in rows and not (rows[p]["status"] in CLOSED or
                                                         (rows[p]["status"] == "OPTIMAL" and rows[p]["bound"] <= cutoff))]
+    # no bound may be NaN (NaN compares False with everything), and a CUTOFF or OPTIMAL record needs a finite bound
+    bad_bound = sorted(p for p in profiles if p in rows and (math.isnan(rows[p]["bound"]) or
+                       (rows[p]["status"] in ("CUTOFF", "OPTIMAL") and not math.isfinite(rows[p]["bound"]))))
     bound = max((rows[p]["bound"] for p in profiles if p in rows), default=float("nan"))
     ok = (not missing and not openp and not unexpected and not above and not split_issues and cutoff_ok
-          and bound <= cutoff + 1e-12 and not conflicts)
+          and bound <= cutoff + 1e-12 and not conflicts and not bad_bound)
     nodes = sum(rows[p]["nodes"] for p in profiles if p in rows)
     cpu = sum(rows[p]["runtime_sec"] * (rows[p].get("threads") or 1) for p in profiles if p in rows)
     slow = sorted((p for p in profiles if p in rows), key=lambda p: -rows[p]["runtime_sec"])[:8]
@@ -159,7 +178,7 @@ def main():
             prev_ub, prev_ok = pc["cutoff_upper_bound"], bool(pc["certified"]) and pc.get("N") == a.N - 1
         else:   # M0 anchor result (N = 4): closed run, upper bound = final dual bound rounded up at the 7th decimal
             prev_ub = math.ceil(pc["bound"] * 1e7 - 1e-6) / 1e7
-            prev_ok = pc.get("status") == "OPTIMAL" and pc.get("N", a.N - 1) == a.N - 1
+            prev_ok = pc.get("status") == "OPTIMAL" and pc.get("N") == a.N - 1
         prev_src = os.path.basename(a.prev_cert)
     else:
         prev_ub, prev_ok, prev_src = pf.CERT_UB.get(a.N - 1, float("nan")), None, "table CERT_UB (not re-audited)"
@@ -172,17 +191,36 @@ def main():
             r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine, energy=energy)
             if r:
                 reasons[p] = r
-    # records written without a solver run (vars = 0) must match the recomputed analytic reason, and conversely
-    analytic_mismatch = []
+    # records written without a solver run (vars = 0) must match the recomputed analytic reason, and conversely;
+    # with a vars column every record must fill it, and with a closure column the kind must match the reason
+    analytic_mismatch, solver_field_errors = [], []
     for p, (st, nv, cl) in csv_meta.items():
-        if p not in set(profiles) or nv == "":
+        if p not in set(profiles) or "vars" not in cols:
             continue
         r = closure_reason(a.N, tuple(int(x) for x in p.split("-")), cutoff, spine, energy=energy)
         want = None if r is None else ("INFEASIBLE" if r[0] == "energy" else "CUTOFF")
-        if (nv == "0") != (r is not None) or (r is not None and st != want) or \
-                (cl.startswith("analytic") and r is None):
+        kind_ok = "closure" not in cols or cl == ("solver" if r is None else ANALYTIC_KIND[r[0]])
+        if nv == "" or (nv == "0") != (r is not None) or (r is not None and st != want) or not kind_ok:
             analytic_mismatch.append((p, st, nv, cl, None if r is None else r[0]))
-    ok = ok and not analytic_mismatch
+        # Gurobi status, objective bound and cutoff of the record (newer runs)
+        if not {"gurobi_status", "obj_bound", "cutoff"} <= cols:
+            continue
+        gs, ob, cu = extra[p]
+        ob, cu = as_float(ob), as_float(cu)
+        err = None
+        if not (math.isfinite(cu) and cu <= cutoff + 1e-12):
+            err = "recorded cutoff missing or above the certificate cutoff"
+        elif r is not None or cl.startswith("analytic"):
+            if gs != "":
+                err = "analytic record with a Gurobi status"
+        elif st in GUROBI_STATUS:
+            if gs != GUROBI_STATUS[st]:
+                err = f"status {st} with Gurobi status {gs or 'missing'}"
+            elif st == "CUTOFF" and not (math.isfinite(ob) and ob <= cu + 1e-9):
+                err = "CUTOFF with objective bound missing or above its cutoff"
+        if err:
+            solver_field_errors.append((p, st, gs, extra[p][1], extra[p][2], err))
+    ok = ok and not analytic_mismatch and not solver_field_errors
     n_energy = sum(1 for r in reasons.values() if r[0] == "energy")
     n_empty = sum(1 for r in reasons.values() if r[0] == "no candidate layer")
     worst_dE = max((r[1] for r in reasons.values() if r[0] == "energy"), default=None)
@@ -197,6 +235,9 @@ def main():
            "chain_checked": bool(a.prev_cert), "conflicting_repeated_records": conflicts,
            "analytic_records_checked": sum(1 for v in csv_meta.values() if v[1] != ""),
            "analytic_record_mismatches": analytic_mismatch,
+           "bounds_not_numeric_or_not_finite": bad_bound,
+           "solver_fields_checked": {"gurobi_status", "obj_bound", "cutoff"} <= cols,
+           "solver_field_errors": solver_field_errors,
            "analytic_closures": {"energy": n_energy, "no_candidate_layer": n_empty,
                                  "largest_energy_margin": (str(worst_dE) if worst_dE is not None else None),
                                  "profiles": {p: r[0] for p, r in reasons.items()}},
@@ -228,13 +269,19 @@ def main():
              f"- records without a solver run checked against the recomputed analytic reason: "
              f"{res['analytic_records_checked']} records, {len(analytic_mismatch)} mismatches; conflicting repeated "
              f"records: {len(conflicts)}",
+             f"- bounds that are NaN, or not finite on a CUTOFF or OPTIMAL record: {len(bad_bound)}; Gurobi status, "
+             f"objective bound and cutoff of the records "
+             + (f"checked, {len(solver_field_errors)} errors" if res["solver_fields_checked"]
+                else "not recorded by this run"),
              f"- total nodes {nodes:,}; total thread-seconds {cpu:,.0f}", "",
              "| slowest profile | status | nodes | seconds | source |", "|---|---|---|---|---|"]
     lines += [f"| {p} | {rows[p]['status']} | {rows[p]['nodes']:,} | {rows[p]['runtime_sec']:.1f} | {rows[p]['source']} |"
               for p in slow]
-    if missing or openp or unexpected or duplicates or above or split_issues or not cutoff_ok or analytic_mismatch:
+    if missing or openp or unexpected or duplicates or above or split_issues or not cutoff_ok or analytic_mismatch \
+            or bad_bound or solver_field_errors:
         lines += ["", f"missing: {missing}", f"open: {openp}", f"unexpected: {unexpected}", f"repeated: {duplicates}",
                   f"conflicting repeated records: {conflicts}", f"analytic record mismatches: {analytic_mismatch}",
+                  f"bounds not numeric or not finite: {bad_bound}", f"solver field errors: {solver_field_errors}",
                   f"closed above cutoff: {above}", f"split layers missing or open: {split_issues}",
                   f"run record: {'cutoff ' + str(run_cutoff) if run_cutoff is not None else 'missing'}"]
     with open(out + ".md", "w", encoding="utf-8") as f:

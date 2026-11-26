@@ -11,6 +11,7 @@
 - S2+ precondition checked against the audited certificate of N - 1
 - closures without a solver run: 5 by the energy test (largest Delta E -0.5), 0 with no candidate layer; 65 closed by the solver
 - records without a solver run checked against the recomputed analytic reason: 70 records, 0 mismatches; conflicting repeated records: 0
+- bounds that are NaN, or not finite on a CUTOFF or OPTIMAL record: 0; Gurobi status, objective bound and cutoff of the records not recorded by this run
 - total nodes 22,191; total thread-seconds 8
 
 | slowest profile | status | nodes | seconds | source |

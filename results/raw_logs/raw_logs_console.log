@@ -1,0 +1,180 @@
+================================================================================
+META: ProfileDecomp | model=M1u strengthen=['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] tail=False | N=5 | profiles=2 | LB=1.3045548 | Cutoff=1.3045649 | gap=0.0005 | seed=42 | workers=4 x threads=1 | TL/sub=259200s
+  Host=workstation | Gurobi=13.0.1 | Start=2026-11-26 19:43:05 | PID=278360
+================================================================================
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-26 19:43:05]   1/2 P=1-2-1-1                CUTOFF     bound=1.3045649 nodes=         1 t=      0.0s
+[2026-11-26 19:43:05]   2/2 P=1-2-2                  CUTOFF     bound=1.3045649 nodes=        11 t=      0.0s
+
+================================================================================
+SUMMARY_REPORT:
+  Status           : OPTIMAL
+  ObjVal           : 1.3045548
+  BestBound        : 1.3045649
+  Gap_rel          : 7.742e-06
+  Runtime_Sec      : 0.1  (sum over subproblems 0.0)
+  NodeCount        : 12
+  Slowest profiles : 1-2-2 0.0s/11n; 1-2-1-1 0.0s/1n
+================================================================================
+# Layer-profile certificate, N = 5
+
+- certified: **True**
+- feasible value (lower bound): 1.3045548
+- upper bound (cutoff): 1.30456490  (relative gap 7.74e-06)
+- profiles: 2 / 2 closed; status counts {'CUTOFF': 2}
+- missing 0, unexpected 0, repeated records 0 (last record used)
+- cutoff of the run: 1.3045649 (<= certificate cutoff)
+- closed records with bound above the cutoff: 0; split profiles with missing/open layers: 0
+- S2+ (n_2 = 2) condition zbar(4) + 1/(2N) < lower bound: margin 0.03666 (holds); zbar(4) = 1.1678933 from M0cert_N4_s42_result.json, certified: True
+- S2+ precondition checked against the audited certificate of N - 1
+- closures without a solver run: 0 by the energy test (largest Delta E None), 0 with no candidate layer; 2 closed by the solver
+- records without a solver run checked against the recomputed analytic reason: 2 records, 0 mismatches; conflicting repeated records: 0
+- total nodes 12; total thread-seconds 0
+
+| slowest profile | status | nodes | seconds | source |
+|---|---|---|---|---|
+| 1-2-2 | CUTOFF | 11 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.3045649-C2L-SP1-PDcert_N5_s42_profiles.csv |
+| 1-2-1-1 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.3045649-C2L-SP1-PDcert_N5_s42_profiles.csv |
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+N=5 gamma=1.303990174275 (S*=1.3171618) branches=5 open=0 nodes=0 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=5: expected branches 5, records 5, missing 0, unexpected 0, repeated 0, open in main run 0
+  solver threshold 1.303990174274529 <= gamma_ns(N) = 1.3039902 (rounding robust: True); closed records with a recorded threshold: 3, max 1.303990174274529, above gamma_ns: 0
+  stacks with n_2 = 1 (condition of the corollary): general margin +0.036097 (holds)
+  analytic statuses checked: EMPTY iff J empty, TIE iff t0 = l*; violations 0, conflicting repeated records 0
+  NON-SPINAL EXCLUSION CERTIFIED above gamma_ns(5) = 1.3039902
+================================================================================
+META: ProfileDecomp | model=M1u strengthen=['C2', 'EN', 'S1', 'S2P', 'S4', 'SP', 'TB'] tail=False | N=7 | profiles=7 | LB=1.5300452 | Cutoff=1.5300553 | gap=0.0005 | seed=42 | workers=4 x threads=1 | TL/sub=259200s
+  Host=workstation | Gurobi=13.0.1 | Start=2026-11-26 19:43:05 | PID=278404
+================================================================================
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-26 19:43:05]   1/7 P=1-2-3-1                CUTOFF     bound=1.5300553 nodes=         0 t=      0.0s
+[2026-11-26 19:43:05]   2/7 P=1-2-4                  INFEASIBLE bound=-inf nodes=         0 t=      0.0s
+[2026-11-26 19:43:05]   3/7 P=1-2-2-1-1              CUTOFF     bound=1.5300553 nodes=         1 t=      0.0s
+[2026-11-26 19:43:05]   4/7 P=1-2-2-2                CUTOFF     bound=1.5300553 nodes=       198 t=      0.0s
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-26 19:43:05]   5/7 P=1-2-1-1-1-1            CUTOFF     bound=1.5300553 nodes=         1 t=      0.0s
+[2026-11-26 19:43:05]   6/7 P=1-2-1-2-1              CUTOFF     bound=1.5300553 nodes=         3 t=      0.0s
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+[2026-11-26 19:43:05]   7/7 P=1-2-1-1-2              CUTOFF     bound=1.5300553 nodes=         1 t=      0.0s
+
+================================================================================
+SUMMARY_REPORT:
+  Status           : OPTIMAL
+  ObjVal           : 1.5300452
+  BestBound        : 1.5300553
+  Gap_rel          : 6.601e-06
+  Runtime_Sec      : 0.2  (sum over subproblems 0.2)
+  NodeCount        : 204
+  Slowest profiles : 1-2-2-2 0.0s/198n; 1-2-2-1-1 0.0s/1n; 1-2-1-2-1 0.0s/3n; 1-2-1-1-1-1 0.0s/1n; 1-2-1-1-2 0.0s/1n
+================================================================================
+# Layer-profile certificate, N = 7
+
+- certified: **True**
+- feasible value (lower bound): 1.5300452
+- upper bound (cutoff): 1.53005530  (relative gap 6.60e-06)
+- profiles: 7 / 7 closed; status counts {'CUTOFF': 6, 'INFEASIBLE': 1}
+- missing 0, unexpected 0, repeated records 0 (last record used)
+- cutoff of the run: 1.5300553 (<= certificate cutoff)
+- closed records with bound above the cutoff: 0; split profiles with missing/open layers: 0
+- S2+ (n_2 = 2) condition zbar(6) + 1/(2N) < lower bound: margin 0.02191 (holds); zbar(6) = 1.4367103 from cert_N6.json, certified: True
+- S2+ precondition checked against the audited certificate of N - 1
+- closures without a solver run: 1 by the energy test (largest Delta E -3.0), 0 with no candidate layer; 6 closed by the solver
+- records without a solver run checked against the recomputed analytic reason: 7 records, 0 mismatches; conflicting repeated records: 0
+- total nodes 204; total thread-seconds 0
+
+| slowest profile | status | nodes | seconds | source |
+|---|---|---|---|---|
+| 1-2-2-2 | CUTOFF | 198 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-2-1-1 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-1-2-1 | CUTOFF | 3 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-1-1-1-1 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-1-1-2 | CUTOFF | 1 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-4 | INFEASIBLE | 0 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+| 1-2-3-1 | CUTOFF | 0 | 0.0 | M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv |
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+N=7 gamma=1.516552084059 (S*=1.5318708) branches=23 open=0 nodes=4 thread_s=0 wall=0s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=7: expected branches 23, records 23, missing 0, unexpected 0, repeated 0, open in main run 0
+  solver threshold 1.516552084058553 <= gamma_ns(N) = 1.5165521 (rounding robust: True); closed records with a recorded threshold: 17, max 1.516552084058553, above gamma_ns: 0
+  stacks with n_2 = 1 (condition of the corollary): general margin +0.008413 (holds)
+  analytic statuses checked: EMPTY iff J empty, TIE iff t0 = l*; violations 0, conflicting repeated records 0
+  NON-SPINAL EXCLUSION CERTIFIED above gamma_ns(7) = 1.5165521
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+Set parameter OutputFlag to value 1
+Set parameter LogToConsole to value 0
+N=16 (3 selected branches, time limit 86400s, 1 thread(s)) (split by lowest impure layer t0) gamma=2.122404368664 (S*=2.1438428) branches=14 open=0 nodes=58300685 thread_s=13825 wall=3998s best_nonspinal_found=nan => NO non-spinal stack above gamma
+N=16: expected branches 10905, records 10905, missing 0, unexpected 0, repeated 0, open in main run 3
+  t0 split: expected sub-branches 14, missing 0, unexpected 0, repeated 0, open 0; status counts {'CUTOFF': 11, 'TIE': 3}
+  solver threshold 2.122404368664169 <= gamma_ns(N) = 2.1224044 (rounding robust: True); closed records with a recorded threshold: 9687, max 2.122404368664169, above gamma_ns: 0
+  stacks with n_2 = 1: condition not checked here (pass --prev-cert and/or --prev-ns)
+  analytic statuses checked: EMPTY iff J empty, TIE iff t0 = l*; violations 0, conflicting repeated records 0
+  NON-SPINAL EXCLUSION CERTIFIED above gamma_ns(16) = 2.1224044 (branch coverage only; n_2 = 1 condition not checked)
+RAW LOGS WRITTEN TO ~/exp/Claude/v103_runs/raw_logs

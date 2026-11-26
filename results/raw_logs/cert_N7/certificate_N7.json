@@ -1,0 +1,105 @@
+{
+  "N": 7,
+  "certified": true,
+  "lower_bound_feasible": 1.5300452,
+  "cutoff_upper_bound": 1.5300553,
+  "relative_gap": 6.601112176229731e-06,
+  "profiles_total": 7,
+  "profiles_closed": 7,
+  "missing": [],
+  "open": [],
+  "unexpected": [],
+  "duplicates_last_record_used": {},
+  "run_cutoff": 1.5300553,
+  "run_cutoff_within_certificate": true,
+  "closed_above_cutoff": [],
+  "split_missing_or_open_layers": {},
+  "max_profile_bound": 1.5300553,
+  "total_nodes": 204,
+  "total_thread_seconds": 0.1584479808807373,
+  "S2plus_margin": 0.02190632857142849,
+  "S2plus_ok": true,
+  "S2plus_upper_bound_N_minus_1": 1.4367103,
+  "S2plus_upper_bound_source": "cert_N6.json",
+  "S2plus_previous_certified": true,
+  "family_SP": true,
+  "chain_checked": true,
+  "conflicting_repeated_records": {},
+  "analytic_records_checked": 7,
+  "analytic_record_mismatches": [],
+  "bounds_not_numeric_or_not_finite": [],
+  "solver_fields_checked": true,
+  "solver_field_errors": [],
+  "analytic_closures": {
+    "energy": 1,
+    "no_candidate_layer": 0,
+    "largest_energy_margin": "-3.0",
+    "profiles": {
+      "1-2-4": "energy"
+    }
+  },
+  "solver_closures": 6,
+  "status_counts": {
+    "CUTOFF": 6,
+    "INFEASIBLE": 1
+  },
+  "slowest": [
+    {
+      "profile": "1-2-2-2",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 198,
+      "runtime_sec": 0.0462489128112793,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-2-1-1",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 1,
+      "runtime_sec": 0.03180527687072754,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-2-1",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 3,
+      "runtime_sec": 0.031430959701538086,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-1-1-1",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 1,
+      "runtime_sec": 0.013585567474365234,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-1-1-2",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 1,
+      "runtime_sec": 0.01244807243347168,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-4",
+      "status": "INFEASIBLE",
+      "bound": -Infinity,
+      "nodes": 0,
+      "runtime_sec": 0.012080192565917969,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    },
+    {
+      "profile": "1-2-3-1",
+      "status": "CUTOFF",
+      "bound": 1.5300553,
+      "nodes": 0,
+      "runtime_sec": 0.0108489990234375,
+      "source": "M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_profiles.csv"
+    }
+  ],
+  "created": "2026-11-26 22:03:12"
+}

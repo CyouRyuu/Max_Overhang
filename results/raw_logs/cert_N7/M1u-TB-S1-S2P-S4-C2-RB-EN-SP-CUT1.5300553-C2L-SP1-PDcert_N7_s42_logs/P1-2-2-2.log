@@ -1,0 +1,89 @@
+
+Gurobi 13.0.1 (linux64) logging started Thu Nov 26 19:43:05 2026
+
+Set parameter LogFile to value "~/exp/Claude/v103_runs/raw_logs/cert_N7/M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_logs/P1-2-2-2.log"
+Set parameter NonConvex to value 2
+Set parameter Threads to value 1
+Set parameter MIPGap to value 0.0005
+Set parameter Seed to value 42
+Set parameter TimeLimit to value 259200
+Set parameter Cutoff to value 1.5300553
+Set parameter NodefileStart to value 1
+Set parameter SoftMemLimit to value 4
+Set parameter NodefileStart to value 1
+Set parameter SoftMemLimit to value 4
+Set parameter NodefileDir to value "~/exp/Claude/v103_runs/raw_logs/cert_N7/M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_nodefiles"
+Set parameter Heuristics to value 0
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.3 LTS")
+
+CPU model: Intel(R) Core(TM) Ultra 7 265K, instruction set [SSE2|AVX|AVX2]
+Thread count: 20 physical cores, 20 logical processors, using up to 1 threads
+
+Non-default parameters:
+Cutoff  1.5300553
+TimeLimit  259200
+SoftMemLimit  4
+IntFeasTol  1e-09
+MIPGap  0.0005
+Heuristics  0
+NodefileStart  1
+LogToConsole  0
+NonConvex  2
+Seed  42
+Threads  1
+
+Optimize a model with 346 rows, 118 columns and 980 nonzeros (Max)
+Model fingerprint: 0xf7ca964c
+Model has 1 linear objective coefficients
+Model has 21 quadratic constraints
+Model has 1 simple general constraint
+  1 MAX
+Variable types: 82 continuous, 36 integer (28 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 4e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [3e-01, 8e+00]
+  RHS range        [5e-01, 2e+01]
+
+Presolve removed 246 rows and 82 columns
+Presolve time: 0.00s
+Presolved: 132 rows, 37 columns, 355 nonzeros
+Presolved model has 8 bilinear constraint(s)
+
+Solving non-convex MIQCP to global optimality
+
+Variable types: 31 continuous, 6 integer (6 binary)
+
+Root relaxation: objective 1.879355e+00, 49 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    1.87935    0   13          -    1.87935      -     -    0s
+     0     0    1.86170    0   13          -    1.86170      -     -    0s
+     0     0    1.75179    0   13          -    1.75179      -     -    0s
+     0     0    1.63656    0   13          -    1.63656      -     -    0s
+     0     0    1.63656    0   14          -    1.63656      -     -    0s
+     0     0    1.63656    0   12          -    1.63656      -     -    0s
+     0     0    1.63656    0   13          -    1.63656      -     -    0s
+     0     0    1.63656    0   11          -    1.63656      -     -    0s
+     0     0    1.63656    0   11          -    1.63656      -     -    0s
+     0     0    1.63656    0    8          -    1.63656      -     -    0s
+     0     2    1.62452    0    8          -    1.62452      -     -    0s
+
+Cutting planes:
+  Gomory: 2
+  MIR: 2
+  RLT: 1
+  Relax-and-lift: 1
+
+Explored 198 nodes (977 simplex iterations) in 0.04 seconds (0.03 work units)
+Thread count was 1 (of 20 available processors)
+
+Solution count 0
+
+Model objective exceeds cutoff
+Best objective -, best bound 1.530055299747e+00, gap -

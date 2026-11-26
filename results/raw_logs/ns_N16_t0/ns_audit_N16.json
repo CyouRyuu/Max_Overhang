@@ -1,0 +1,17 @@
+{
+  "N": 16,
+  "certified": true,
+  "gamma_ns": 2.1224044,
+  "solver_gamma": 2.1224043686641694,
+  "branches": 10905,
+  "open_main": 3,
+  "split_subbranches": 14,
+  "n2_equals_1_condition": {
+    "checked": false
+  },
+  "chain_checked": false,
+  "analytic_status_violations": [],
+  "conflicting_repeated_records": {},
+  "solver_fields_checked": true,
+  "solver_field_errors": []
+}

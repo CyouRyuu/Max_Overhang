@@ -6,6 +6,7 @@
 #  * non-spinal exclusions N = 5..16 (t0 split at N = 16), each with the condition for stacks with n_2 = 1
 #    checked against the audited certificate and exclusion of N - 1;
 #  * the baselines, the matched comparison, the reverse controls and the exact N = 9 non-spinal stack;
+#  * the negative tests of both auditors (tampered copies of archived records must be rejected);
 #  * a summary table of the whole chain (results of this run in $OUT/audit/).
 set -euo pipefail
 source "$(dirname "$0")/common.sh"
@@ -43,5 +44,6 @@ done
 "$PY" "$SRC/ns_audit.py" 9 "$R/reverse_controls/n9/ns_N9_rel0.03.csv" --rel 3e-2 \
     --prev-ns "$A/rc_ns_N8.json" --out "$A/rc_ns_N9.json" | tail -2 || FAIL=1
 "$PY" "$SRC/exact_witness.py" --check "$R/reverse_controls/n9/ns_N9_exact_stack.json" || FAIL=1
+"$PY" "$SRC/test_auditors.py" | tail -1 || FAIL=1
 "$PY" "$SRC/chain_summary.py" "$A" || FAIL=1
 exit $FAIL

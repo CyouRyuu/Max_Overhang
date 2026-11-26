@@ -1,0 +1,3 @@
+profile,H,status,objective,bound,nodes,runtime_sec,pairs_fixed0,noncross,c2_general,tail_m,rank_box,c2_layer,energy_dE,vars,constrs,closure,gurobi_status,obj_bound,cutoff
+1-2-1-1,4,CUTOFF,nan,1.3045649,1,0.011246442794799805,5,0,0,0,8,1,,66,192,solver,6,1.3045648997695432,1.3045649
+1-2-2,3,CUTOFF,nan,1.3045649,11,0.017650127410888672,4,0,0,0,8,1,,66,191,solver,6,1.3045648997695432,1.3045649

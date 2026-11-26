@@ -27,6 +27,9 @@
   "conflicting_repeated_records": {},
   "analytic_records_checked": 224,
   "analytic_record_mismatches": [],
+  "bounds_not_numeric_or_not_finite": [],
+  "solver_fields_checked": false,
+  "solver_field_errors": [],
   "analytic_closures": {
     "energy": 0,
     "no_candidate_layer": 0,
@@ -106,5 +109,5 @@
       "source": "M1u-TB-S1-S2P-S4-C2-RB-C2L-PD6-PDcert_N13_s42_profiles.csv"
     }
   ],
-  "created": "2026-11-26 19:34:46"
+  "created": "2026-11-26 22:02:46"
 }

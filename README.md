@@ -33,9 +33,13 @@ src/                 Python sources
   pd_certificate.py    assembles and audits a decomposition certificate: every expected profile present and closed,
                        no unexpected profile, repeated records reported, run cutoff within the certificate cutoff,
                        S2+ condition against the audited certificate of N - 1, analytic closures listed separately
+                       and recomputed, closure kind, Gurobi status, ObjBound and cutoff of every record that stores
+                       them, no NaN or infinite bound on a closed record
   ns_audit.py          audits non-spinal exclusion records: expected branches (and t0 sub-branches) present and
                        closed, no unexpected branch, solver threshold <= gamma_ns(N), condition for n_2 = 1 against
-                       the audited results of N - 1
+                       the audited results of N - 1, analytic statuses recomputed, Gurobi status, ObjBound and
+                       cutoff of every record that stores them
+  test_auditors.py     negative tests of the two auditors: 25 tampered copies of archived records, each rejected
   chain_summary.py     summary of the audited chain N = 5..16 (exit 1 unless every link holds)
   make_index.py        writes results/INDEX.csv (one row per archived run)
   exact_witness.py     turns a solver witness into an exactly balanced rational stack (--check: verify only)
@@ -101,6 +105,7 @@ New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the ar
 | Main certificate table, non-spinal exclusion $`N = 5..16`$ | `scripts/nonspinal.sh N [workers]` | `results/nonspinal/` |
 | $`N = 16`$ sub-branch table (Appendix B) | `scripts/nonspinal_n16_split.sh` | `results/nonspinal/` |
 | Re-audit of all archived certificates and exclusions, including the S2+ and non-spinal conditions between consecutive sizes, the analytic closures and the chain summary | `scripts/audit_archive.sh` (no solver) | `results/` |
+| Negative tests of the auditors: tampered copies of archived records (status, bound, closure kind, Gurobi status, ObjBound, cutoff, previous certificate) must be rejected | `python3 src/test_auditors.py` (no solver; also run by `scripts/audit_archive.sh`) | — |
 | Index of every archived run (solver version, options, parameters, cutoff or threshold, files) | `python3 src/make_index.py` | `results/INDEX.csv` |
 | Positive reverse controls with witnesses, and the exactly balanced rational non-spinal stack at $`N = 9`$ (Section 6) | `scripts/reverse_controls.sh`; `src/exact_witness.py --check` (no solver) | `results/reverse_controls/` |
 | Stability under tighter tolerances (Section 6.1): hardest certificate profiles at $`N = 14, 15`$; $`N = 16`$ non-spinal sub-branches | `scripts/tolerance_check.sh`; `scripts/tolerance_check_ns16.sh` | `results/tolerance_check/` |
@@ -166,9 +171,15 @@ Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
 
 Please cite the paper and this archive; see `CITATION.cff`.
 Archived on Zenodo; all versions: [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950). The paper uses
-version 1.0.2 (this version). Version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
+version 1.0.4 (this version). Version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
 first release; version 1.0.1, [10.5281/zenodo.24546538](https://doi.org/10.5281/zenodo.24546538), adds the solver-free
-auditing tools and the records of the matched comparison, the tolerance check and the reverse controls; version 1.0.2
-adds the two verifiers of the exact spinal optima (Appendix C) with their outputs, the exactly balanced rational
-non-spinal stack at $`N = 9`$, the tolerance check of the $`N = 16`$ non-spinal sub-branches, and the audit of the
-conditions that link consecutive sizes.
+auditing tools and the records of the matched comparison, the tolerance check and the reverse controls; version 1.0.2,
+[10.5281/zenodo.24554261](https://doi.org/10.5281/zenodo.24554261), adds the two verifiers of the exact spinal optima
+(Appendix C) with their outputs, the exactly balanced rational non-spinal stack at $`N = 9`$, the tolerance check of the
+$`N = 16`$ non-spinal sub-branches, and the audit of the conditions that link consecutive sizes; version 1.0.3,
+[10.5281/zenodo.24559614](https://doi.org/10.5281/zenodo.24559614), adds the closure kind, raw status and ObjBound in
+every new record, the mechanical audit of all closures without a solver run, and a directed interval check of the
+constants of the spinal cuts; version 1.0.4 adds the raw Gurobi logs and model files of key instances
+(`results/raw_logs/`), the audit of the raw status, ObjBound and cutoff of every record that stores them, stricter
+checks of bounds, closure kinds and previous certificates in both auditors, and negative tests of the auditors
+(`src/test_auditors.py`).

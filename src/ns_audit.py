@@ -8,6 +8,9 @@ Checks, for one N:
   * the analytic statuses are checked mechanically: a main record is EMPTY exactly when J_{l*} is empty, a
     split record is TIE exactly when t0 = l*, and a recorded closure kind (newer runs) agrees with the status;
     repeated records with conflicting closed statuses fail the audit;
+  * the solver fields of newer runs: a record closed by the solver carries Gurobi status 6 (CUTOFF, with an
+    objective bound not above its cutoff) or 3 (INFEASIBLE) and a recorded cutoff not above gamma_ns(N); a record
+    closed without the solver carries no Gurobi status, and one closed by the bounds of the branch is INFEASIBLE;
   * the threshold: gamma_ns(N) = ceil_7((1 - rel) S*(N)) is computed so that rounding errors cannot change the
     seventh decimal (the computed value must lie at least 1e-5 grid units from a grid point), and every closed
     record (CUTOFF, INFEASIBLE) carries the threshold its run used, which must not exceed gamma_ns(N); the solver
@@ -32,6 +35,39 @@ CLOSED = {"INFEASIBLE", "CUTOFF", "EMPTY", "TIE"}
 
 
 KIND = {"EMPTY": "analytic: J empty", "TIE": "analytic: t0 = l*"}
+GUROBI_STATUS = {"CUTOFF": "6", "INFEASIBLE": "3"}
+
+
+def as_float(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return float("nan")
+
+
+def solver_field_errors(recs, gamma_ns):
+    """Gurobi status, objective bound and cutoff of the closed records (columns of newer runs)."""
+    bad = []
+    for k, r in recs.items():
+        st, kind = r["status"], (r.get("closure") or "").strip()
+        if "gurobi_status" not in r or st not in CLOSED or not kind:
+            continue
+        gs, ob, cu = ((r.get(c) or "").strip() for c in ("gurobi_status", "obj_bound", "cutoff"))
+        err = None
+        if kind == "solver":
+            if gs != GUROBI_STATUS.get(st):
+                err = f"status {st} with Gurobi status {gs or 'missing'}"
+            elif not (math.isfinite(as_float(cu)) and as_float(cu) <= gamma_ns):
+                err = "recorded cutoff missing or above gamma_ns"
+            elif st == "CUTOFF" and not (math.isfinite(as_float(ob)) and as_float(ob) <= as_float(cu) + 1e-9):
+                err = "CUTOFF with objective bound missing or above its cutoff"
+        elif gs != "":
+            err = "closed without the solver but with a Gurobi status"
+        elif kind == "bounds before solving" and st != "INFEASIBLE":
+            err = "closed by the bounds of the branch but not INFEASIBLE"
+        if err:
+            bad.append(k + (st, gs, ob, cu, err))
+    return sorted(bad)
 
 
 def read(path, with_t0):
@@ -138,9 +174,11 @@ def main():
             bad_bound.append((r["profile"], r["lstar"], r.get("t0", ""), r["status"], raw))
     above = [b for b in used if b > gamma_ns]
     gamma_ok = robust and solver_gamma <= gamma_ns and not above and not bad_bound
+    field_bad = solver_field_errors(recs, gamma_ns) + (solver_field_errors(srecs, gamma_ns) if a.split else [])
+    fields_checked = any("gurobi_status" in r for r in list(recs.values()) + (list(srecs.values()) if a.split else []))
 
     ok = not (missing or unexpected or still_open or split_missing or split_open or split_unexpected
-              or status_bad or conflicts) and gamma_ok
+              or status_bad or conflicts or field_bad) and gamma_ok
 
     # Stacks with n_2 = 1 are not enumerated; the corollary excludes them above gamma_ns(N) if
     #   zbar(N-1) + 1/(2N) < gamma_ns(N)          (general condition, zbar from the certificate of N - 1), or
@@ -153,7 +191,7 @@ def main():
             if "certified" in pc:
                 ub, cok = pc["cutoff_upper_bound"], bool(pc["certified"]) and pc.get("N") == a.N - 1
             else:
-                ub, cok = math.ceil(pc["bound"] * 1e7 - 1e-6) / 1e7, pc.get("status") == "OPTIMAL"
+                ub, cok = math.ceil(pc["bound"] * 1e7 - 1e-6) / 1e7, pc.get("status") == "OPTIMAL" and pc.get("N") == a.N - 1
             chain["general_margin"] = gamma_ns - (ub + 0.5 / a.N)
             chain["general_ok"] = cok and chain["general_margin"] > 0
         if a.prev_ns:
@@ -176,7 +214,8 @@ def main():
                     ("split unexpected", split_unexpected), ("split open", split_open),
                     ("closed records without a finite threshold", bad_bound),
                     ("analytic status not matching its condition", status_bad),
-                    ("conflicting repeated records", conflicts)]:
+                    ("conflicting repeated records", conflicts),
+                    ("solver fields not matching the status", field_bad)]:
         if v:
             print(f"  {name}: {v}")
     if chain["checked"]:
@@ -187,6 +226,8 @@ def main():
         print("  stacks with n_2 = 1: condition not checked here (pass --prev-cert and/or --prev-ns)")
     print(f"  analytic statuses checked: EMPTY iff J empty, TIE iff t0 = l*; violations {len(status_bad)}, "
           f"conflicting repeated records {len(conflicts)}")
+    print("  Gurobi status, objective bound and cutoff of the closed records: "
+          + (f"checked, errors {len(field_bad)}" if fields_checked else "not recorded by this run"))
     print(f"  NON-SPINAL EXCLUSION {'CERTIFIED' if ok else 'NOT CERTIFIED'} above gamma_ns({a.N}) = {gamma_ns:.7f}"
           + ("" if chain["checked"] else " (branch coverage only; n_2 = 1 condition not checked)"))
     if a.out:
@@ -195,7 +236,9 @@ def main():
                        "branches": len(expected), "open_main": len(open_main), "split_subbranches": len(want),
                        "n2_equals_1_condition": chain, "chain_checked": chain["checked"],
                        "analytic_status_violations": [list(map(str, x)) for x in status_bad],
-                       "conflicting_repeated_records": {str(k): v for k, v in conflicts.items()}}, f, indent=2)
+                       "conflicting_repeated_records": {str(k): v for k, v in conflicts.items()},
+                       "solver_fields_checked": fields_checked,
+                       "solver_field_errors": [list(map(str, x)) for x in field_bad]}, f, indent=2)
     sys.exit(0 if ok else 1)
 
 

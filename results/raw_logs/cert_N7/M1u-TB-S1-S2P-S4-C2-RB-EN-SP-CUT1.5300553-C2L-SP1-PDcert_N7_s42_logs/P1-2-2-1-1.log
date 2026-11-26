@@ -1,0 +1,97 @@
+
+Gurobi 13.0.1 (linux64) logging started Thu Nov 26 19:43:05 2026
+
+Set parameter LogFile to value "~/exp/Claude/v103_runs/raw_logs/cert_N7/M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_logs/P1-2-2-1-1.log"
+Set parameter NonConvex to value 2
+Set parameter Threads to value 1
+Set parameter MIPGap to value 0.0005
+Set parameter Seed to value 42
+Set parameter TimeLimit to value 259200
+Set parameter Cutoff to value 1.5300553
+Set parameter NodefileStart to value 1
+Set parameter SoftMemLimit to value 4
+Set parameter NodefileStart to value 1
+Set parameter SoftMemLimit to value 4
+Set parameter NodefileDir to value "~/exp/Claude/v103_runs/raw_logs/cert_N7/M1u-TB-S1-S2P-S4-C2-RB-EN-SP-CUT1.5300553-C2L-SP1-PDcert_N7_s42_nodefiles"
+Set parameter Heuristics to value 0
+Set parameter IntFeasTol to value 1e-09
+Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.3 LTS")
+
+CPU model: Intel(R) Core(TM) Ultra 7 265K, instruction set [SSE2|AVX|AVX2]
+Thread count: 20 physical cores, 20 logical processors, using up to 1 threads
+
+Non-default parameters:
+Cutoff  1.5300553
+TimeLimit  259200
+SoftMemLimit  4
+IntFeasTol  1e-09
+MIPGap  0.0005
+Heuristics  0
+NodefileStart  1
+LogToConsole  0
+NonConvex  2
+Seed  42
+Threads  1
+
+Optimize a model with 347 rows, 118 columns and 979 nonzeros (Max)
+Model fingerprint: 0x648bb41b
+Model has 1 linear objective coefficients
+Model has 21 quadratic constraints
+Model has 1 simple general constraint
+  1 MAX
+Variable types: 82 continuous, 36 integer (28 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 4e+01]
+  QMatrix range    [1e+00, 1e+00]
+  QLMatrix range   [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [3e-01, 8e+00]
+  RHS range        [5e-01, 2e+01]
+
+Presolve removed 242 rows and 78 columns
+Presolve time: 0.00s
+Presolved: 137 rows, 41 columns, 370 nonzeros
+Presolved model has 8 bilinear constraint(s)
+
+Solving non-convex MIQCP to global optimality
+
+Variable types: 34 continuous, 7 integer (7 binary)
+
+Root relaxation: objective 3.030045e+00, 67 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    3.03005    0   13          -    3.03005      -     -    0s
+     0     0    2.99562    0   13          -    2.99562      -     -    0s
+     0     0    1.96697    0   14          -    1.96697      -     -    0s
+     0     0    1.96697    0   13          -    1.96697      -     -    0s
+     0     0    1.71697    0   13          -    1.71697      -     -    0s
+     0     0    1.67907    0   12          -    1.67907      -     -    0s
+     0     0    1.67907    0   12          -    1.67907      -     -    0s
+     0     0    1.67650    0   13          -    1.67650      -     -    0s
+     0     0    1.67650    0   13          -    1.67650      -     -    0s
+     0     0    1.67373    0   13          -    1.67373      -     -    0s
+     0     0    1.66885    0   13          -    1.66885      -     -    0s
+     0     0    1.66708    0   13          -    1.66708      -     -    0s
+     0     0    1.66696    0   13          -    1.66696      -     -    0s
+     0     0    1.66173    0   13          -    1.66173      -     -    0s
+     0     0    1.66168    0   13          -    1.66168      -     -    0s
+     0     0 infeasible    0               -    1.53006      -     -    0s
+
+Cutting planes:
+  Gomory: 3
+  Cover: 1
+  Implied bound: 1
+  MIR: 1
+  Flow cover: 2
+  RLT: 4
+  Relax-and-lift: 1
+
+Explored 1 nodes (154 simplex iterations) in 0.02 seconds (0.01 work units)
+Thread count was 1 (of 20 available processors)
+
+Solution count 0
+
+Model objective exceeds cutoff
+Best objective -, best bound 1.530055299747e+00, gap -
