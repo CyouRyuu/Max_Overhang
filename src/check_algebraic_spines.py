@@ -6,7 +6,7 @@ exception values at N = 5, 7.  Needs sympy and mpmath; no optimization solver.
 For each N, the stack is the shielded construction of Section 5.2 (Table A1 seeds; same formulas as
 verify_rational_stacks.py) with the exact loads of the loaded-spine optimum: t_s = u_s(x) for s < k and
 t_k = N, where u_0 = 0, u_1 = x, u_{s+1} = u_s^2 / (u_{s-1} + 1/2) and x is the unique positive root of
-u_k(x) = N (Proposition 22(i)).  Every quantity is an element of the rational function field Q(x).
+u_k(x) = N (loaded-spinal chain bound of Section 4.2, part (i)).  Every quantity is an element of the rational function field Q(x).
 
   1. Balance: the force and moment residual of every block is the zero element of Q(x) (exact arithmetic in
      the rational function field of SymPy), so balance holds for every x, in particular at the root; the

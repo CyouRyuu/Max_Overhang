@@ -340,7 +340,7 @@ def build_mrel(model, N, eta=0.0, rightmost=None, layer_lb=None, tight=False):
     for i in range(2, N + 1):
         u = float(N - i + 1) * MASS
         model.addConstr(gp.quicksum(T[i, j] for j in range(1, i)) >= 1, name=f"DAGSupMin_{i}")
-        max_sup = 2 if eta > 0.0 else 3          # Proposition 2: exactly <= 2 when eta > 0
+        max_sup = 2 if eta > 0.0 else 3          # support-degree lemma (Section 3.1): <= 2 when eta > 0
         model.addConstr(gp.quicksum(T[i, j] for j in range(1, i)) <= max_sup, name=f"DAGSupMax_{i}")
         for j in range(1, i):
             model.addConstr(F[i, j] <= u * T[i, j])

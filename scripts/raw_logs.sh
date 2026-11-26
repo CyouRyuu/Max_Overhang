@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Raw Gurobi logs and model files (MPS, gzip) for key instances, with the settings of the archived runs:
 #   * the tight certificates and the non-spinal exclusions at N = 5 and N = 7 (every solved profile and branch),
-#   * the 11 t0 sub-branches of the N = 16 non-spinal exclusion that need the solver (Appendix B, Table B2).
+#   * the 11 t0 sub-branches of the N = 16 non-spinal exclusion that need the solver (sub-branch table of Appendix B).
 # Every record also stores the closure kind (analytic or solver), the raw Gurobi status code, ObjBound and the
 # cutoff.  The audits at the end must pass again.  Reference: N = 5, 7 take seconds; N = 16 about 4,800 s wall
 # with 11 workers (16,244 thread-s in the archived run).

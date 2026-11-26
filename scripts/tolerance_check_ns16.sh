@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Stability of the N = 16 non-spinal exclusion under tighter numerical settings: re-solve the 14 t0 sub-branches
-# of Appendix B (Table B2), which close the three main branches left open at 7,200 s, with
+# of Appendix B (sub-branch table), which close the three main branches left open at 7,200 s, with
 # FeasibilityTol = OptimalityTol = IntFeasTol = 1e-9 and NumericFocus = 3 (same model, same threshold).
 # Every sub-branch must close again (CUTOFF, INFEASIBLE or TIE).  Reference at default settings: 4,779 s wall,
 # 16,244 thread-s.

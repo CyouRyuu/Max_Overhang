@@ -14,15 +14,15 @@ python3 src/exact_spines/symbolic_check.py --out runs/exact_spines      # option
 ## What is checked
 
 * **Loads and height.** For each height $`K`$, the loads $`t_s`$ are rational functions of $`t_1 = x`$ through the
-  recurrence (50), and $`x`$ is the unique positive root of $`t_K(x) = N`$. The root is isolated in an interval of
+  recurrence of the loaded-spinal chain bound (Section 4.2), and $`x`$ is the unique positive root of $`t_K(x) = N`$. The root is isolated in an interval of
   width $`3 \times 10^{-26}`$ whose endpoints are checked in exact rational arithmetic, and $`\hat S_K(N)`$ is enclosed
   for every $`K \le N`$. The optimal height is separated from all others, and all added loads are positive there.
-* **Ordinary blocks.** The shielded construction of Section 5.2 (equations (60) to (65), the seeds of Table A1,
+* **Ordinary blocks.** The shielded construction of Section 5.2 and Appendix A.1 (the seeds of Table A1,
   and for $`N = 17, 18, 19`$ the seeds of Appendix C) with these exact loads. Every quantity is enclosed in an
   interval with rational endpoints rounded outward to multiples of $`10^{-60}`$; strict inequalities are proved by
   a positive lower end, weak ones by a nonnegative lower end. Equalities follow from the construction and are
   checked separately in $`\mathbb{Q}(x)`$ by `symbolic_check.py`.
-* **Exception sizes.** $`N = 5`$ uses equation (66) with $`t_2 = \sqrt{15/2}`$; $`N = 7`$ uses height 3 with loads
+* **Exception sizes.** $`N = 5`$ uses the closed form of the bridgeless stack (Appendix A.1) with $`t_2 = \sqrt{15/2}`$; $`N = 7`$ uses height 3 with loads
   $`(0, x, 2x^2, 7)`$, $`8x^4 - 14x - 7 = 0`$. The faces with a zero added load are covered by rational boxes
   (`exception_faces.csv`).
 
@@ -51,3 +51,8 @@ positive denominators; an empty field means that the item does not apply.
 The scripts were drafted with the assistance of ChatGPT Astra (OpenAI) for an independent check of the manuscript,
 then reproduced and checked by the authors, and are distributed under the MIT license of this repository
 (see the declaration on the use of artificial intelligence tools in the paper).
+
+The comments of the scripts in this directory cite equation and proposition numbers of an earlier draft of the
+paper: Proposition 22(i) is the loaded-spinal chain bound of Section 4.2, part (i); equations (48) to (50) are its
+definitions and recurrence; equations (60) to (66) are the rational construction of Section 5.2 and Appendix A.1.
+The scripts are kept unchanged.

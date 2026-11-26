@@ -98,8 +98,8 @@ New outputs are written to `runs/` (change with `OUT=/path scripts/...`); the ar
 | Paper item | Script | Archived result |
 |---|---|---|
 | Exact rational stacks, Appendix A | `scripts/verify_exact.sh` | `data/rational_stacks.json` |
-| S2+ chain table; non-spinal chain margins (Section 6.1) | `scripts/verify_exact.sh` | — (exact computation) |
-| Exact spinal optima, Theorem 30(a) and Appendix C | `scripts/exact_spines.sh` (no solver) | `results/exact_spines/` |
+| Margins of the base-singleton (S2+) and non-spinal chains, constants table (Section 6.1) | `scripts/verify_exact.sh` | — (exact computation) |
+| Exact spinal optima, main theorem part (a) and Appendix C | `scripts/exact_spines.sh` (no solver) | `results/exact_spines/` |
 | Anchor $`\overline{z}(4) = 1.1678933`$ | `scripts/anchor_n4.sh` | `results/anchor_n4/` |
 | Main certificate table, tight certificates $`N = 5..16`$ | `scripts/certify.sh N [workers]` | `results/certificates/` |
 | Main certificate table, non-spinal exclusion $`N = 5..16`$ | `scripts/nonspinal.sh N [workers]` | `results/nonspinal/` |
@@ -171,7 +171,7 @@ Data (`data/`, `results/`): CC BY 4.0, see `LICENSE-DATA`.
 
 Please cite the paper and this archive; see `CITATION.cff`.
 Archived on Zenodo; all versions: [10.5281/zenodo.24518950](https://doi.org/10.5281/zenodo.24518950). The paper uses
-version 1.0.4 (this version). Version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
+version 1.0.5 (this version). Version 1.0.0, [10.5281/zenodo.24518951](https://doi.org/10.5281/zenodo.24518951), is the
 first release; version 1.0.1, [10.5281/zenodo.24546538](https://doi.org/10.5281/zenodo.24546538), adds the solver-free
 auditing tools and the records of the matched comparison, the tolerance check and the reverse controls; version 1.0.2,
 [10.5281/zenodo.24554261](https://doi.org/10.5281/zenodo.24554261), adds the two verifiers of the exact spinal optima
@@ -182,4 +182,5 @@ every new record, the mechanical audit of all closures without a solver run, and
 constants of the spinal cuts; version 1.0.4 adds the raw Gurobi logs and model files of key instances
 (`results/raw_logs/`), the audit of the raw status, ObjBound and cutoff of every record that stores them, stricter
 checks of bounds, closure kinds and previous certificates in both auditors, and negative tests of the auditors
-(`src/test_auditors.py`).
+(`src/test_auditors.py`); version 1.0.4 is [10.5281/zenodo.24561497](https://doi.org/10.5281/zenodo.24561497). Version 1.0.5
+changes no code or record; it refers to the paper by section and table names instead of theorem and table numbers.
