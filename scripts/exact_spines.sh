@@ -21,5 +21,9 @@ for f in "$REPO"/results/exact_spines/*.csv; do
     cmp -s "$f" "$E/$(basename "$f")" || { echo "WARNING: $(basename "$f") differs from the archived file"; exit 1; }
 done
 echo "all CSV files identical to results/exact_spines/"
-"$PY" "$SRC/spine_faces.py" | tee "$E/spine_faces.log"
+"$PY" "$SRC/spine_faces.py" --leaves "$E/face_leaves" | tee "$E/spine_faces.log"
+for f in "$REPO"/results/exact_spines/face_leaves/*.csv; do
+    cmp -s "$f" "$E/face_leaves/$(basename "$f")" || { echo "WARNING: $(basename "$f") differs from the archived file"; exit 1; }
+done
+"$PY" "$SRC/check_face_leaves.py" "$E/face_leaves"
 "$PY" "$SRC/check_algebraic_spines.py" --nmax "${NMAX:-19}" | tee "$E/check_algebraic_spines.log"

@@ -1,0 +1,9 @@
+kind,profile,layer_or_lstar,criterion,margin_lower_bound,threshold
+cert,1-2-1-1-1-1,2,sp pure chain,0.13600635525342009,1.5300553
+cert,1-2-1-1-2,2,sp pure chain,0.13600635525342009,1.5300553
+cert,1-2-1-2-1,2,sp pure chain,0.13600635525342009,1.5300553
+cert,1-2-2-1-1,2,sp pure chain,0.13600635525342009,1.5300553
+cert,1-2-2-2,2,sp pure chain,0.13600635525342009,1.5300553
+cert,1-2-3-1,2,energy layer,0.2399110712630013,1.5300553
+cert,1-2-3-1,4,energy layer,0.5726892830405107,1.5300553
+cert,1-2-4,,energy,-3.0,1.5300553

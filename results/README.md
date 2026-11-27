@@ -15,8 +15,9 @@ Archived records of the runs reported in the paper (Gurobi 13.0.1, Python 3.10.1
 | `reverse_controls/` | positive reverse controls (`scripts/reverse_controls.sh`, log `rc.log`): N = 13 spinal stack 1.9845088923 at cutoff 1.9844089 (`n13_spinal/`; `n13_certificate_settings.log` is the same control with the certificate settings, no incumbent in 1 h, dual bound 1.9845089); N = 7 at gamma 1.38 and N = 9 at gamma 1.60, open, with witnesses `*_witnesses.json` (overhangs 1.3842371 and 1.6318871, both non-spinal under the closed resting relation through a point contact, spinal in the sense of Paterson and Zwick); N = 8 at gamma 1.60, all 48 branches closed (`n8/`; it excludes N = 9 non-spinal stacks with n_2 = 1 above 1.60 + 1/18); N = 9 at rho = 3e-2, all 92 branches closed; `n9/ns_N9_exact_stack.json`: the N = 9 witness made exactly balanced in rational arithmetic (`src/exact_witness.py`), overhang 1.6318870324..., every loaded contact of positive length, non-spinal in both senses | Section 6 |
 | `tolerance_check/N14, N15/` | the three most expensive profiles of the tight certificates at N = 14 and 15 re-solved with FeasibilityTol = OptimalityTol = IntFeasTol = 1e-9 and NumericFocus = 3 (label `TOL`): all six close by cutoff | Section 6.1 |
 | `tolerance_check/ns16/` | the 14 t0 sub-branches of the N = 16 non-spinal exclusion (sub-branch table of Appendix B) re-solved with FeasibilityTol = OptimalityTol = 1e-9, IntFeasTol = 1e-9 and NumericFocus = 3 (`scripts/tolerance_check_ns16.sh 11`): 11 close by cutoff, 3 need no computation (t0 = l*); 56,439,244 nodes, 23,443 thread-s (16,244 at default settings); `ns_summary.txt`, per-sub-branch records, and the audit output `tol16.log` (Gurobi licence lines removed) ending in NON-SPINAL EXCLUSION CERTIFIED | Section 6.1 |
-| `exact_spines/` | exact spinal optima (`scripts/exact_spines.sh`, no solver): the CSV files of the first verifier (`src/exact_spines/README.md` describes them) and the output of its initial script (`original_stdout.txt`); the logs of the second verifier (`spine_faces.log`, `check_algebraic_spines.log`) | main theorem part (a), Appendix C |
+| `exact_spines/` | exact spinal optima (`scripts/exact_spines.sh`, no solver): the CSV files of the first verifier (`src/exact_spines/README.md` describes them) and the output of its initial script (`original_stdout.txt`); the leaves of the box covering at N = 5, 7 (`face_leaves/`, replayed by `src/check_face_leaves.py`); the logs of the second verifier (`spine_faces.log`, `check_algebraic_spines.log`) | exact spinal optima theorem, Appendix C |
 | `raw_logs/` | rerun of key instances with the settings of the archived runs (`scripts/raw_logs.sh`): tight certificates and non-spinal exclusions at N = 5, 7, and the 14 t0 sub-branches of the N = 16 exclusion (11 solved). One Gurobi log and one model file (MPS, gzip) per solved subproblem or branch; every record also stores the closure kind (analytic or solver), the raw Gurobi status code, ObjBound and the cutoff. Node counts equal those of the archived runs (N = 5: 12, N = 7: 204, N = 16 sub-branches: 58,300,685). In the 11 N = 16 models the nonzero linear constraint coefficients lie in [0.973, 240], all quadratic coefficients equal 1, the nonzero variable bounds lie in [0.377, 35.2] and the nonzero right-hand sides in [0.5, 59.5] (the Gurobi log rounds these ranges to one significant figure: [1, 200], [0.4, 40], [0.5, 60]); no log reports numerical issues. `raw_logs_console.log` is the console output, including the audits | Section 5.1, Section 6.1, Appendix B |
+| `screening/` | exact rational re-check of every analytic screening decision (`src/check_screening.py`): per N, one row per energy-pruned profile, per candidate layer dropped from a certificate subproblem (criterion base envelope, energy layer bound or pure-chain bound, exact margin, threshold) and per non-spinal branch with a bound conflict; `screening_summary.txt` gives the counts and splits the archived INFEASIBLE branch records without nodes into exact bound conflicts and presolve closures of the solver | Sections 5.1, 6.1 |
 | `INDEX.csv` | one row per archived run: record, kind, N, Gurobi version, model options and parameters, cutoff or threshold, threads, time limit, status, bound, nodes, files (`src/make_index.py`) | all |
 
 Notes
@@ -32,7 +33,7 @@ Notes
   tolerances. It only sets that cutoff and plays no role in the tight certificates.
 * The certificate reports (`certificates/cert_N*.json/md`, `baselines/nosp_N13/certificate_N13.*`) were
   regenerated from the archived records with the final auditor `src/pd_certificate.py` and the constants of the
-  paper (exact z_Q(N), tight zbar(N - 1)), so they show the S2+ margins of the paper's chain table; the profile,
+  paper (exact z_Q(N), tight zbar(N - 1)), so they show the S2+ margins of the paper's constants table; the profile,
   race, split and branch records themselves are the original solver output (`scripts/audit_archive.sh`).
 * Console logs: the host name and home paths are replaced by `workstation` and `~`, and the Gurobi licence
   lines are removed.
@@ -42,3 +43,20 @@ Notes
   a run that stops on the gap with a solution above the cutoff would end with status `OPTIMAL` and fail the audit.
 * `nodes` and `runtime_sec` are per subproblem; thread-seconds in the paper are sums of `runtime_sec`
   over single-thread subproblems.
+
+Fields stored by each archive
+
+* `certificates/`, `nonspinal/`, `baselines/`, `ablation_sp/`, `tolerance_check/`, `reverse_controls/`: the status
+  of each subproblem or branch as summarized by the run (`CUTOFF`, `INFEASIBLE`, `EMPTY`, `TIE`, open statuses),
+  the recorded bound, nodes and run time, and in the run summaries the cutoff or threshold and all parameters.
+  These archives predate the extra fields below; the closure kind of their analytic records is recomputed by the
+  auditors and, exactly, by `src/check_screening.py`.
+* `raw_logs/` (N = 5, 7 and the N = 16 t0 split, rerun with the archived settings): in addition the closure kind
+  (`analytic: ...`, `bounds before solving`, `solver`), the raw Gurobi status code, `ObjBound` and the cutoff of
+  each record, one Gurobi log and one model file (MPS) per subproblem solved, checked by the auditors.
+* A record with status `INFEASIBLE` closed by the solver stores the bound `-inf`, the raw value of the run. Since the
+  cutoff enters presolve and the non-spinal branches contain rows that hold only above the threshold, such a record
+  proves only that no point of the subproblem has objective above the cutoff; the paper, and the certificate
+  reports, read every closed record as the bound given by the cutoff. Only the energy test proves a profile empty.
+* No archived branch was closed by `bounds before solving`: `src/check_screening.py` finds no exact bound conflict,
+  and every archived `INFEASIBLE` branch record without nodes is a presolve closure of the solver.

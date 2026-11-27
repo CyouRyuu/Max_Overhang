@@ -7,6 +7,8 @@
 #    checked against the audited certificate and exclusion of N - 1;
 #  * the baselines, the matched comparison, the reverse controls and the exact N = 9 non-spinal stack;
 #  * the negative tests of both auditors (tampered copies of archived records must be rejected);
+#  * the exact re-check of every analytic screening decision (energy test, dropped candidate layers, bound conflicts
+#    of non-spinal branches) in rational arithmetic (results/screening/);
 #  * a summary table of the whole chain (results of this run in $OUT/audit/).
 set -euo pipefail
 source "$(dirname "$0")/common.sh"
@@ -45,5 +47,7 @@ done
     --prev-ns "$A/rc_ns_N8.json" --out "$A/rc_ns_N9.json" | tail -2 || FAIL=1
 "$PY" "$SRC/exact_witness.py" --check "$R/reverse_controls/n9/ns_N9_exact_stack.json" || FAIL=1
 "$PY" "$SRC/test_auditors.py" | tail -1 || FAIL=1
+"$PY" "$SRC/check_screening.py" --out "$A/screening" | tail -1 || FAIL=1
+for f in "$REPO"/results/screening/*; do cmp -s "$f" "$A/screening/$(basename "$f")" || { echo "screening output differs: $f"; FAIL=1; }; done
 "$PY" "$SRC/chain_summary.py" "$A" || FAIL=1
 exit $FAIL

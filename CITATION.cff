@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software or data, please cite the paper and this archive."
-title: "Max_Overhang: code and certificates for certified global optimization of the single-root maximum overhang problem"
-version: 1.0.5
+title: "Max_Overhang: code, numerical certificates and exact data for the single-root maximum overhang problem"
+version: 1.0.6
 doi: "10.5281/zenodo.24518950"
-date-released: 2026-11-26
+date-released: 2026-11-27
 license: MIT
 repository-code: "https://github.com/CyouRyuu/Max_Overhang"
 authors:
@@ -24,11 +24,11 @@ keywords:
   - global optimization
   - mixed-integer bilinear programming
   - spatial branch-and-bound
-  - certified optimality
+  - numerical optimality certificates
   - exact rational arithmetic
 preferred-citation:
   type: article
-  title: "Certified Global Optimization for the Single-Root Maximum Overhang Problem"
+  title: "Exact Spinal Optima and Numerical Bounds for the Single-Root Maximum Overhang Problem"
   authors:
     - family-names: Zha
       given-names: Aolong

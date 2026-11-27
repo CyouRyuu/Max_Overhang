@@ -50,8 +50,10 @@ def shat_enclosure(K, N, loads=False):
     return (v, u) if loads else v
 
 
-def face_bound(N, k, j, cut):
-    """Box branch-and-bound over t_1..t_{k-1} with w_j = 0; returns (boxes closed, largest bound)."""
+def face_bound(N, k, j, cut, leaves=None):
+    """Box branch-and-bound over t_1..t_{k-1} with w_j = 0; returns (boxes closed, largest bound).
+    With a list `leaves`, every leaf of the bisection tree is appended as (path, box, kind, bound), where path is
+    the sequence of (coordinate, side) splits from the initial box, so that src/check_face_leaves.py can replay it."""
     free = list(range(1, k))
     box0 = [(Fr(s), Fr(N - (k - s))) for s in free]
 
@@ -65,25 +67,35 @@ def face_bound(N, k, j, cut):
                 return None
         return k - sum((lo[s - 1] + Fr(1, 2)) / hi[s] for s in range(1, k + 1))
 
-    work, closed, worst = [box0], 0, None
+    work, closed, worst = [(box0, ())], 0, None
     while work:
-        box = work.pop()
+        box, path = work.pop()
         b = bound(box)
         if b is None:
+            if leaves is not None:
+                leaves.append((path, box, "empty", None))
             continue
         if b < cut:
             closed += 1
             worst = b if worst is None else max(worst, b)
+            if leaves is not None:
+                leaves.append((path, box, "bound", b))
             continue
         i = max(range(len(box)), key=lambda i: box[i][1] - box[i][0])
         a, c = box[i]
         assert c - a > Fr(1, 10 ** 9), f"N={N}, face w_{j} = 0: cut not reached"
         m = (a + c) / 2
-        work += [box[:i] + [(a, m)] + box[i + 1:], box[:i] + [(m, c)] + box[i + 1:]]
+        work += [(box[:i] + [(a, m)] + box[i + 1:], path + ((i, 0),)), (box[:i] + [(m, c)] + box[i + 1:], path + ((i, 1),))]
     return closed, worst
 
 
 def main():
+    import argparse
+    import csv
+    import os
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--leaves", default=None, help="directory for the leaves of every face (face_leaves_N<N>.csv)")
+    a = ap.parse_args()
     for N, cut, kstar, realized in ((5, Fr("1.30455"), 3, 3), (7, Fr("1.53004"), 4, 3)):
         c = iv.mpf(cut.numerator) / cut.denominator
         # the loaded-spine optimum S*(N) sits at height kstar, with all added loads positive, above S(N)
@@ -99,14 +111,25 @@ def main():
         assert prev < c, "several roots"
         line = [f"N={N}: S*(N) = S*_{kstar}(N) > {mp.nstr(mp.floor(mp.mpf(vstar.a) * 10 ** 10) / 10 ** 10, 11)}; other heights and stacks with "
                 f"several roots below {float(cut)}"]
+        rows = []
         for j in range(1, kstar + 1):
             if N == 5 and j == 1:
                 # w_1 = 0: t_1 = 1, t_3 = 5, f = 12/5 - 3/(2 t_2) - t_2/5 on [2, 4], concave, max at sqrt(15/2)
                 continue
-            closed, worst = face_bound(N, kstar, j, cut)
+            lv = []
+            closed, worst = face_bound(N, kstar, j, cut, lv)
+            for path, box, kind, b in lv:
+                rows.append([N, kstar, j, str(cut), ";".join(f"{i}{'LR'[d]}" for i, d in path),
+                             ";".join(f"{lo}:{hi}" for lo, hi in box), kind, "" if b is None else str(b)])
             up = -((-worst * 10 ** 7) // 1) / 10 ** 7     # rounded upward at the 7th decimal
             line.append(f"face w_{j} = 0: {closed} boxes, largest bound {float(up):.7f} (rounded upward)")
         print("; ".join(line))
+        if a.leaves:
+            os.makedirs(a.leaves, exist_ok=True)
+            with open(os.path.join(a.leaves, f"face_leaves_N{N}.csv"), "w", newline="") as f:
+                wr = csv.writer(f)
+                wr.writerow(["N", "height", "face_j", "cut", "path", "box_t1_to_tkminus1", "kind", "bound"])
+                wr.writerows(rows)
     print("N=5: face w_1 = 0 is concave with maximum (12 - sqrt 30)/5 = 1.304554884990 at t_2 = sqrt(15/2)")
     print("SPINAL OPTIMA AT N = 5, 7 VERIFIED")
 
